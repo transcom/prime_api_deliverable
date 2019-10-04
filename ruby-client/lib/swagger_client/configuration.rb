@@ -130,7 +130,7 @@ module SwaggerClient
     def initialize
       @scheme = 'https'
       @host = ''
-      @base_path = '/admin/v1'
+      @base_path = '/api/v1'
       @api_key = {}
       @api_key_prefix = {}
       @timeout = 0

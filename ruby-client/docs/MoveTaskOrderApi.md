@@ -1,6 +1,6 @@
 # SwaggerClient::MoveTaskOrderApi
 
-All URIs are relative to *https://localhost/admin/v1*
+All URIs are relative to *https://localhost/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
