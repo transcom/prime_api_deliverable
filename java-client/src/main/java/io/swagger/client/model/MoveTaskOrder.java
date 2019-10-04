@@ -22,20 +22,31 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.client.model.Customer;
+import io.swagger.client.model.Entitlements;
+import io.swagger.client.model.ServiceItem;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
 
 /**
  * MoveTaskOrder
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T13:53:35.407Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T14:42:55.361Z")
 public class MoveTaskOrder {
   @SerializedName("id")
   private UUID id = null;
 
-  @SerializedName("paymentMethod")
-  private String paymentMethod = null;
+  @SerializedName("code")
+  private String code = null;
+
+  @SerializedName("moveID")
+  private UUID moveID = null;
+
+  @SerializedName("moveDate")
+  private LocalDate moveDate = null;
 
   /**
    * Gets or Sets status
@@ -89,17 +100,91 @@ public class MoveTaskOrder {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("moveDate")
-  private LocalDate moveDate = null;
+  @SerializedName("entitlements")
+  private Entitlements entitlements = null;
 
-  @SerializedName("disabled")
-  private Boolean disabled = null;
+  /**
+   * Gets or Sets moveTaskOrdersType
+   */
+  @JsonAdapter(MoveTaskOrdersTypeEnum.Adapter.class)
+  public enum MoveTaskOrdersTypeEnum {
+    NON_TEMPORARY_STORAGE("NON_TEMPORARY_STORAGE"),
+    
+    PRIME("PRIME");
 
-  @SerializedName("created_at")
-  private String createdAt = null;
+    private String value;
 
-  @SerializedName("updated_at")
-  private String updatedAt = null;
+    MoveTaskOrdersTypeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MoveTaskOrdersTypeEnum fromValue(String text) {
+      for (MoveTaskOrdersTypeEnum b : MoveTaskOrdersTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<MoveTaskOrdersTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MoveTaskOrdersTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MoveTaskOrdersTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return MoveTaskOrdersTypeEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("moveTaskOrdersType")
+  private MoveTaskOrdersTypeEnum moveTaskOrdersType = null;
+
+  @SerializedName("customer")
+  private Customer customer = null;
+
+  @SerializedName("requestedPickupDate")
+  private LocalDate requestedPickupDate = null;
+
+  @SerializedName("originDutyStation")
+  private UUID originDutyStation = null;
+
+  @SerializedName("originPPSO")
+  private UUID originPPSO = null;
+
+  @SerializedName("destinationDutyStation")
+  private UUID destinationDutyStation = null;
+
+  @SerializedName("destinationPPSO")
+  private UUID destinationPPSO = null;
+
+  @SerializedName("remarks")
+  private String remarks = null;
+
+  @SerializedName("serviceItems")
+  private List<ServiceItem> serviceItems = null;
+
+  @SerializedName("createdAt")
+  private LocalDate createdAt = null;
+
+  @SerializedName("updatedAt")
+  private LocalDate updatedAt = null;
+
+  @SerializedName("deletedAt")
+  private LocalDate deletedAt = null;
 
   public MoveTaskOrder id(UUID id) {
     this.id = id;
@@ -110,7 +195,7 @@ public class MoveTaskOrder {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(example = "c56a4180-65aa-42ec-a945-5fd21dec0538", value = "")
+  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
   public UUID getId() {
     return id;
   }
@@ -119,40 +204,40 @@ public class MoveTaskOrder {
     this.id = id;
   }
 
-  public MoveTaskOrder paymentMethod(String paymentMethod) {
-    this.paymentMethod = paymentMethod;
+  public MoveTaskOrder code(String code) {
+    this.code = code;
     return this;
   }
 
    /**
-   * Get paymentMethod
-   * @return paymentMethod
+   * Get code
+   * @return code
   **/
-  @ApiModelProperty(value = "")
-  public String getPaymentMethod() {
-    return paymentMethod;
+  @ApiModelProperty(example = "USMC-0001", value = "")
+  public String getCode() {
+    return code;
   }
 
-  public void setPaymentMethod(String paymentMethod) {
-    this.paymentMethod = paymentMethod;
+  public void setCode(String code) {
+    this.code = code;
   }
 
-  public MoveTaskOrder status(StatusEnum status) {
-    this.status = status;
+  public MoveTaskOrder moveID(UUID moveID) {
+    this.moveID = moveID;
     return this;
   }
 
    /**
-   * Get status
-   * @return status
+   * Get moveID
+   * @return moveID
   **/
-  @ApiModelProperty(value = "")
-  public StatusEnum getStatus() {
-    return status;
+  @ApiModelProperty(example = "c56a4180-65aa-42ec-a945-5fd21dec0538", value = "")
+  public UUID getMoveID() {
+    return moveID;
   }
 
-  public void setStatus(StatusEnum status) {
-    this.status = status;
+  public void setMoveID(UUID moveID) {
+    this.moveID = moveID;
   }
 
   public MoveTaskOrder moveDate(LocalDate moveDate) {
@@ -173,25 +258,213 @@ public class MoveTaskOrder {
     this.moveDate = moveDate;
   }
 
-  public MoveTaskOrder disabled(Boolean disabled) {
-    this.disabled = disabled;
+  public MoveTaskOrder status(StatusEnum status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * Get disabled
-   * @return disabled
+   * Get status
+   * @return status
   **/
   @ApiModelProperty(value = "")
-  public Boolean isDisabled() {
-    return disabled;
+  public StatusEnum getStatus() {
+    return status;
   }
 
-  public void setDisabled(Boolean disabled) {
-    this.disabled = disabled;
+  public void setStatus(StatusEnum status) {
+    this.status = status;
   }
 
-  public MoveTaskOrder createdAt(String createdAt) {
+  public MoveTaskOrder entitlements(Entitlements entitlements) {
+    this.entitlements = entitlements;
+    return this;
+  }
+
+   /**
+   * Get entitlements
+   * @return entitlements
+  **/
+  @ApiModelProperty(value = "")
+  public Entitlements getEntitlements() {
+    return entitlements;
+  }
+
+  public void setEntitlements(Entitlements entitlements) {
+    this.entitlements = entitlements;
+  }
+
+  public MoveTaskOrder moveTaskOrdersType(MoveTaskOrdersTypeEnum moveTaskOrdersType) {
+    this.moveTaskOrdersType = moveTaskOrdersType;
+    return this;
+  }
+
+   /**
+   * Get moveTaskOrdersType
+   * @return moveTaskOrdersType
+  **/
+  @ApiModelProperty(value = "")
+  public MoveTaskOrdersTypeEnum getMoveTaskOrdersType() {
+    return moveTaskOrdersType;
+  }
+
+  public void setMoveTaskOrdersType(MoveTaskOrdersTypeEnum moveTaskOrdersType) {
+    this.moveTaskOrdersType = moveTaskOrdersType;
+  }
+
+  public MoveTaskOrder customer(Customer customer) {
+    this.customer = customer;
+    return this;
+  }
+
+   /**
+   * Get customer
+   * @return customer
+  **/
+  @ApiModelProperty(value = "")
+  public Customer getCustomer() {
+    return customer;
+  }
+
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+  }
+
+  public MoveTaskOrder requestedPickupDate(LocalDate requestedPickupDate) {
+    this.requestedPickupDate = requestedPickupDate;
+    return this;
+  }
+
+   /**
+   * Get requestedPickupDate
+   * @return requestedPickupDate
+  **/
+  @ApiModelProperty(value = "")
+  public LocalDate getRequestedPickupDate() {
+    return requestedPickupDate;
+  }
+
+  public void setRequestedPickupDate(LocalDate requestedPickupDate) {
+    this.requestedPickupDate = requestedPickupDate;
+  }
+
+  public MoveTaskOrder originDutyStation(UUID originDutyStation) {
+    this.originDutyStation = originDutyStation;
+    return this;
+  }
+
+   /**
+   * Get originDutyStation
+   * @return originDutyStation
+  **/
+  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
+  public UUID getOriginDutyStation() {
+    return originDutyStation;
+  }
+
+  public void setOriginDutyStation(UUID originDutyStation) {
+    this.originDutyStation = originDutyStation;
+  }
+
+  public MoveTaskOrder originPPSO(UUID originPPSO) {
+    this.originPPSO = originPPSO;
+    return this;
+  }
+
+   /**
+   * Get originPPSO
+   * @return originPPSO
+  **/
+  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
+  public UUID getOriginPPSO() {
+    return originPPSO;
+  }
+
+  public void setOriginPPSO(UUID originPPSO) {
+    this.originPPSO = originPPSO;
+  }
+
+  public MoveTaskOrder destinationDutyStation(UUID destinationDutyStation) {
+    this.destinationDutyStation = destinationDutyStation;
+    return this;
+  }
+
+   /**
+   * Get destinationDutyStation
+   * @return destinationDutyStation
+  **/
+  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
+  public UUID getDestinationDutyStation() {
+    return destinationDutyStation;
+  }
+
+  public void setDestinationDutyStation(UUID destinationDutyStation) {
+    this.destinationDutyStation = destinationDutyStation;
+  }
+
+  public MoveTaskOrder destinationPPSO(UUID destinationPPSO) {
+    this.destinationPPSO = destinationPPSO;
+    return this;
+  }
+
+   /**
+   * Get destinationPPSO
+   * @return destinationPPSO
+  **/
+  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
+  public UUID getDestinationPPSO() {
+    return destinationPPSO;
+  }
+
+  public void setDestinationPPSO(UUID destinationPPSO) {
+    this.destinationPPSO = destinationPPSO;
+  }
+
+  public MoveTaskOrder remarks(String remarks) {
+    this.remarks = remarks;
+    return this;
+  }
+
+   /**
+   * Get remarks
+   * @return remarks
+  **/
+  @ApiModelProperty(example = "Requires more gentle care", value = "")
+  public String getRemarks() {
+    return remarks;
+  }
+
+  public void setRemarks(String remarks) {
+    this.remarks = remarks;
+  }
+
+  public MoveTaskOrder serviceItems(List<ServiceItem> serviceItems) {
+    this.serviceItems = serviceItems;
+    return this;
+  }
+
+  public MoveTaskOrder addServiceItemsItem(ServiceItem serviceItemsItem) {
+    if (this.serviceItems == null) {
+      this.serviceItems = new ArrayList<ServiceItem>();
+    }
+    this.serviceItems.add(serviceItemsItem);
+    return this;
+  }
+
+   /**
+   * Get serviceItems
+   * @return serviceItems
+  **/
+  @ApiModelProperty(value = "")
+  public List<ServiceItem> getServiceItems() {
+    return serviceItems;
+  }
+
+  public void setServiceItems(List<ServiceItem> serviceItems) {
+    this.serviceItems = serviceItems;
+  }
+
+  public MoveTaskOrder createdAt(LocalDate createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -201,15 +474,15 @@ public class MoveTaskOrder {
    * @return createdAt
   **/
   @ApiModelProperty(value = "")
-  public String getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 
-  public MoveTaskOrder updatedAt(String updatedAt) {
+  public MoveTaskOrder updatedAt(LocalDate updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -219,12 +492,30 @@ public class MoveTaskOrder {
    * @return updatedAt
   **/
   @ApiModelProperty(value = "")
-  public String getUpdatedAt() {
+  public LocalDate getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(String updatedAt) {
+  public void setUpdatedAt(LocalDate updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public MoveTaskOrder deletedAt(LocalDate deletedAt) {
+    this.deletedAt = deletedAt;
+    return this;
+  }
+
+   /**
+   * Get deletedAt
+   * @return deletedAt
+  **/
+  @ApiModelProperty(value = "")
+  public LocalDate getDeletedAt() {
+    return deletedAt;
+  }
+
+  public void setDeletedAt(LocalDate deletedAt) {
+    this.deletedAt = deletedAt;
   }
 
 
@@ -238,17 +529,28 @@ public class MoveTaskOrder {
     }
     MoveTaskOrder moveTaskOrder = (MoveTaskOrder) o;
     return Objects.equals(this.id, moveTaskOrder.id) &&
-        Objects.equals(this.paymentMethod, moveTaskOrder.paymentMethod) &&
-        Objects.equals(this.status, moveTaskOrder.status) &&
+        Objects.equals(this.code, moveTaskOrder.code) &&
+        Objects.equals(this.moveID, moveTaskOrder.moveID) &&
         Objects.equals(this.moveDate, moveTaskOrder.moveDate) &&
-        Objects.equals(this.disabled, moveTaskOrder.disabled) &&
+        Objects.equals(this.status, moveTaskOrder.status) &&
+        Objects.equals(this.entitlements, moveTaskOrder.entitlements) &&
+        Objects.equals(this.moveTaskOrdersType, moveTaskOrder.moveTaskOrdersType) &&
+        Objects.equals(this.customer, moveTaskOrder.customer) &&
+        Objects.equals(this.requestedPickupDate, moveTaskOrder.requestedPickupDate) &&
+        Objects.equals(this.originDutyStation, moveTaskOrder.originDutyStation) &&
+        Objects.equals(this.originPPSO, moveTaskOrder.originPPSO) &&
+        Objects.equals(this.destinationDutyStation, moveTaskOrder.destinationDutyStation) &&
+        Objects.equals(this.destinationPPSO, moveTaskOrder.destinationPPSO) &&
+        Objects.equals(this.remarks, moveTaskOrder.remarks) &&
+        Objects.equals(this.serviceItems, moveTaskOrder.serviceItems) &&
         Objects.equals(this.createdAt, moveTaskOrder.createdAt) &&
-        Objects.equals(this.updatedAt, moveTaskOrder.updatedAt);
+        Objects.equals(this.updatedAt, moveTaskOrder.updatedAt) &&
+        Objects.equals(this.deletedAt, moveTaskOrder.deletedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, paymentMethod, status, moveDate, disabled, createdAt, updatedAt);
+    return Objects.hash(id, code, moveID, moveDate, status, entitlements, moveTaskOrdersType, customer, requestedPickupDate, originDutyStation, originPPSO, destinationDutyStation, destinationPPSO, remarks, serviceItems, createdAt, updatedAt, deletedAt);
   }
 
 
@@ -258,12 +560,23 @@ public class MoveTaskOrder {
     sb.append("class MoveTaskOrder {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    moveID: ").append(toIndentedString(moveID)).append("\n");
     sb.append("    moveDate: ").append(toIndentedString(moveDate)).append("\n");
-    sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    entitlements: ").append(toIndentedString(entitlements)).append("\n");
+    sb.append("    moveTaskOrdersType: ").append(toIndentedString(moveTaskOrdersType)).append("\n");
+    sb.append("    customer: ").append(toIndentedString(customer)).append("\n");
+    sb.append("    requestedPickupDate: ").append(toIndentedString(requestedPickupDate)).append("\n");
+    sb.append("    originDutyStation: ").append(toIndentedString(originDutyStation)).append("\n");
+    sb.append("    originPPSO: ").append(toIndentedString(originPPSO)).append("\n");
+    sb.append("    destinationDutyStation: ").append(toIndentedString(destinationDutyStation)).append("\n");
+    sb.append("    destinationPPSO: ").append(toIndentedString(destinationPPSO)).append("\n");
+    sb.append("    remarks: ").append(toIndentedString(remarks)).append("\n");
+    sb.append("    serviceItems: ").append(toIndentedString(serviceItems)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

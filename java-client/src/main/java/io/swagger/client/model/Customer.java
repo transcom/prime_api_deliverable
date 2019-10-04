@@ -15,15 +15,12 @@ package io.swagger.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import io.swagger.client.model.MoveTaskOrder;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * MoveTaskOrders
+ * Customer
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T14:42:55.361Z")
-public class MoveTaskOrders extends ArrayList<MoveTaskOrder> {
+public class Customer {
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -33,20 +30,20 @@ public class MoveTaskOrders extends ArrayList<MoveTaskOrder> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash();
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MoveTaskOrders {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("class Customer {\n");
+    
     sb.append("}");
     return sb.toString();
   }

@@ -16,17 +16,39 @@ module SwaggerClient
   class MoveTaskOrder
     attr_accessor :id
 
-    attr_accessor :payment_method
+    attr_accessor :code
 
-    attr_accessor :status
+    attr_accessor :move_id
 
     attr_accessor :move_date
 
-    attr_accessor :disabled
+    attr_accessor :status
+
+    attr_accessor :entitlements
+
+    attr_accessor :move_task_orders_type
+
+    attr_accessor :customer
+
+    attr_accessor :requested_pickup_date
+
+    attr_accessor :origin_duty_station
+
+    attr_accessor :origin_ppso
+
+    attr_accessor :destination_duty_station
+
+    attr_accessor :destination_ppso
+
+    attr_accessor :remarks
+
+    attr_accessor :service_items
 
     attr_accessor :created_at
 
     attr_accessor :updated_at
+
+    attr_accessor :deleted_at
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -54,12 +76,23 @@ module SwaggerClient
     def self.attribute_map
       {
         :'id' => :'id',
-        :'payment_method' => :'paymentMethod',
-        :'status' => :'status',
+        :'code' => :'code',
+        :'move_id' => :'moveID',
         :'move_date' => :'moveDate',
-        :'disabled' => :'disabled',
-        :'created_at' => :'created_at',
-        :'updated_at' => :'updated_at'
+        :'status' => :'status',
+        :'entitlements' => :'entitlements',
+        :'move_task_orders_type' => :'moveTaskOrdersType',
+        :'customer' => :'customer',
+        :'requested_pickup_date' => :'requestedPickupDate',
+        :'origin_duty_station' => :'originDutyStation',
+        :'origin_ppso' => :'originPPSO',
+        :'destination_duty_station' => :'destinationDutyStation',
+        :'destination_ppso' => :'destinationPPSO',
+        :'remarks' => :'remarks',
+        :'service_items' => :'serviceItems',
+        :'created_at' => :'createdAt',
+        :'updated_at' => :'updatedAt',
+        :'deleted_at' => :'deletedAt'
       }
     end
 
@@ -67,12 +100,23 @@ module SwaggerClient
     def self.swagger_types
       {
         :'id' => :'String',
-        :'payment_method' => :'String',
-        :'status' => :'String',
+        :'code' => :'String',
+        :'move_id' => :'String',
         :'move_date' => :'Date',
-        :'disabled' => :'BOOLEAN',
-        :'created_at' => :'String',
-        :'updated_at' => :'String'
+        :'status' => :'String',
+        :'entitlements' => :'Entitlements',
+        :'move_task_orders_type' => :'String',
+        :'customer' => :'Customer',
+        :'requested_pickup_date' => :'Date',
+        :'origin_duty_station' => :'String',
+        :'origin_ppso' => :'String',
+        :'destination_duty_station' => :'String',
+        :'destination_ppso' => :'String',
+        :'remarks' => :'String',
+        :'service_items' => :'Array<ServiceItem>',
+        :'created_at' => :'Date',
+        :'updated_at' => :'Date',
+        :'deleted_at' => :'Date'
       }
     end
 
@@ -88,28 +132,74 @@ module SwaggerClient
         self.id = attributes[:'id']
       end
 
-      if attributes.has_key?(:'paymentMethod')
-        self.payment_method = attributes[:'paymentMethod']
+      if attributes.has_key?(:'code')
+        self.code = attributes[:'code']
       end
 
-      if attributes.has_key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.has_key?(:'moveID')
+        self.move_id = attributes[:'moveID']
       end
 
       if attributes.has_key?(:'moveDate')
         self.move_date = attributes[:'moveDate']
       end
 
-      if attributes.has_key?(:'disabled')
-        self.disabled = attributes[:'disabled']
+      if attributes.has_key?(:'status')
+        self.status = attributes[:'status']
       end
 
-      if attributes.has_key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.has_key?(:'entitlements')
+        self.entitlements = attributes[:'entitlements']
       end
 
-      if attributes.has_key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
+      if attributes.has_key?(:'moveTaskOrdersType')
+        self.move_task_orders_type = attributes[:'moveTaskOrdersType']
+      end
+
+      if attributes.has_key?(:'customer')
+        self.customer = attributes[:'customer']
+      end
+
+      if attributes.has_key?(:'requestedPickupDate')
+        self.requested_pickup_date = attributes[:'requestedPickupDate']
+      end
+
+      if attributes.has_key?(:'originDutyStation')
+        self.origin_duty_station = attributes[:'originDutyStation']
+      end
+
+      if attributes.has_key?(:'originPPSO')
+        self.origin_ppso = attributes[:'originPPSO']
+      end
+
+      if attributes.has_key?(:'destinationDutyStation')
+        self.destination_duty_station = attributes[:'destinationDutyStation']
+      end
+
+      if attributes.has_key?(:'destinationPPSO')
+        self.destination_ppso = attributes[:'destinationPPSO']
+      end
+
+      if attributes.has_key?(:'remarks')
+        self.remarks = attributes[:'remarks']
+      end
+
+      if attributes.has_key?(:'serviceItems')
+        if (value = attributes[:'serviceItems']).is_a?(Array)
+          self.service_items = value
+        end
+      end
+
+      if attributes.has_key?(:'createdAt')
+        self.created_at = attributes[:'createdAt']
+      end
+
+      if attributes.has_key?(:'updatedAt')
+        self.updated_at = attributes[:'updatedAt']
+      end
+
+      if attributes.has_key?(:'deletedAt')
+        self.deleted_at = attributes[:'deletedAt']
       end
     end
 
@@ -125,6 +215,8 @@ module SwaggerClient
     def valid?
       status_validator = EnumAttributeValidator.new('String', ['APPROVED', 'REJECTED', 'SUBMITTED'])
       return false unless status_validator.valid?(@status)
+      move_task_orders_type_validator = EnumAttributeValidator.new('String', ['NON_TEMPORARY_STORAGE', 'PRIME'])
+      return false unless move_task_orders_type_validator.valid?(@move_task_orders_type)
       true
     end
 
@@ -138,18 +230,39 @@ module SwaggerClient
       @status = status
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] move_task_orders_type Object to be assigned
+    def move_task_orders_type=(move_task_orders_type)
+      validator = EnumAttributeValidator.new('String', ['NON_TEMPORARY_STORAGE', 'PRIME'])
+      unless validator.valid?(move_task_orders_type)
+        fail ArgumentError, 'invalid value for "move_task_orders_type", must be one of #{validator.allowable_values}.'
+      end
+      @move_task_orders_type = move_task_orders_type
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          payment_method == o.payment_method &&
-          status == o.status &&
+          code == o.code &&
+          move_id == o.move_id &&
           move_date == o.move_date &&
-          disabled == o.disabled &&
+          status == o.status &&
+          entitlements == o.entitlements &&
+          move_task_orders_type == o.move_task_orders_type &&
+          customer == o.customer &&
+          requested_pickup_date == o.requested_pickup_date &&
+          origin_duty_station == o.origin_duty_station &&
+          origin_ppso == o.origin_ppso &&
+          destination_duty_station == o.destination_duty_station &&
+          destination_ppso == o.destination_ppso &&
+          remarks == o.remarks &&
+          service_items == o.service_items &&
           created_at == o.created_at &&
-          updated_at == o.updated_at
+          updated_at == o.updated_at &&
+          deleted_at == o.deleted_at
     end
 
     # @see the `==` method
@@ -161,7 +274,7 @@ module SwaggerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, payment_method, status, move_date, disabled, created_at, updated_at].hash
+      [id, code, move_id, move_date, status, entitlements, move_task_orders_type, customer, requested_pickup_date, origin_duty_station, origin_ppso, destination_duty_station, destination_ppso, remarks, service_items, created_at, updated_at, deleted_at].hash
     end
 
     # Builds the object from hash

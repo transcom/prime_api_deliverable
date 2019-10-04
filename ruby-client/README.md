@@ -86,6 +86,8 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [SwaggerClient::ClientError](docs/ClientError.md)
+ - [SwaggerClient::Customer](docs/Customer.md)
+ - [SwaggerClient::Entitlements](docs/Entitlements.md)
  - [SwaggerClient::MoveTaskOrder](docs/MoveTaskOrder.md)
  - [SwaggerClient::MoveTaskOrders](docs/MoveTaskOrders.md)
  - [SwaggerClient::Options](docs/Options.md)

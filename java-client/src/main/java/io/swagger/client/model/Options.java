@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * Options
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T13:53:35.407Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T14:42:55.361Z")
 public class Options {
   @SerializedName("isPPM")
   private Boolean isPPM = null;

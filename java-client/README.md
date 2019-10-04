@@ -2,7 +2,7 @@
 
 move.mil Prime API
 - API version: 0.1.0
-  - Build date: 2019-10-04T13:53:35.407Z
+  - Build date: 2019-10-04T14:42:55.361Z
 
 The API for move.mil Prime actions.
 
@@ -113,6 +113,8 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [ClientError](docs/ClientError.md)
+ - [Customer](docs/Customer.md)
+ - [Entitlements](docs/Entitlements.md)
  - [MoveTaskOrder](docs/MoveTaskOrder.md)
  - [MoveTaskOrders](docs/MoveTaskOrders.md)
  - [Options](docs/Options.md)

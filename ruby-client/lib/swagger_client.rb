@@ -18,6 +18,8 @@ require 'swagger_client/configuration'
 
 # Models
 require 'swagger_client/models/client_error'
+require 'swagger_client/models/customer'
+require 'swagger_client/models/entitlements'
 require 'swagger_client/models/move_task_order'
 require 'swagger_client/models/move_task_orders'
 require 'swagger_client/models/options'
