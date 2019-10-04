@@ -30,4 +30,14 @@ the editor, and click on `Generate Client`.
 
 ## Authentication
 
+### Mutual TLS
 
+TODO:
+- What is it?
+- What does the process of getting a signed cert from the DOD look like?
+- How can one configure their API client to properly shake hands with the
+    server?
+
+### How you can indicate which user is logged in on your end
+
+- Request header with username/email/uuid?
