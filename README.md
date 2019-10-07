@@ -32,11 +32,48 @@ the editor, and click on `Generate Client`.
 
 ### Mutual TLS
 
-TODO:
-- What is it?
-- What does the process of getting a signed cert from the DOD look like?
-- How can one configure their API client to properly shake hands with the
-    server?
+When making web requests from a client (i.e. a web browser), it is extremely
+common for a client to verify that the server they are talking to is in fact the
+correct server. This is done by requesting a certificate from the server, and
+asking a Certificate Authority if that certificate is valid.
+
+In some cases, it's preferable to perform this verification for not only the
+server, but the client as well. This is called Mutual TLS authentication, and
+requires the client to send a valid, signed certificate to the server with each
+request.
+
+In order to interact with the Milmove API, you'll need to configure your API
+client to send a signed certificate for authentication in each request.
+
+In the Ruby client, you can configure the path to your private key and
+certificate in `ruby-client/lib/swagger_client/configuration.rb`:
+
+```ruby
+#...
+
+def initialize
+  @scheme = 'https'
+  @host = ''
+  @base_path = '/api/v1'
+  @api_key = {}
+  @api_key_prefix = {}
+  @timeout = 0
+  @client_side_validation = true
+  @verify_ssl = true
+  @verify_ssl_host = true
+  @params_encoding = nil
+  @cert_file = nil # <- path to certificate
+  @key_file = nil # <- path to private key
+  @debugging = false
+  @inject_format = false
+  @force_ending_format = false
+  @logger = defined?(Rails) ? Rails.logger : Logger.new(STDOUT)
+
+  yield(self) if block_given?
+end
+
+#...
+```
 
 ### How you can indicate which user is logged in on your end
 
