@@ -35,6 +35,7 @@ describe 'MoveTaskOrderApi' do
   # unit tests for complete_counseling
   # Completes counseling for a move task order by id
   # Completes counseling for a move task order by id
+  # @param requestor Unique identifier of the user making the request
   # @param move_task_order_id 
   # @param [Hash] opts the optional parameters
   # @option opts [Options] :options 
@@ -48,6 +49,7 @@ describe 'MoveTaskOrderApi' do
   # unit tests for create_service_item
   # Creates a service item for a move order by id
   # Creates a service item for a move order by id
+  # @param requestor Unique identifier of the user making the request
   # @param move_task_order_id 
   # @param [Hash] opts the optional parameters
   # @option opts [Array<String>] :filter 
@@ -63,6 +65,7 @@ describe 'MoveTaskOrderApi' do
   # unit tests for index_move_task_orders
   # List all move task rders
   # Returns a list of move task orders
+  # @param requestor Unique identifier of the user making the request
   # @param [Hash] opts the optional parameters
   # @option opts [Array<String>] :filter 
   # @option opts [Integer] :page 

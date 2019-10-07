@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **complete_counseling**
-> MoveTaskOrder complete_counseling(move_task_order_id, opts)
+> MoveTaskOrder complete_counseling(requestor, move_task_order_id, opts)
 
 Completes counseling for a move task order by id
 
@@ -23,6 +23,8 @@ require 'swagger_client'
 
 api_instance = SwaggerClient::MoveTaskOrderApi.new
 
+requestor = 'requestor_example' # String | Unique identifier of the user making the request
+
 move_task_order_id = 'move_task_order_id_example' # String | 
 
 opts = { 
@@ -31,7 +33,7 @@ opts = {
 
 begin
   #Completes counseling for a move task order by id
-  result = api_instance.complete_counseling(move_task_order_id, opts)
+  result = api_instance.complete_counseling(requestor, move_task_order_id, opts)
   p result
 rescue SwaggerClient::ApiError => e
   puts "Exception when calling MoveTaskOrderApi->complete_counseling: #{e}"
@@ -42,6 +44,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **requestor** | **String**| Unique identifier of the user making the request | 
  **move_task_order_id** | [**String**](.md)|  | 
  **options** | [**Options**](Options.md)|  | [optional] 
 
@@ -61,7 +64,7 @@ No authorization required
 
 
 # **create_service_item**
-> ServiceItem create_service_item(move_task_order_id, opts)
+> ServiceItem create_service_item(requestor, move_task_order_id, opts)
 
 Creates a service item for a move order by id
 
@@ -74,6 +77,8 @@ require 'swagger_client'
 
 api_instance = SwaggerClient::MoveTaskOrderApi.new
 
+requestor = 'requestor_example' # String | Unique identifier of the user making the request
+
 move_task_order_id = 'move_task_order_id_example' # String | 
 
 opts = { 
@@ -84,7 +89,7 @@ opts = {
 
 begin
   #Creates a service item for a move order by id
-  result = api_instance.create_service_item(move_task_order_id, opts)
+  result = api_instance.create_service_item(requestor, move_task_order_id, opts)
   p result
 rescue SwaggerClient::ApiError => e
   puts "Exception when calling MoveTaskOrderApi->create_service_item: #{e}"
@@ -95,6 +100,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **requestor** | **String**| Unique identifier of the user making the request | 
  **move_task_order_id** | [**String**](.md)|  | 
  **filter** | [**Array&lt;String&gt;**](String.md)|  | [optional] 
  **page** | **Integer**|  | [optional] 
@@ -116,7 +122,7 @@ No authorization required
 
 
 # **index_move_task_orders**
-> MoveTaskOrders index_move_task_orders(opts)
+> MoveTaskOrders index_move_task_orders(requestor, opts)
 
 List all move task rders
 
@@ -129,6 +135,8 @@ require 'swagger_client'
 
 api_instance = SwaggerClient::MoveTaskOrderApi.new
 
+requestor = 'requestor_example' # String | Unique identifier of the user making the request
+
 opts = { 
   filter: ['filter_example'], # Array<String> | 
   page: 56, # Integer | 
@@ -137,7 +145,7 @@ opts = {
 
 begin
   #List all move task rders
-  result = api_instance.index_move_task_orders(opts)
+  result = api_instance.index_move_task_orders(requestor, opts)
   p result
 rescue SwaggerClient::ApiError => e
   puts "Exception when calling MoveTaskOrderApi->index_move_task_orders: #{e}"
@@ -148,6 +156,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **requestor** | **String**| Unique identifier of the user making the request | 
  **filter** | [**Array&lt;String&gt;**](String.md)|  | [optional] 
  **page** | **Integer**|  | [optional] 
  **per_page** | **Integer**|  | [optional] 

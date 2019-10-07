@@ -29,7 +29,7 @@ import org.threeten.bp.LocalDate;
 /**
  * ServiceItem
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T14:42:55.361Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-07T19:09:34.737Z")
 public class ServiceItem {
   @SerializedName("id")
   private UUID id = null;

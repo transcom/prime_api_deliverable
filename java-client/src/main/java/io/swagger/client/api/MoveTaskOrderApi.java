@@ -62,6 +62,7 @@ public class MoveTaskOrderApi {
 
     /**
      * Build call for completeCounseling
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param options  (optional)
      * @param progressListener Progress listener
@@ -69,7 +70,7 @@ public class MoveTaskOrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call completeCounselingCall(UUID moveTaskOrderId, Options options, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call completeCounselingCall(String requestor, UUID moveTaskOrderId, Options options, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = options;
 
         // create path and map variables
@@ -80,6 +81,8 @@ public class MoveTaskOrderApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (requestor != null)
+        localVarHeaderParams.put("requestor", apiClient.parameterToString(requestor));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -112,7 +115,12 @@ public class MoveTaskOrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call completeCounselingValidateBeforeCall(UUID moveTaskOrderId, Options options, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call completeCounselingValidateBeforeCall(String requestor, UUID moveTaskOrderId, Options options, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'requestor' is set
+        if (requestor == null) {
+            throw new ApiException("Missing the required parameter 'requestor' when calling completeCounseling(Async)");
+        }
         
         // verify the required parameter 'moveTaskOrderId' is set
         if (moveTaskOrderId == null) {
@@ -120,7 +128,7 @@ public class MoveTaskOrderApi {
         }
         
 
-        com.squareup.okhttp.Call call = completeCounselingCall(moveTaskOrderId, options, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = completeCounselingCall(requestor, moveTaskOrderId, options, progressListener, progressRequestListener);
         return call;
 
     }
@@ -128,26 +136,28 @@ public class MoveTaskOrderApi {
     /**
      * Completes counseling for a move task order by id
      * Completes counseling for a move task order by id
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param options  (optional)
      * @return MoveTaskOrder
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public MoveTaskOrder completeCounseling(UUID moveTaskOrderId, Options options) throws ApiException {
-        ApiResponse<MoveTaskOrder> resp = completeCounselingWithHttpInfo(moveTaskOrderId, options);
+    public MoveTaskOrder completeCounseling(String requestor, UUID moveTaskOrderId, Options options) throws ApiException {
+        ApiResponse<MoveTaskOrder> resp = completeCounselingWithHttpInfo(requestor, moveTaskOrderId, options);
         return resp.getData();
     }
 
     /**
      * Completes counseling for a move task order by id
      * Completes counseling for a move task order by id
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param options  (optional)
      * @return ApiResponse&lt;MoveTaskOrder&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MoveTaskOrder> completeCounselingWithHttpInfo(UUID moveTaskOrderId, Options options) throws ApiException {
-        com.squareup.okhttp.Call call = completeCounselingValidateBeforeCall(moveTaskOrderId, options, null, null);
+    public ApiResponse<MoveTaskOrder> completeCounselingWithHttpInfo(String requestor, UUID moveTaskOrderId, Options options) throws ApiException {
+        com.squareup.okhttp.Call call = completeCounselingValidateBeforeCall(requestor, moveTaskOrderId, options, null, null);
         Type localVarReturnType = new TypeToken<MoveTaskOrder>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -155,13 +165,14 @@ public class MoveTaskOrderApi {
     /**
      * Completes counseling for a move task order by id (asynchronously)
      * Completes counseling for a move task order by id
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param options  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call completeCounselingAsync(UUID moveTaskOrderId, Options options, final ApiCallback<MoveTaskOrder> callback) throws ApiException {
+    public com.squareup.okhttp.Call completeCounselingAsync(String requestor, UUID moveTaskOrderId, Options options, final ApiCallback<MoveTaskOrder> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -182,13 +193,14 @@ public class MoveTaskOrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = completeCounselingValidateBeforeCall(moveTaskOrderId, options, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = completeCounselingValidateBeforeCall(requestor, moveTaskOrderId, options, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MoveTaskOrder>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for createServiceItem
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param filter  (optional)
      * @param page  (optional)
@@ -198,7 +210,7 @@ public class MoveTaskOrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call createServiceItemCall(UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call createServiceItemCall(String requestor, UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -215,6 +227,8 @@ public class MoveTaskOrderApi {
         localVarQueryParams.addAll(apiClient.parameterToPair("perPage", perPage));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (requestor != null)
+        localVarHeaderParams.put("requestor", apiClient.parameterToString(requestor));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -247,7 +261,12 @@ public class MoveTaskOrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call createServiceItemValidateBeforeCall(UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call createServiceItemValidateBeforeCall(String requestor, UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'requestor' is set
+        if (requestor == null) {
+            throw new ApiException("Missing the required parameter 'requestor' when calling createServiceItem(Async)");
+        }
         
         // verify the required parameter 'moveTaskOrderId' is set
         if (moveTaskOrderId == null) {
@@ -255,7 +274,7 @@ public class MoveTaskOrderApi {
         }
         
 
-        com.squareup.okhttp.Call call = createServiceItemCall(moveTaskOrderId, filter, page, perPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = createServiceItemCall(requestor, moveTaskOrderId, filter, page, perPage, progressListener, progressRequestListener);
         return call;
 
     }
@@ -263,6 +282,7 @@ public class MoveTaskOrderApi {
     /**
      * Creates a service item for a move order by id
      * Creates a service item for a move order by id
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param filter  (optional)
      * @param page  (optional)
@@ -270,14 +290,15 @@ public class MoveTaskOrderApi {
      * @return ServiceItem
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ServiceItem createServiceItem(UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage) throws ApiException {
-        ApiResponse<ServiceItem> resp = createServiceItemWithHttpInfo(moveTaskOrderId, filter, page, perPage);
+    public ServiceItem createServiceItem(String requestor, UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage) throws ApiException {
+        ApiResponse<ServiceItem> resp = createServiceItemWithHttpInfo(requestor, moveTaskOrderId, filter, page, perPage);
         return resp.getData();
     }
 
     /**
      * Creates a service item for a move order by id
      * Creates a service item for a move order by id
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param filter  (optional)
      * @param page  (optional)
@@ -285,8 +306,8 @@ public class MoveTaskOrderApi {
      * @return ApiResponse&lt;ServiceItem&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ServiceItem> createServiceItemWithHttpInfo(UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage) throws ApiException {
-        com.squareup.okhttp.Call call = createServiceItemValidateBeforeCall(moveTaskOrderId, filter, page, perPage, null, null);
+    public ApiResponse<ServiceItem> createServiceItemWithHttpInfo(String requestor, UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage) throws ApiException {
+        com.squareup.okhttp.Call call = createServiceItemValidateBeforeCall(requestor, moveTaskOrderId, filter, page, perPage, null, null);
         Type localVarReturnType = new TypeToken<ServiceItem>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -294,6 +315,7 @@ public class MoveTaskOrderApi {
     /**
      * Creates a service item for a move order by id (asynchronously)
      * Creates a service item for a move order by id
+     * @param requestor Unique identifier of the user making the request (required)
      * @param moveTaskOrderId  (required)
      * @param filter  (optional)
      * @param page  (optional)
@@ -302,7 +324,7 @@ public class MoveTaskOrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createServiceItemAsync(UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage, final ApiCallback<ServiceItem> callback) throws ApiException {
+    public com.squareup.okhttp.Call createServiceItemAsync(String requestor, UUID moveTaskOrderId, List<String> filter, Integer page, Integer perPage, final ApiCallback<ServiceItem> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -323,13 +345,14 @@ public class MoveTaskOrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = createServiceItemValidateBeforeCall(moveTaskOrderId, filter, page, perPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = createServiceItemValidateBeforeCall(requestor, moveTaskOrderId, filter, page, perPage, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<ServiceItem>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for indexMoveTaskOrders
+     * @param requestor Unique identifier of the user making the request (required)
      * @param filter  (optional)
      * @param page  (optional)
      * @param perPage  (optional)
@@ -338,7 +361,7 @@ public class MoveTaskOrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call indexMoveTaskOrdersCall(List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call indexMoveTaskOrdersCall(String requestor, List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -354,6 +377,8 @@ public class MoveTaskOrderApi {
         localVarQueryParams.addAll(apiClient.parameterToPair("perPage", perPage));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (requestor != null)
+        localVarHeaderParams.put("requestor", apiClient.parameterToString(requestor));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -386,10 +411,15 @@ public class MoveTaskOrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call indexMoveTaskOrdersValidateBeforeCall(List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call indexMoveTaskOrdersValidateBeforeCall(String requestor, List<String> filter, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'requestor' is set
+        if (requestor == null) {
+            throw new ApiException("Missing the required parameter 'requestor' when calling indexMoveTaskOrders(Async)");
+        }
         
 
-        com.squareup.okhttp.Call call = indexMoveTaskOrdersCall(filter, page, perPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = indexMoveTaskOrdersCall(requestor, filter, page, perPage, progressListener, progressRequestListener);
         return call;
 
     }
@@ -397,28 +427,30 @@ public class MoveTaskOrderApi {
     /**
      * List all move task rders
      * Returns a list of move task orders
+     * @param requestor Unique identifier of the user making the request (required)
      * @param filter  (optional)
      * @param page  (optional)
      * @param perPage  (optional)
      * @return MoveTaskOrders
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public MoveTaskOrders indexMoveTaskOrders(List<String> filter, Integer page, Integer perPage) throws ApiException {
-        ApiResponse<MoveTaskOrders> resp = indexMoveTaskOrdersWithHttpInfo(filter, page, perPage);
+    public MoveTaskOrders indexMoveTaskOrders(String requestor, List<String> filter, Integer page, Integer perPage) throws ApiException {
+        ApiResponse<MoveTaskOrders> resp = indexMoveTaskOrdersWithHttpInfo(requestor, filter, page, perPage);
         return resp.getData();
     }
 
     /**
      * List all move task rders
      * Returns a list of move task orders
+     * @param requestor Unique identifier of the user making the request (required)
      * @param filter  (optional)
      * @param page  (optional)
      * @param perPage  (optional)
      * @return ApiResponse&lt;MoveTaskOrders&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MoveTaskOrders> indexMoveTaskOrdersWithHttpInfo(List<String> filter, Integer page, Integer perPage) throws ApiException {
-        com.squareup.okhttp.Call call = indexMoveTaskOrdersValidateBeforeCall(filter, page, perPage, null, null);
+    public ApiResponse<MoveTaskOrders> indexMoveTaskOrdersWithHttpInfo(String requestor, List<String> filter, Integer page, Integer perPage) throws ApiException {
+        com.squareup.okhttp.Call call = indexMoveTaskOrdersValidateBeforeCall(requestor, filter, page, perPage, null, null);
         Type localVarReturnType = new TypeToken<MoveTaskOrders>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -426,6 +458,7 @@ public class MoveTaskOrderApi {
     /**
      * List all move task rders (asynchronously)
      * Returns a list of move task orders
+     * @param requestor Unique identifier of the user making the request (required)
      * @param filter  (optional)
      * @param page  (optional)
      * @param perPage  (optional)
@@ -433,7 +466,7 @@ public class MoveTaskOrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call indexMoveTaskOrdersAsync(List<String> filter, Integer page, Integer perPage, final ApiCallback<MoveTaskOrders> callback) throws ApiException {
+    public com.squareup.okhttp.Call indexMoveTaskOrdersAsync(String requestor, List<String> filter, Integer page, Integer perPage, final ApiCallback<MoveTaskOrders> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -454,7 +487,7 @@ public class MoveTaskOrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = indexMoveTaskOrdersValidateBeforeCall(filter, page, perPage, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = indexMoveTaskOrdersValidateBeforeCall(requestor, filter, page, perPage, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MoveTaskOrders>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

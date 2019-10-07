@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * MoveTaskOrders
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-04T14:42:55.361Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-07T19:09:34.737Z")
 public class MoveTaskOrders extends ArrayList<MoveTaskOrder> {
 
   @Override

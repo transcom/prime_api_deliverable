@@ -2,7 +2,7 @@
 
 move.mil Prime API
 - API version: 0.1.0
-  - Build date: 2019-10-04T14:42:55.361Z
+  - Build date: 2019-10-07T19:09:34.737Z
 
 The API for move.mil Prime actions.
 
@@ -85,10 +85,11 @@ public class MoveTaskOrderApiExample {
     public static void main(String[] args) {
         
         MoveTaskOrderApi apiInstance = new MoveTaskOrderApi();
+        String requestor = "requestor_example"; // String | Unique identifier of the user making the request
         UUID moveTaskOrderId = new UUID(); // UUID | 
         Options options = new Options(); // Options | 
         try {
-            MoveTaskOrder result = apiInstance.completeCounseling(moveTaskOrderId, options);
+            MoveTaskOrder result = apiInstance.completeCounseling(requestor, moveTaskOrderId, options);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MoveTaskOrderApi#completeCounseling");

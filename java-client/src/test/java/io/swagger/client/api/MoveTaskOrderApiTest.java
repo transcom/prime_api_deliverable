@@ -48,9 +48,10 @@ public class MoveTaskOrderApiTest {
      */
     @Test
     public void completeCounselingTest() throws ApiException {
+        String requestor = null;
         UUID moveTaskOrderId = null;
         Options options = null;
-        MoveTaskOrder response = api.completeCounseling(moveTaskOrderId, options);
+        MoveTaskOrder response = api.completeCounseling(requestor, moveTaskOrderId, options);
 
         // TODO: test validations
     }
@@ -65,11 +66,12 @@ public class MoveTaskOrderApiTest {
      */
     @Test
     public void createServiceItemTest() throws ApiException {
+        String requestor = null;
         UUID moveTaskOrderId = null;
         List<String> filter = null;
         Integer page = null;
         Integer perPage = null;
-        ServiceItem response = api.createServiceItem(moveTaskOrderId, filter, page, perPage);
+        ServiceItem response = api.createServiceItem(requestor, moveTaskOrderId, filter, page, perPage);
 
         // TODO: test validations
     }
@@ -84,10 +86,11 @@ public class MoveTaskOrderApiTest {
      */
     @Test
     public void indexMoveTaskOrdersTest() throws ApiException {
+        String requestor = null;
         List<String> filter = null;
         Integer page = null;
         Integer perPage = null;
-        MoveTaskOrders response = api.indexMoveTaskOrders(filter, page, perPage);
+        MoveTaskOrders response = api.indexMoveTaskOrders(requestor, filter, page, perPage);
 
         // TODO: test validations
     }
