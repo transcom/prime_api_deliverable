@@ -75,6 +75,10 @@ end
 #...
 ```
 
-### How you can indicate which user is logged in on your end
+### User authorization
 
-- Request header with username/email/uuid?
+Since all requests made to the API will use mutual TLS authentication instead of
+a typical user login scheme, you'll need a way to indicate which specific users
+perform perform each request to the API. `api.yaml` defines a required header to
+be sent with each request that indicates the `requestor`, a unique identifier
+that can be used to trace which actions are done by a specific user.
