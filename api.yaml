@@ -193,6 +193,11 @@ paths:
       tags:
         - MoveTaskOrder
       parameters:
+        - in: header
+          name: requestor
+          type: string
+          description: Unique identifier of the user making the request
+          required: true
         - in: query
           name: filter
           type: array
@@ -239,6 +244,11 @@ paths:
       tags:
         - MoveTaskOrder
       parameters:
+        - in: header
+          name: requestor
+          type: string
+          description: Unique identifier of the user making the request
+          required: true
         - in: path
           name: move_task_order_id
           type: string
@@ -290,6 +300,11 @@ paths:
       tags:
         - MoveTaskOrder
       parameters:
+        - in: header
+          name: requestor
+          type: string
+          description: Unique identifier of the user making the request
+          required: true
         - in: path
           name: move_task_order_id
           type: string
@@ -327,3 +342,5 @@ paths:
             $ref: '#/definitions/ClientError'
         500:
           description: server error
+          
+
