@@ -1,5 +1,26 @@
 # Prime API
 
+## Context and terms
+
+The aim of this repository is to demonstrate what it may look like for a Prime
+contractor to interact with a subset of the Milmove API. This sequence diagram
+outlines what the more fleshed out API and interactions may look like:
+
+![image](./diagram.png)
+
+Here are some potentially unfamiliar terms you may come across in this repo:
+
+### Swagger
+
+> Simplify API development for users, teams, and enterprises with the Swagger open source and professional toolset.
+
+[Swagger](https://swagger.io/) allows developers to define what their API will look like and easily
+provide documentation in a human readable format.
+
+### MTO or Move Task Order
+
+## Overview
+
 In this repository, you'll find a few things:
 
 - `api.yaml`, a file that documents example endpoints in the REST API along with
