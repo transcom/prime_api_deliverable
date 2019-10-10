@@ -19,6 +19,10 @@ provide documentation in a human readable format.
 
 ### MTO or Move Task Order
 
+A Move Task Order is the task order MilMove will send the Prime contractor to 
+order the work for a particular customer move. This includes the management fee,
+counselling, packing, linehaul & delivery.
+
 ## Overview
 
 In this repository, you'll find a few things:
