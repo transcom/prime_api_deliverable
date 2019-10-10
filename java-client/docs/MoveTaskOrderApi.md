@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="completeCounseling"></a>
 # **completeCounseling**
-> MoveTaskOrder completeCounseling(requestor, moveTaskOrderId, options)
+> MoveTaskOrder completeCounseling(moveTaskOrderId, options)
 
 Completes counseling for a move task order by id
 
@@ -25,11 +25,10 @@ Completes counseling for a move task order by id
 
 
 MoveTaskOrderApi apiInstance = new MoveTaskOrderApi();
-String requestor = "requestor_example"; // String | Unique identifier of the user making the request
 UUID moveTaskOrderId = new UUID(); // UUID | 
 Options options = new Options(); // Options | 
 try {
-    MoveTaskOrder result = apiInstance.completeCounseling(requestor, moveTaskOrderId, options);
+    MoveTaskOrder result = apiInstance.completeCounseling(moveTaskOrderId, options);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MoveTaskOrderApi#completeCounseling");
@@ -41,7 +40,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requestor** | **String**| Unique identifier of the user making the request |
  **moveTaskOrderId** | [**UUID**](.md)|  |
  **options** | [**Options**](Options.md)|  | [optional]
 
@@ -60,7 +58,7 @@ No authorization required
 
 <a name="createServiceItem"></a>
 # **createServiceItem**
-> ServiceItem createServiceItem(requestor, moveTaskOrderId, filter, page, perPage)
+> ServiceItem createServiceItem(moveTaskOrderId, serviceItem, filter, page, perPage)
 
 Creates a service item for a move order by id
 
@@ -74,13 +72,13 @@ Creates a service item for a move order by id
 
 
 MoveTaskOrderApi apiInstance = new MoveTaskOrderApi();
-String requestor = "requestor_example"; // String | Unique identifier of the user making the request
 UUID moveTaskOrderId = new UUID(); // UUID | 
+ServiceItem serviceItem = new ServiceItem(); // ServiceItem | Unique identifier of the user making the request
 List<String> filter = Arrays.asList("filter_example"); // List<String> | 
 Integer page = 56; // Integer | 
 Integer perPage = 56; // Integer | 
 try {
-    ServiceItem result = apiInstance.createServiceItem(requestor, moveTaskOrderId, filter, page, perPage);
+    ServiceItem result = apiInstance.createServiceItem(moveTaskOrderId, serviceItem, filter, page, perPage);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling MoveTaskOrderApi#createServiceItem");
@@ -92,8 +90,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requestor** | **String**| Unique identifier of the user making the request |
  **moveTaskOrderId** | [**UUID**](.md)|  |
+ **serviceItem** | [**ServiceItem**](ServiceItem.md)| Unique identifier of the user making the request | [optional]
  **filter** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **page** | **Integer**|  | [optional]
  **perPage** | **Integer**|  | [optional]

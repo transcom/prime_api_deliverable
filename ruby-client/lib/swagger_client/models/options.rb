@@ -14,6 +14,8 @@ require 'date'
 
 module SwaggerClient
   class Options
+    attr_accessor :requestor
+
     attr_accessor :is_ppm
 
     attr_accessor :has_excess
@@ -21,6 +23,7 @@ module SwaggerClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'requestor' => :'requestor',
         :'is_ppm' => :'isPPM',
         :'has_excess' => :'hasExcess'
       }
@@ -29,6 +32,7 @@ module SwaggerClient
     # Attribute type mapping.
     def self.swagger_types
       {
+        :'requestor' => :'String',
         :'is_ppm' => :'BOOLEAN',
         :'has_excess' => :'BOOLEAN'
       }
@@ -41,6 +45,10 @@ module SwaggerClient
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      if attributes.has_key?(:'requestor')
+        self.requestor = attributes[:'requestor']
+      end
 
       if attributes.has_key?(:'isPPM')
         self.is_ppm = attributes[:'isPPM']
@@ -55,12 +63,17 @@ module SwaggerClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @requestor.nil?
+        invalid_properties.push('invalid value for "requestor", requestor cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @requestor.nil?
       true
     end
 
@@ -69,6 +82,7 @@ module SwaggerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          requestor == o.requestor &&
           is_ppm == o.is_ppm &&
           has_excess == o.has_excess
     end
@@ -82,7 +96,7 @@ module SwaggerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_ppm, has_excess].hash
+      [requestor, is_ppm, has_excess].hash
     end
 
     # Builds the object from hash

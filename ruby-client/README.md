@@ -56,8 +56,6 @@ require 'swagger_client'
 
 api_instance = SwaggerClient::MoveTaskOrderApi.new
 
-requestor = 'requestor_example' # String | Unique identifier of the user making the request
-
 move_task_order_id = 'move_task_order_id_example' # String | 
 
 opts = { 
@@ -66,7 +64,7 @@ opts = {
 
 begin
   #Completes counseling for a move task order by id
-  result = api_instance.complete_counseling(requestor, move_task_order_id, opts)
+  result = api_instance.complete_counseling(move_task_order_id, opts)
   p result
 rescue SwaggerClient::ApiError => e
   puts "Exception when calling MoveTaskOrderApi->complete_counseling: #{e}"

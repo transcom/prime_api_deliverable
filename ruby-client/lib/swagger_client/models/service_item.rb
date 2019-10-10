@@ -14,93 +14,19 @@ require 'date'
 
 module SwaggerClient
   class ServiceItem
-    attr_accessor :id
-
-    attr_accessor :move_task_order_id
-
-    attr_accessor :status
-
-    attr_accessor :fee_type
-
-    attr_accessor :total
-
-    attr_accessor :quantity
-
-    attr_accessor :rate
-
-    attr_accessor :description
-
-    attr_accessor :submitted_at
-
-    attr_accessor :approved_at
-
-    attr_accessor :rejected_at
-
-    attr_accessor :created_at
-
-    attr_accessor :updated_at
-
-    attr_accessor :deleted_at
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :requestor
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'move_task_order_id' => :'MoveTaskOrderID',
-        :'status' => :'status',
-        :'fee_type' => :'feeType',
-        :'total' => :'total',
-        :'quantity' => :'quantity',
-        :'rate' => :'rate',
-        :'description' => :'description',
-        :'submitted_at' => :'submittedAt',
-        :'approved_at' => :'approvedAt',
-        :'rejected_at' => :'rejectedAt',
-        :'created_at' => :'createdAt',
-        :'updated_at' => :'updatedAt',
-        :'deleted_at' => :'deletedAt'
+        :'requestor' => :'requestor'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'id' => :'String',
-        :'move_task_order_id' => :'String',
-        :'status' => :'String',
-        :'fee_type' => :'String',
-        :'total' => :'Integer',
-        :'quantity' => :'Integer',
-        :'rate' => :'Integer',
-        :'description' => :'String',
-        :'submitted_at' => :'Date',
-        :'approved_at' => :'Date',
-        :'rejected_at' => :'Date',
-        :'created_at' => :'Date',
-        :'updated_at' => :'Date',
-        :'deleted_at' => :'Date'
+        :'requestor' => :'String'
       }
     end
 
@@ -112,60 +38,8 @@ module SwaggerClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'id')
-        self.id = attributes[:'id']
-      end
-
-      if attributes.has_key?(:'MoveTaskOrderID')
-        self.move_task_order_id = attributes[:'MoveTaskOrderID']
-      end
-
-      if attributes.has_key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.has_key?(:'feeType')
-        self.fee_type = attributes[:'feeType']
-      end
-
-      if attributes.has_key?(:'total')
-        self.total = attributes[:'total']
-      end
-
-      if attributes.has_key?(:'quantity')
-        self.quantity = attributes[:'quantity']
-      end
-
-      if attributes.has_key?(:'rate')
-        self.rate = attributes[:'rate']
-      end
-
-      if attributes.has_key?(:'description')
-        self.description = attributes[:'description']
-      end
-
-      if attributes.has_key?(:'submittedAt')
-        self.submitted_at = attributes[:'submittedAt']
-      end
-
-      if attributes.has_key?(:'approvedAt')
-        self.approved_at = attributes[:'approvedAt']
-      end
-
-      if attributes.has_key?(:'rejectedAt')
-        self.rejected_at = attributes[:'rejectedAt']
-      end
-
-      if attributes.has_key?(:'createdAt')
-        self.created_at = attributes[:'createdAt']
-      end
-
-      if attributes.has_key?(:'updatedAt')
-        self.updated_at = attributes[:'updatedAt']
-      end
-
-      if attributes.has_key?(:'deletedAt')
-        self.deleted_at = attributes[:'deletedAt']
+      if attributes.has_key?(:'requestor')
+        self.requestor = attributes[:'requestor']
       end
     end
 
@@ -173,37 +47,18 @@ module SwaggerClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @requestor.nil?
+        invalid_properties.push('invalid value for "requestor", requestor cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      status_validator = EnumAttributeValidator.new('String', ['APPROVED', 'SUBMITTED', 'REJECTED'])
-      return false unless status_validator.valid?(@status)
-      fee_type_validator = EnumAttributeValidator.new('String', ['COUNSELING', 'CRATING', 'TRUCKING', 'SHUTTLE'])
-      return false unless fee_type_validator.valid?(@fee_type)
+      return false if @requestor.nil?
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] status Object to be assigned
-    def status=(status)
-      validator = EnumAttributeValidator.new('String', ['APPROVED', 'SUBMITTED', 'REJECTED'])
-      unless validator.valid?(status)
-        fail ArgumentError, 'invalid value for "status", must be one of #{validator.allowable_values}.'
-      end
-      @status = status
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] fee_type Object to be assigned
-    def fee_type=(fee_type)
-      validator = EnumAttributeValidator.new('String', ['COUNSELING', 'CRATING', 'TRUCKING', 'SHUTTLE'])
-      unless validator.valid?(fee_type)
-        fail ArgumentError, 'invalid value for "fee_type", must be one of #{validator.allowable_values}.'
-      end
-      @fee_type = fee_type
     end
 
     # Checks equality by comparing each attribute.
@@ -211,20 +66,7 @@ module SwaggerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          move_task_order_id == o.move_task_order_id &&
-          status == o.status &&
-          fee_type == o.fee_type &&
-          total == o.total &&
-          quantity == o.quantity &&
-          rate == o.rate &&
-          description == o.description &&
-          submitted_at == o.submitted_at &&
-          approved_at == o.approved_at &&
-          rejected_at == o.rejected_at &&
-          created_at == o.created_at &&
-          updated_at == o.updated_at &&
-          deleted_at == o.deleted_at
+          requestor == o.requestor
     end
 
     # @see the `==` method
@@ -236,7 +78,7 @@ module SwaggerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, move_task_order_id, status, fee_type, total, quantity, rate, description, submitted_at, approved_at, rejected_at, created_at, updated_at, deleted_at].hash
+      [requestor].hash
     end
 
     # Builds the object from hash

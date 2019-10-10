@@ -21,30 +21,24 @@ module SwaggerClient
     end
     # Completes counseling for a move task order by id
     # Completes counseling for a move task order by id
-    # @param requestor Unique identifier of the user making the request
     # @param move_task_order_id 
     # @param [Hash] opts the optional parameters
     # @option opts [Options] :options 
     # @return [MoveTaskOrder]
-    def complete_counseling(requestor, move_task_order_id, opts = {})
-      data, _status_code, _headers = complete_counseling_with_http_info(requestor, move_task_order_id, opts)
+    def complete_counseling(move_task_order_id, opts = {})
+      data, _status_code, _headers = complete_counseling_with_http_info(move_task_order_id, opts)
       data
     end
 
     # Completes counseling for a move task order by id
     # Completes counseling for a move task order by id
-    # @param requestor Unique identifier of the user making the request
     # @param move_task_order_id 
     # @param [Hash] opts the optional parameters
     # @option opts [Options] :options 
     # @return [Array<(MoveTaskOrder, Fixnum, Hash)>] MoveTaskOrder data, response status code and response headers
-    def complete_counseling_with_http_info(requestor, move_task_order_id, opts = {})
+    def complete_counseling_with_http_info(move_task_order_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MoveTaskOrderApi.complete_counseling ...'
-      end
-      # verify the required parameter 'requestor' is set
-      if @api_client.config.client_side_validation && requestor.nil?
-        fail ArgumentError, "Missing the required parameter 'requestor' when calling MoveTaskOrderApi.complete_counseling"
       end
       # verify the required parameter 'move_task_order_id' is set
       if @api_client.config.client_side_validation && move_task_order_id.nil?
@@ -62,7 +56,6 @@ module SwaggerClient
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
       # HTTP header 'Content-Type'
       header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
-      header_params[:'requestor'] = requestor
 
       # form parameters
       form_params = {}
@@ -84,34 +77,30 @@ module SwaggerClient
     end
     # Creates a service item for a move order by id
     # Creates a service item for a move order by id
-    # @param requestor Unique identifier of the user making the request
     # @param move_task_order_id 
     # @param [Hash] opts the optional parameters
+    # @option opts [ServiceItem] :service_item Unique identifier of the user making the request
     # @option opts [Array<String>] :filter 
     # @option opts [Integer] :page 
     # @option opts [Integer] :per_page 
     # @return [ServiceItem]
-    def create_service_item(requestor, move_task_order_id, opts = {})
-      data, _status_code, _headers = create_service_item_with_http_info(requestor, move_task_order_id, opts)
+    def create_service_item(move_task_order_id, opts = {})
+      data, _status_code, _headers = create_service_item_with_http_info(move_task_order_id, opts)
       data
     end
 
     # Creates a service item for a move order by id
     # Creates a service item for a move order by id
-    # @param requestor Unique identifier of the user making the request
     # @param move_task_order_id 
     # @param [Hash] opts the optional parameters
+    # @option opts [ServiceItem] :service_item Unique identifier of the user making the request
     # @option opts [Array<String>] :filter 
     # @option opts [Integer] :page 
     # @option opts [Integer] :per_page 
     # @return [Array<(ServiceItem, Fixnum, Hash)>] ServiceItem data, response status code and response headers
-    def create_service_item_with_http_info(requestor, move_task_order_id, opts = {})
+    def create_service_item_with_http_info(move_task_order_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MoveTaskOrderApi.create_service_item ...'
-      end
-      # verify the required parameter 'requestor' is set
-      if @api_client.config.client_side_validation && requestor.nil?
-        fail ArgumentError, "Missing the required parameter 'requestor' when calling MoveTaskOrderApi.create_service_item"
       end
       # verify the required parameter 'move_task_order_id' is set
       if @api_client.config.client_side_validation && move_task_order_id.nil?
@@ -132,13 +121,12 @@ module SwaggerClient
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
       # HTTP header 'Content-Type'
       header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
-      header_params[:'requestor'] = requestor
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = nil
+      post_body = @api_client.object_to_http_body(opts[:'service_item'])
       auth_names = []
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
         :header_params => header_params,
@@ -186,6 +174,7 @@ module SwaggerClient
 
       # query parameters
       query_params = {}
+      query_params[:'requestor'] = requestor
       query_params[:'filter'] = @api_client.build_collection_param(opts[:'filter'], :multi) if !opts[:'filter'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'perPage'] = opts[:'per_page'] if !opts[:'per_page'].nil?
@@ -196,7 +185,6 @@ module SwaggerClient
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
       # HTTP header 'Content-Type'
       header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
-      header_params[:'requestor'] = requestor
 
       # form parameters
       form_params = {}

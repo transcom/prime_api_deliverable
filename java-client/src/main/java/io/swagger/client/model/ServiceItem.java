@@ -23,406 +23,31 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.UUID;
-import org.threeten.bp.LocalDate;
 
 /**
  * ServiceItem
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-07T19:09:34.737Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T14:01:49.800Z")
 public class ServiceItem {
-  @SerializedName("id")
-  private UUID id = null;
+  @SerializedName("requestor")
+  private String requestor = null;
 
-  @SerializedName("MoveTaskOrderID")
-  private UUID moveTaskOrderID = null;
-
-  /**
-   * Gets or Sets status
-   */
-  @JsonAdapter(StatusEnum.Adapter.class)
-  public enum StatusEnum {
-    APPROVED("APPROVED"),
-    
-    SUBMITTED("SUBMITTED"),
-    
-    REJECTED("REJECTED");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<StatusEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public StatusEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return StatusEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("status")
-  private StatusEnum status = null;
-
-  /**
-   * Gets or Sets feeType
-   */
-  @JsonAdapter(FeeTypeEnum.Adapter.class)
-  public enum FeeTypeEnum {
-    COUNSELING("COUNSELING"),
-    
-    CRATING("CRATING"),
-    
-    TRUCKING("TRUCKING"),
-    
-    SHUTTLE("SHUTTLE");
-
-    private String value;
-
-    FeeTypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static FeeTypeEnum fromValue(String text) {
-      for (FeeTypeEnum b : FeeTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<FeeTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final FeeTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public FeeTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return FeeTypeEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("feeType")
-  private FeeTypeEnum feeType = null;
-
-  @SerializedName("total")
-  private Integer total = null;
-
-  @SerializedName("quantity")
-  private Integer quantity = null;
-
-  @SerializedName("rate")
-  private Integer rate = null;
-
-  @SerializedName("description")
-  private String description = null;
-
-  @SerializedName("submittedAt")
-  private LocalDate submittedAt = null;
-
-  @SerializedName("approvedAt")
-  private LocalDate approvedAt = null;
-
-  @SerializedName("rejectedAt")
-  private LocalDate rejectedAt = null;
-
-  @SerializedName("createdAt")
-  private LocalDate createdAt = null;
-
-  @SerializedName("updatedAt")
-  private LocalDate updatedAt = null;
-
-  @SerializedName("deletedAt")
-  private LocalDate deletedAt = null;
-
-  public ServiceItem id(UUID id) {
-    this.id = id;
+  public ServiceItem requestor(String requestor) {
+    this.requestor = requestor;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get requestor
+   * @return requestor
   **/
-  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
-  public UUID getId() {
-    return id;
+  @ApiModelProperty(required = true, value = "")
+  public String getRequestor() {
+    return requestor;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public ServiceItem moveTaskOrderID(UUID moveTaskOrderID) {
-    this.moveTaskOrderID = moveTaskOrderID;
-    return this;
-  }
-
-   /**
-   * Get moveTaskOrderID
-   * @return moveTaskOrderID
-  **/
-  @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
-  public UUID getMoveTaskOrderID() {
-    return moveTaskOrderID;
-  }
-
-  public void setMoveTaskOrderID(UUID moveTaskOrderID) {
-    this.moveTaskOrderID = moveTaskOrderID;
-  }
-
-  public ServiceItem status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @ApiModelProperty(value = "")
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-  public ServiceItem feeType(FeeTypeEnum feeType) {
-    this.feeType = feeType;
-    return this;
-  }
-
-   /**
-   * Get feeType
-   * @return feeType
-  **/
-  @ApiModelProperty(value = "")
-  public FeeTypeEnum getFeeType() {
-    return feeType;
-  }
-
-  public void setFeeType(FeeTypeEnum feeType) {
-    this.feeType = feeType;
-  }
-
-  public ServiceItem total(Integer total) {
-    this.total = total;
-    return this;
-  }
-
-   /**
-   * Get total
-   * @return total
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getTotal() {
-    return total;
-  }
-
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
-
-  public ServiceItem quantity(Integer quantity) {
-    this.quantity = quantity;
-    return this;
-  }
-
-   /**
-   * Get quantity
-   * @return quantity
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getQuantity() {
-    return quantity;
-  }
-
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
-  }
-
-  public ServiceItem rate(Integer rate) {
-    this.rate = rate;
-    return this;
-  }
-
-   /**
-   * Get rate
-   * @return rate
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getRate() {
-    return rate;
-  }
-
-  public void setRate(Integer rate) {
-    this.rate = rate;
-  }
-
-  public ServiceItem description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @ApiModelProperty(value = "")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ServiceItem submittedAt(LocalDate submittedAt) {
-    this.submittedAt = submittedAt;
-    return this;
-  }
-
-   /**
-   * Get submittedAt
-   * @return submittedAt
-  **/
-  @ApiModelProperty(value = "")
-  public LocalDate getSubmittedAt() {
-    return submittedAt;
-  }
-
-  public void setSubmittedAt(LocalDate submittedAt) {
-    this.submittedAt = submittedAt;
-  }
-
-  public ServiceItem approvedAt(LocalDate approvedAt) {
-    this.approvedAt = approvedAt;
-    return this;
-  }
-
-   /**
-   * Get approvedAt
-   * @return approvedAt
-  **/
-  @ApiModelProperty(value = "")
-  public LocalDate getApprovedAt() {
-    return approvedAt;
-  }
-
-  public void setApprovedAt(LocalDate approvedAt) {
-    this.approvedAt = approvedAt;
-  }
-
-  public ServiceItem rejectedAt(LocalDate rejectedAt) {
-    this.rejectedAt = rejectedAt;
-    return this;
-  }
-
-   /**
-   * Get rejectedAt
-   * @return rejectedAt
-  **/
-  @ApiModelProperty(value = "")
-  public LocalDate getRejectedAt() {
-    return rejectedAt;
-  }
-
-  public void setRejectedAt(LocalDate rejectedAt) {
-    this.rejectedAt = rejectedAt;
-  }
-
-  public ServiceItem createdAt(LocalDate createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @ApiModelProperty(value = "")
-  public LocalDate getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(LocalDate createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public ServiceItem updatedAt(LocalDate updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "")
-  public LocalDate getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(LocalDate updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public ServiceItem deletedAt(LocalDate deletedAt) {
-    this.deletedAt = deletedAt;
-    return this;
-  }
-
-   /**
-   * Get deletedAt
-   * @return deletedAt
-  **/
-  @ApiModelProperty(value = "")
-  public LocalDate getDeletedAt() {
-    return deletedAt;
-  }
-
-  public void setDeletedAt(LocalDate deletedAt) {
-    this.deletedAt = deletedAt;
+  public void setRequestor(String requestor) {
+    this.requestor = requestor;
   }
 
 
@@ -435,25 +60,12 @@ public class ServiceItem {
       return false;
     }
     ServiceItem serviceItem = (ServiceItem) o;
-    return Objects.equals(this.id, serviceItem.id) &&
-        Objects.equals(this.moveTaskOrderID, serviceItem.moveTaskOrderID) &&
-        Objects.equals(this.status, serviceItem.status) &&
-        Objects.equals(this.feeType, serviceItem.feeType) &&
-        Objects.equals(this.total, serviceItem.total) &&
-        Objects.equals(this.quantity, serviceItem.quantity) &&
-        Objects.equals(this.rate, serviceItem.rate) &&
-        Objects.equals(this.description, serviceItem.description) &&
-        Objects.equals(this.submittedAt, serviceItem.submittedAt) &&
-        Objects.equals(this.approvedAt, serviceItem.approvedAt) &&
-        Objects.equals(this.rejectedAt, serviceItem.rejectedAt) &&
-        Objects.equals(this.createdAt, serviceItem.createdAt) &&
-        Objects.equals(this.updatedAt, serviceItem.updatedAt) &&
-        Objects.equals(this.deletedAt, serviceItem.deletedAt);
+    return Objects.equals(this.requestor, serviceItem.requestor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, moveTaskOrderID, status, feeType, total, quantity, rate, description, submittedAt, approvedAt, rejectedAt, createdAt, updatedAt, deletedAt);
+    return Objects.hash(requestor);
   }
 
 
@@ -462,20 +74,7 @@ public class ServiceItem {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceItem {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    moveTaskOrderID: ").append(toIndentedString(moveTaskOrderID)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    feeType: ").append(toIndentedString(feeType)).append("\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
-    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
-    sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    submittedAt: ").append(toIndentedString(submittedAt)).append("\n");
-    sb.append("    approvedAt: ").append(toIndentedString(approvedAt)).append("\n");
-    sb.append("    rejectedAt: ").append(toIndentedString(rejectedAt)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
+    sb.append("    requestor: ").append(toIndentedString(requestor)).append("\n");
     sb.append("}");
     return sb.toString();
   }

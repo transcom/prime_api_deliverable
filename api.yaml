@@ -193,7 +193,7 @@ paths:
       tags:
         - MoveTaskOrder
       parameters:
-        - in: header
+        - in: query
           name: requestor
           type: string
           description: Unique identifier of the user making the request
@@ -244,11 +244,16 @@ paths:
       tags:
         - MoveTaskOrder
       parameters:
-        - in: header
-          name: requestor
-          type: string
+        - in: body
+          name: service_item
           description: Unique identifier of the user making the request
-          required: true
+          schema:
+            type: object
+            required:
+              - requestor
+            properties:
+              requestor:
+                type: string
         - in: path
           name: move_task_order_id
           type: string
@@ -300,11 +305,6 @@ paths:
       tags:
         - MoveTaskOrder
       parameters:
-        - in: header
-          name: requestor
-          type: string
-          description: Unique identifier of the user making the request
-          required: true
         - in: path
           name: move_task_order_id
           type: string
@@ -314,7 +314,11 @@ paths:
           name: options
           schema:
             type: object
+            required:
+              - requestor
             properties:
+              requestor:
+                type: string
               isPPM:
                 type: boolean
               hasExcess:

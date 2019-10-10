@@ -32,6 +32,12 @@ describe 'Options' do
       expect(@instance).to be_instance_of(SwaggerClient::Options)
     end
   end
+  describe 'test attribute "requestor"' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   describe 'test attribute "is_ppm"' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers

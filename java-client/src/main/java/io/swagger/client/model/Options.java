@@ -27,13 +27,34 @@ import java.io.IOException;
 /**
  * Options
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-07T19:09:34.737Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2019-10-10T14:01:49.800Z")
 public class Options {
+  @SerializedName("requestor")
+  private String requestor = null;
+
   @SerializedName("isPPM")
   private Boolean isPPM = null;
 
   @SerializedName("hasExcess")
   private Boolean hasExcess = null;
+
+  public Options requestor(String requestor) {
+    this.requestor = requestor;
+    return this;
+  }
+
+   /**
+   * Get requestor
+   * @return requestor
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public String getRequestor() {
+    return requestor;
+  }
+
+  public void setRequestor(String requestor) {
+    this.requestor = requestor;
+  }
 
   public Options isPPM(Boolean isPPM) {
     this.isPPM = isPPM;
@@ -81,13 +102,14 @@ public class Options {
       return false;
     }
     Options options = (Options) o;
-    return Objects.equals(this.isPPM, options.isPPM) &&
+    return Objects.equals(this.requestor, options.requestor) &&
+        Objects.equals(this.isPPM, options.isPPM) &&
         Objects.equals(this.hasExcess, options.hasExcess);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isPPM, hasExcess);
+    return Objects.hash(requestor, isPPM, hasExcess);
   }
 
 
@@ -96,6 +118,7 @@ public class Options {
     StringBuilder sb = new StringBuilder();
     sb.append("class Options {\n");
     
+    sb.append("    requestor: ").append(toIndentedString(requestor)).append("\n");
     sb.append("    isPPM: ").append(toIndentedString(isPPM)).append("\n");
     sb.append("    hasExcess: ").append(toIndentedString(hasExcess)).append("\n");
     sb.append("}");
