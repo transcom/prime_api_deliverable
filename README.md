@@ -3,10 +3,8 @@
 ## Context and terms
 
 The aim of this repository is to demonstrate what it may look like for a Prime
-contractor to interact with a subset of the Milmove API. This sequence diagram
-outlines what the more fleshed out API and interactions may look like:
-
-![image](./diagram.png)
+contractor to interact with a subset of the Milmove API. This [sequence diagram](https://github.com/transcom/prime_api_deliverable/wiki/Sequence-Diagram)
+outlines what the more fleshed out API and interactions may look like
 
 Here are some potentially unfamiliar terms you may come across in this repo:
 
@@ -19,7 +17,7 @@ provide documentation in a human readable format.
 
 ### MTO or Move Task Order
 
-A Move Task Order is the task order MilMove will send the Prime contractor to 
+A Move Task Order is the task order MilMove will send the Prime contractor to
 order the work for a particular customer move. This includes the management fee,
 counselling, packing, linehaul & delivery.
 
@@ -27,15 +25,13 @@ counselling, packing, linehaul & delivery.
 
 In this repository, you'll find a few things:
 
-- `api.yaml`, a file that documents example endpoints in the REST API along with
-    what data model payloads would look like.
+- An explanation to parts of `prime.yaml`, a file that documents example endpoints in the REST API along with what data model payloads would look like.
 - An example Ruby client
 - An example Java client
 
+## prime.yaml
 
-## api.yaml
-
-There are two important sections to pay attention to in `api.yaml`:
+There are two important sections to pay attention to in [prime.yaml](https://github.com/transcom/mymove/blob/master/swagger/prime.yaml):
 
 1. `definitions`: Defines the structure of the API payloads including error
    types.
