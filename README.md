@@ -4,22 +4,7 @@
 
 The aim of this repository is to demonstrate what it may look like for a Prime
 contractor to interact with a subset of the Milmove API. This [sequence diagram](https://github.com/transcom/prime_api_deliverable/wiki/Sequence-Diagram)
-outlines what the more fleshed out API and interactions may look like
-
-Here are some potentially unfamiliar terms you may come across in this repo:
-
-### Swagger
-
-> Simplify API development for users, teams, and enterprises with the Swagger open source and professional toolset.
-
-[Swagger](https://swagger.io/) allows developers to define what their API will look like and easily
-provide documentation in a human readable format.
-
-### MTO or Move Task Order
-
-A Move Task Order is the task order MilMove will send the Prime contractor to
-order the work for a particular customer move. This includes the management fee,
-counselling, packing, linehaul & delivery.
+outlines what the more fleshed out API and interactions may look like. For a list of unfamiliar terms and their meanings please visit the [glossary in the wiki](https://github.com/transcom/prime_api_deliverable/wiki/Glossary)
 
 ## Overview
 
