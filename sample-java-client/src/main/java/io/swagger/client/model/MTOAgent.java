@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -14,7 +14,6 @@
 package io.swagger.client.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,7 +29,7 @@ import org.threeten.bp.LocalDate;
 /**
  * MTOAgent
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-06T14:55:33.605Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-14T14:53:44.624-07:00")
 public class MTOAgent {
   @SerializedName("id")
   private UUID id = null;
@@ -68,11 +67,6 @@ public class MTOAgent {
     return id;
   }
 
-  public MTOAgent mtoShipmentID(UUID mtoShipmentID) {
-    this.mtoShipmentID = mtoShipmentID;
-    return this;
-  }
-
    /**
    * Get mtoShipmentID
    * @return mtoShipmentID
@@ -80,15 +74,6 @@ public class MTOAgent {
   @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
   public UUID getMtoShipmentID() {
     return mtoShipmentID;
-  }
-
-  public void setMtoShipmentID(UUID mtoShipmentID) {
-    this.mtoShipmentID = mtoShipmentID;
-  }
-
-  public MTOAgent createdAt(LocalDate createdAt) {
-    this.createdAt = createdAt;
-    return this;
   }
 
    /**
@@ -100,15 +85,6 @@ public class MTOAgent {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDate createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public MTOAgent updatedAt(LocalDate updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
    /**
    * Get updatedAt
    * @return updatedAt
@@ -116,10 +92,6 @@ public class MTOAgent {
   @ApiModelProperty(value = "")
   public LocalDate getUpdatedAt() {
     return updatedAt;
-  }
-
-  public void setUpdatedAt(LocalDate updatedAt) {
-    this.updatedAt = updatedAt;
   }
 
   public MTOAgent firstName(String firstName) {

@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -14,10 +14,11 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.CreateShipmentPayload;
 import io.swagger.client.model.Error;
 import io.swagger.client.model.MTOShipment;
-import io.swagger.client.model.ResponsesPermissionDenied;
 import java.util.UUID;
+import io.swagger.client.model.ValidationError;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -36,20 +37,35 @@ public class MtoShipmentApiTest {
 
     
     /**
-     * Updates MTO shipment
+     * createMTOShipment
      *
-     * Updates MTO shipment.
+     * Creates a MTO shipment for the specified Move Task Order. Required fields include: * Shipment Type * Customer requested pick-up date * Pick-up Address * Delivery Address * Releasing / Receiving agents  Optional fields include: * Customer Remarks * Releasing / Receiving agents * An array of optional accessorial service item codes 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void createMTOShipmentTest() throws ApiException {
+        CreateShipmentPayload body = null;
+        MTOShipment response = api.createMTOShipment(body);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * updateMTOShipment
+     *
+     * Updates an existing shipment for a Move Task Order (MTO). Only the following fields can be updated using this endpoint:  * &#x60;scheduledPickupDate&#x60; * &#x60;actualPickupDate&#x60; * &#x60;firstAvailableDeliveryDate&#x60; * &#x60;destinationAddress&#x60; * &#x60;pickupAddress&#x60; * &#x60;secondaryDeliveryAddress&#x60; * &#x60;secondaryPickupAddress&#x60; * &#x60;primeEstimatedWeight&#x60; * &#x60;primeActualWeight&#x60; * &#x60;shipmentType&#x60; * &#x60;agents&#x60; - all subfields except &#x60;mtoShipmentID&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. You cannot add new agents to a shipment.  Note that some fields cannot be manually changed but will still be updated automatically, such as &#x60;primeEstimatedWeightRecordedDate&#x60; and &#x60;requiredDeliveryDate&#x60;. 
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
     public void updateMTOShipmentTest() throws ApiException {
-        UUID moveTaskOrderID = null;
         UUID mtoShipmentID = null;
         MTOShipment body = null;
         String ifMatch = null;
-        MTOShipment response = api.updateMTOShipment(moveTaskOrderID, mtoShipmentID, body, ifMatch);
+        MTOShipment response = api.updateMTOShipment(mtoShipmentID, body, ifMatch);
 
         // TODO: test validations
     }

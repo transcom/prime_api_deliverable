@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -27,10 +27,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import io.swagger.client.model.CreateShipmentPayload;
 import io.swagger.client.model.Error;
 import io.swagger.client.model.MTOShipment;
-import io.swagger.client.model.ResponsesPermissionDenied;
 import java.util.UUID;
+import io.swagger.client.model.ValidationError;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -58,9 +59,125 @@ public class MtoShipmentApi {
     }
 
     /**
+     * Build call for createMTOShipment
+     * @param body  (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call createMTOShipmentCall(CreateShipmentPayload body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+
+        // create path and map variables
+        String localVarPath = "/mto-shipments";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call createMTOShipmentValidateBeforeCall(CreateShipmentPayload body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+
+        com.squareup.okhttp.Call call = createMTOShipmentCall(body, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * createMTOShipment
+     * Creates a MTO shipment for the specified Move Task Order. Required fields include: * Shipment Type * Customer requested pick-up date * Pick-up Address * Delivery Address * Releasing / Receiving agents  Optional fields include: * Customer Remarks * Releasing / Receiving agents * An array of optional accessorial service item codes 
+     * @param body  (optional)
+     * @return MTOShipment
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public MTOShipment createMTOShipment(CreateShipmentPayload body) throws ApiException {
+        ApiResponse<MTOShipment> resp = createMTOShipmentWithHttpInfo(body);
+        return resp.getData();
+    }
+
+    /**
+     * createMTOShipment
+     * Creates a MTO shipment for the specified Move Task Order. Required fields include: * Shipment Type * Customer requested pick-up date * Pick-up Address * Delivery Address * Releasing / Receiving agents  Optional fields include: * Customer Remarks * Releasing / Receiving agents * An array of optional accessorial service item codes 
+     * @param body  (optional)
+     * @return ApiResponse&lt;MTOShipment&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<MTOShipment> createMTOShipmentWithHttpInfo(CreateShipmentPayload body) throws ApiException {
+        com.squareup.okhttp.Call call = createMTOShipmentValidateBeforeCall(body, null, null);
+        Type localVarReturnType = new TypeToken<MTOShipment>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * createMTOShipment (asynchronously)
+     * Creates a MTO shipment for the specified Move Task Order. Required fields include: * Shipment Type * Customer requested pick-up date * Pick-up Address * Delivery Address * Releasing / Receiving agents  Optional fields include: * Customer Remarks * Releasing / Receiving agents * An array of optional accessorial service item codes 
+     * @param body  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call createMTOShipmentAsync(CreateShipmentPayload body, final ApiCallback<MTOShipment> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = createMTOShipmentValidateBeforeCall(body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<MTOShipment>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for updateMTOShipment
-     * @param moveTaskOrderID UUID of the move task order being used. (required)
-     * @param mtoShipmentID UUID of the move task order shipment being updated. (required)
+     * @param mtoShipmentID UUID of the shipment being updated. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)
      * @param progressListener Progress listener
@@ -68,12 +185,11 @@ public class MtoShipmentApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call updateMTOShipmentCall(UUID moveTaskOrderID, UUID mtoShipmentID, MTOShipment body, String ifMatch, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call updateMTOShipmentCall(UUID mtoShipmentID, MTOShipment body, String ifMatch, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
 
         // create path and map variables
-        String localVarPath = "/move-task-orders/{moveTaskOrderID}/mto-shipments/{mtoShipmentID}"
-            .replaceAll("\\{" + "moveTaskOrderID" + "\\}", apiClient.escapeString(moveTaskOrderID.toString()))
+        String localVarPath = "/mto-shipments/{mtoShipmentID}"
             .replaceAll("\\{" + "mtoShipmentID" + "\\}", apiClient.escapeString(mtoShipmentID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -114,12 +230,7 @@ public class MtoShipmentApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call updateMTOShipmentValidateBeforeCall(UUID moveTaskOrderID, UUID mtoShipmentID, MTOShipment body, String ifMatch, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'moveTaskOrderID' is set
-        if (moveTaskOrderID == null) {
-            throw new ApiException("Missing the required parameter 'moveTaskOrderID' when calling updateMTOShipment(Async)");
-        }
+    private com.squareup.okhttp.Call updateMTOShipmentValidateBeforeCall(UUID mtoShipmentID, MTOShipment body, String ifMatch, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'mtoShipmentID' is set
         if (mtoShipmentID == null) {
@@ -137,54 +248,51 @@ public class MtoShipmentApi {
         }
         
 
-        com.squareup.okhttp.Call call = updateMTOShipmentCall(moveTaskOrderID, mtoShipmentID, body, ifMatch, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = updateMTOShipmentCall(mtoShipmentID, body, ifMatch, progressListener, progressRequestListener);
         return call;
 
     }
 
     /**
-     * Updates MTO shipment
-     * Updates MTO shipment.
-     * @param moveTaskOrderID UUID of the move task order being used. (required)
-     * @param mtoShipmentID UUID of the move task order shipment being updated. (required)
+     * updateMTOShipment
+     * Updates an existing shipment for a Move Task Order (MTO). Only the following fields can be updated using this endpoint:  * &#x60;scheduledPickupDate&#x60; * &#x60;actualPickupDate&#x60; * &#x60;firstAvailableDeliveryDate&#x60; * &#x60;destinationAddress&#x60; * &#x60;pickupAddress&#x60; * &#x60;secondaryDeliveryAddress&#x60; * &#x60;secondaryPickupAddress&#x60; * &#x60;primeEstimatedWeight&#x60; * &#x60;primeActualWeight&#x60; * &#x60;shipmentType&#x60; * &#x60;agents&#x60; - all subfields except &#x60;mtoShipmentID&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. You cannot add new agents to a shipment.  Note that some fields cannot be manually changed but will still be updated automatically, such as &#x60;primeEstimatedWeightRecordedDate&#x60; and &#x60;requiredDeliveryDate&#x60;. 
+     * @param mtoShipmentID UUID of the shipment being updated. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)
      * @return MTOShipment
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public MTOShipment updateMTOShipment(UUID moveTaskOrderID, UUID mtoShipmentID, MTOShipment body, String ifMatch) throws ApiException {
-        ApiResponse<MTOShipment> resp = updateMTOShipmentWithHttpInfo(moveTaskOrderID, mtoShipmentID, body, ifMatch);
+    public MTOShipment updateMTOShipment(UUID mtoShipmentID, MTOShipment body, String ifMatch) throws ApiException {
+        ApiResponse<MTOShipment> resp = updateMTOShipmentWithHttpInfo(mtoShipmentID, body, ifMatch);
         return resp.getData();
     }
 
     /**
-     * Updates MTO shipment
-     * Updates MTO shipment.
-     * @param moveTaskOrderID UUID of the move task order being used. (required)
-     * @param mtoShipmentID UUID of the move task order shipment being updated. (required)
+     * updateMTOShipment
+     * Updates an existing shipment for a Move Task Order (MTO). Only the following fields can be updated using this endpoint:  * &#x60;scheduledPickupDate&#x60; * &#x60;actualPickupDate&#x60; * &#x60;firstAvailableDeliveryDate&#x60; * &#x60;destinationAddress&#x60; * &#x60;pickupAddress&#x60; * &#x60;secondaryDeliveryAddress&#x60; * &#x60;secondaryPickupAddress&#x60; * &#x60;primeEstimatedWeight&#x60; * &#x60;primeActualWeight&#x60; * &#x60;shipmentType&#x60; * &#x60;agents&#x60; - all subfields except &#x60;mtoShipmentID&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. You cannot add new agents to a shipment.  Note that some fields cannot be manually changed but will still be updated automatically, such as &#x60;primeEstimatedWeightRecordedDate&#x60; and &#x60;requiredDeliveryDate&#x60;. 
+     * @param mtoShipmentID UUID of the shipment being updated. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)
      * @return ApiResponse&lt;MTOShipment&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MTOShipment> updateMTOShipmentWithHttpInfo(UUID moveTaskOrderID, UUID mtoShipmentID, MTOShipment body, String ifMatch) throws ApiException {
-        com.squareup.okhttp.Call call = updateMTOShipmentValidateBeforeCall(moveTaskOrderID, mtoShipmentID, body, ifMatch, null, null);
+    public ApiResponse<MTOShipment> updateMTOShipmentWithHttpInfo(UUID mtoShipmentID, MTOShipment body, String ifMatch) throws ApiException {
+        com.squareup.okhttp.Call call = updateMTOShipmentValidateBeforeCall(mtoShipmentID, body, ifMatch, null, null);
         Type localVarReturnType = new TypeToken<MTOShipment>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Updates MTO shipment (asynchronously)
-     * Updates MTO shipment.
-     * @param moveTaskOrderID UUID of the move task order being used. (required)
-     * @param mtoShipmentID UUID of the move task order shipment being updated. (required)
+     * updateMTOShipment (asynchronously)
+     * Updates an existing shipment for a Move Task Order (MTO). Only the following fields can be updated using this endpoint:  * &#x60;scheduledPickupDate&#x60; * &#x60;actualPickupDate&#x60; * &#x60;firstAvailableDeliveryDate&#x60; * &#x60;destinationAddress&#x60; * &#x60;pickupAddress&#x60; * &#x60;secondaryDeliveryAddress&#x60; * &#x60;secondaryPickupAddress&#x60; * &#x60;primeEstimatedWeight&#x60; * &#x60;primeActualWeight&#x60; * &#x60;shipmentType&#x60; * &#x60;agents&#x60; - all subfields except &#x60;mtoShipmentID&#x60;, &#x60;createdAt&#x60;, &#x60;updatedAt&#x60;. You cannot add new agents to a shipment.  Note that some fields cannot be manually changed but will still be updated automatically, such as &#x60;primeEstimatedWeightRecordedDate&#x60; and &#x60;requiredDeliveryDate&#x60;. 
+     * @param mtoShipmentID UUID of the shipment being updated. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call updateMTOShipmentAsync(UUID moveTaskOrderID, UUID mtoShipmentID, MTOShipment body, String ifMatch, final ApiCallback<MTOShipment> callback) throws ApiException {
+    public com.squareup.okhttp.Call updateMTOShipmentAsync(UUID mtoShipmentID, MTOShipment body, String ifMatch, final ApiCallback<MTOShipment> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -205,7 +313,7 @@ public class MtoShipmentApi {
             };
         }
 
-        com.squareup.okhttp.Call call = updateMTOShipmentValidateBeforeCall(moveTaskOrderID, mtoShipmentID, body, ifMatch, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = updateMTOShipmentValidateBeforeCall(mtoShipmentID, body, ifMatch, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MTOShipment>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

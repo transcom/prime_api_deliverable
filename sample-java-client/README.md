@@ -12,7 +12,7 @@ The Prime API for move.mil
 
 ## Requirements
 
-Building the API client library requires:
+Building the API client library requiresxsxxxx:
 1. Java 1.7+
 2. Maven/Gradle
 

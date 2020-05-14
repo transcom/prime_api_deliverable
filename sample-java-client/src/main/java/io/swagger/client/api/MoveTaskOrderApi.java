@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -28,11 +28,9 @@ import java.io.IOException;
 
 
 import io.swagger.client.model.Body;
-import io.swagger.client.model.Customer;
 import io.swagger.client.model.Error;
 import io.swagger.client.model.MoveTaskOrder;
 import io.swagger.client.model.MoveTaskOrders;
-import io.swagger.client.model.ResponsesPermissionDenied;
 import io.swagger.client.model.ValidationError;
 
 import java.lang.reflect.Type;
@@ -121,7 +119,7 @@ public class MoveTaskOrderApi {
     }
 
     /**
-     * Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE
+     * fetchMTOUpdates
      * Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE. This prevents viewing any move task orders that have not been made available to the Prime. 
      * @param since Only return move task orders updated since this time. (optional)
      * @return MoveTaskOrders
@@ -133,7 +131,7 @@ public class MoveTaskOrderApi {
     }
 
     /**
-     * Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE
+     * fetchMTOUpdates
      * Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE. This prevents viewing any move task orders that have not been made available to the Prime. 
      * @param since Only return move task orders updated since this time. (optional)
      * @return ApiResponse&lt;MoveTaskOrders&gt;
@@ -146,7 +144,7 @@ public class MoveTaskOrderApi {
     }
 
     /**
-     * Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE (asynchronously)
+     * fetchMTOUpdates (asynchronously)
      * Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE. This prevents viewing any move task orders that have not been made available to the Prime. 
      * @param since Only return move task orders updated since this time. (optional)
      * @param callback The callback to be executed when the API call finishes
@@ -176,129 +174,6 @@ public class MoveTaskOrderApi {
 
         com.squareup.okhttp.Call call = fetchMTOUpdatesValidateBeforeCall(since, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MoveTaskOrders>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for getMoveTaskOrderCustomer
-     * @param moveTaskOrderID ID of move order to use. (required)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call getMoveTaskOrderCustomerCall(String moveTaskOrderID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/move-task-orders/{moveTaskOrderID}/customer"
-            .replaceAll("\\{" + "moveTaskOrderID" + "\\}", apiClient.escapeString(moveTaskOrderID.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getMoveTaskOrderCustomerValidateBeforeCall(String moveTaskOrderID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'moveTaskOrderID' is set
-        if (moveTaskOrderID == null) {
-            throw new ApiException("Missing the required parameter 'moveTaskOrderID' when calling getMoveTaskOrderCustomer(Async)");
-        }
-        
-
-        com.squareup.okhttp.Call call = getMoveTaskOrderCustomerCall(moveTaskOrderID, progressListener, progressRequestListener);
-        return call;
-
-    }
-
-    /**
-     * Gets the customer associated with a move task order ID
-     * Gets the customer associated with a move task order ID.
-     * @param moveTaskOrderID ID of move order to use. (required)
-     * @return Customer
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public Customer getMoveTaskOrderCustomer(String moveTaskOrderID) throws ApiException {
-        ApiResponse<Customer> resp = getMoveTaskOrderCustomerWithHttpInfo(moveTaskOrderID);
-        return resp.getData();
-    }
-
-    /**
-     * Gets the customer associated with a move task order ID
-     * Gets the customer associated with a move task order ID.
-     * @param moveTaskOrderID ID of move order to use. (required)
-     * @return ApiResponse&lt;Customer&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<Customer> getMoveTaskOrderCustomerWithHttpInfo(String moveTaskOrderID) throws ApiException {
-        com.squareup.okhttp.Call call = getMoveTaskOrderCustomerValidateBeforeCall(moveTaskOrderID, null, null);
-        Type localVarReturnType = new TypeToken<Customer>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Gets the customer associated with a move task order ID (asynchronously)
-     * Gets the customer associated with a move task order ID.
-     * @param moveTaskOrderID ID of move order to use. (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call getMoveTaskOrderCustomerAsync(String moveTaskOrderID, final ApiCallback<Customer> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = getMoveTaskOrderCustomerValidateBeforeCall(moveTaskOrderID, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Customer>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -381,8 +256,8 @@ public class MoveTaskOrderApi {
     }
 
     /**
-     * Updates move task order&#39;s post counseling information
-     * Updates move task order fields ppmType, ppmEstimatedWeight, and pointOfContact.
+     * updateMTOPostCounselingInformation
+     * Updates move task order after the counseling stage. Allows update of fields ppmType and ppmEstimatedWeight.
      * @param moveTaskOrderID ID of move task order to use. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)
@@ -395,8 +270,8 @@ public class MoveTaskOrderApi {
     }
 
     /**
-     * Updates move task order&#39;s post counseling information
-     * Updates move task order fields ppmType, ppmEstimatedWeight, and pointOfContact.
+     * updateMTOPostCounselingInformation
+     * Updates move task order after the counseling stage. Allows update of fields ppmType and ppmEstimatedWeight.
      * @param moveTaskOrderID ID of move task order to use. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)
@@ -410,8 +285,8 @@ public class MoveTaskOrderApi {
     }
 
     /**
-     * Updates move task order&#39;s post counseling information (asynchronously)
-     * Updates move task order fields ppmType, ppmEstimatedWeight, and pointOfContact.
+     * updateMTOPostCounselingInformation (asynchronously)
+     * Updates move task order after the counseling stage. Allows update of fields ppmType and ppmEstimatedWeight.
      * @param moveTaskOrderID ID of move task order to use. (required)
      * @param body  (required)
      * @param ifMatch Optimistic locking is implemented via the &#x60;If-Match&#x60; header. If the ETag header does not match the value of the resource on the server, the server rejects the change with a &#x60;412 Precondition Failed&#x60; error.  (required)

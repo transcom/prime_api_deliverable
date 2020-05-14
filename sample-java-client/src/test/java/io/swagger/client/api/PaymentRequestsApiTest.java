@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -18,7 +18,6 @@ import io.swagger.client.model.ClientError;
 import io.swagger.client.model.CreatePaymentRequestPayload;
 import io.swagger.client.model.Error;
 import io.swagger.client.model.PaymentRequest;
-import io.swagger.client.model.ResponsesPermissionDenied;
 import io.swagger.client.model.ValidationError;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -38,7 +37,7 @@ public class PaymentRequestsApiTest {
 
     
     /**
-     * Creates a payment request
+     * createPaymentRequest
      *
      * Creates a new instance of a paymentRequest. A newly created payment request is assigned the status &#x60;PENDING&#x60;. A move task order can have multiple payment requests, and a final payment request can be marked using boolean &#x60;isFinal&#x60;. 
      *

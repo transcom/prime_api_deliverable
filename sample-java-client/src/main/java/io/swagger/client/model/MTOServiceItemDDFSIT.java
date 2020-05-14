@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -14,7 +14,6 @@
 package io.swagger.client.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -35,7 +34,7 @@ import org.threeten.bp.LocalDate;
  * Describes a domestic destination 1st day SIT service item subtype of a MTOServiceItem.
  */
 @ApiModel(description = "Describes a domestic destination 1st day SIT service item subtype of a MTOServiceItem.")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-06T14:55:33.605Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-14T14:53:44.624-07:00")
 public class MTOServiceItemDDFSIT extends MTOServiceItem {
   @SerializedName("reServiceCode")
   private ReServiceCode reServiceCode = null;
@@ -118,7 +117,7 @@ public class MTOServiceItemDDFSIT extends MTOServiceItem {
    * Get firstAvailableDeliveryDate1
    * @return firstAvailableDeliveryDate1
   **/
-  @ApiModelProperty(example = "", required = true, value = "")
+  @ApiModelProperty(example = "2020-01-20T00:00:00.000+0000", required = true, value = "")
   public LocalDate getFirstAvailableDeliveryDate1() {
     return firstAvailableDeliveryDate1;
   }
@@ -154,7 +153,7 @@ public class MTOServiceItemDDFSIT extends MTOServiceItem {
    * Get firstAvailableDeliveryDate2
    * @return firstAvailableDeliveryDate2
   **/
-  @ApiModelProperty(example = "", required = true, value = "")
+  @ApiModelProperty(example = "2020-01-20T00:00:00.000+0000", required = true, value = "")
   public LocalDate getFirstAvailableDeliveryDate2() {
     return firstAvailableDeliveryDate2;
   }

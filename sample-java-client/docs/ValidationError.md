@@ -4,7 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**invalidFields** | **Map&lt;String, String&gt;** |  |  [optional]
+**title** | **String** |  | 
+**detail** | **String** |  | 
+**instance** | [**UUID**](UUID.md) |  | 
 
 
 
