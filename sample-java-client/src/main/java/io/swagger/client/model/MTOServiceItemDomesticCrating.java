@@ -32,7 +32,7 @@ import java.util.UUID;
  * Describes a domestic crating/uncrating service item subtype of a MTOServiceItem.
  */
 @ApiModel(description = "Describes a domestic crating/uncrating service item subtype of a MTOServiceItem.")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-14T14:53:44.624-07:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-15T13:04:32.719-07:00")
 public class MTOServiceItemDomesticCrating extends MTOServiceItem {
   /**
    * Gets or Sets reServiceCode

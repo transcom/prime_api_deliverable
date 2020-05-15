@@ -34,7 +34,7 @@ import org.threeten.bp.LocalDate;
 /**
  * CreateShipmentPayload
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-14T14:53:44.624-07:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-15T13:04:32.719-07:00")
 public class CreateShipmentPayload {
   @SerializedName("moveTaskOrderID")
   private UUID moveTaskOrderID = null;
