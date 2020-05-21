@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -16,7 +16,6 @@ package io.swagger.client.api;
 import io.swagger.client.ApiException;
 import io.swagger.client.model.Error;
 import java.io.File;
-import io.swagger.client.model.ResponsesPermissionDenied;
 import io.swagger.client.model.Upload;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -36,7 +35,7 @@ public class UploadsApiTest {
 
     
     /**
-     * Create a new upload for a payment request
+     * createUpload
      *
      * Uploads represent a single digital file, such as a JPEG, PNG, or PDF.
      *

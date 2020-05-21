@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -14,7 +14,6 @@
 package io.swagger.client.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -24,43 +23,74 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.client.model.ClientError;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
  * ValidationError
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-06T14:55:33.605Z")
-public class ValidationError extends ClientError {
-  @SerializedName("invalidFields")
-  private Map<String, String> invalidFields = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-15T13:04:32.719-07:00")
+public class ValidationError {
+  @SerializedName("title")
+  private String title = null;
 
-  public ValidationError invalidFields(Map<String, String> invalidFields) {
-    this.invalidFields = invalidFields;
-    return this;
-  }
+  @SerializedName("detail")
+  private String detail = null;
 
-  public ValidationError putInvalidFieldsItem(String key, String invalidFieldsItem) {
-    if (this.invalidFields == null) {
-      this.invalidFields = new HashMap<String, String>();
-    }
-    this.invalidFields.put(key, invalidFieldsItem);
+  @SerializedName("instance")
+  private UUID instance = null;
+
+  public ValidationError title(String title) {
+    this.title = title;
     return this;
   }
 
    /**
-   * Get invalidFields
-   * @return invalidFields
+   * Get title
+   * @return title
   **/
-  @ApiModelProperty(value = "")
-  public Map<String, String> getInvalidFields() {
-    return invalidFields;
+  @ApiModelProperty(required = true, value = "")
+  public String getTitle() {
+    return title;
   }
 
-  public void setInvalidFields(Map<String, String> invalidFields) {
-    this.invalidFields = invalidFields;
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public ValidationError detail(String detail) {
+    this.detail = detail;
+    return this;
+  }
+
+   /**
+   * Get detail
+   * @return detail
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public String getDetail() {
+    return detail;
+  }
+
+  public void setDetail(String detail) {
+    this.detail = detail;
+  }
+
+  public ValidationError instance(UUID instance) {
+    this.instance = instance;
+    return this;
+  }
+
+   /**
+   * Get instance
+   * @return instance
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public UUID getInstance() {
+    return instance;
+  }
+
+  public void setInstance(UUID instance) {
+    this.instance = instance;
   }
 
 
@@ -73,13 +103,14 @@ public class ValidationError extends ClientError {
       return false;
     }
     ValidationError validationError = (ValidationError) o;
-    return Objects.equals(this.invalidFields, validationError.invalidFields) &&
-        super.equals(o);
+    return Objects.equals(this.title, validationError.title) &&
+        Objects.equals(this.detail, validationError.detail) &&
+        Objects.equals(this.instance, validationError.instance);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invalidFields, super.hashCode());
+    return Objects.hash(title, detail, instance);
   }
 
 
@@ -87,8 +118,10 @@ public class ValidationError extends ClientError {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidationError {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    invalidFields: ").append(toIndentedString(invalidFields)).append("\n");
+    
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
+    sb.append("    instance: ").append(toIndentedString(instance)).append("\n");
     sb.append("}");
     return sb.toString();
   }

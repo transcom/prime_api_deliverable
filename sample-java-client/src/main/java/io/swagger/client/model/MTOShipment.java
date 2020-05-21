@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -14,7 +14,6 @@
 package io.swagger.client.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -32,7 +31,7 @@ import org.threeten.bp.LocalDate;
 /**
  * MTOShipment
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-06T14:55:33.605Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-15T13:04:32.719-07:00")
 public class MTOShipment {
   @SerializedName("moveTaskOrderID")
   private UUID moveTaskOrderID = null;
@@ -149,13 +148,11 @@ public class MTOShipment {
   @SerializedName("status")
   private StatusEnum status = null;
 
+  @SerializedName("rejectionReason")
+  private String rejectionReason = null;
+
   @SerializedName("pointOfContact")
   private String pointOfContact = null;
-
-  public MTOShipment moveTaskOrderID(UUID moveTaskOrderID) {
-    this.moveTaskOrderID = moveTaskOrderID;
-    return this;
-  }
 
    /**
    * Get moveTaskOrderID
@@ -164,15 +161,6 @@ public class MTOShipment {
   @ApiModelProperty(example = "1f2270c7-7166-40ae-981e-b200ebdf3054", value = "")
   public UUID getMoveTaskOrderID() {
     return moveTaskOrderID;
-  }
-
-  public void setMoveTaskOrderID(UUID moveTaskOrderID) {
-    this.moveTaskOrderID = moveTaskOrderID;
-  }
-
-  public MTOShipment id(UUID id) {
-    this.id = id;
-    return this;
   }
 
    /**
@@ -184,15 +172,6 @@ public class MTOShipment {
     return id;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public MTOShipment createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
    /**
    * Get createdAt
    * @return createdAt
@@ -200,15 +179,6 @@ public class MTOShipment {
   @ApiModelProperty(value = "")
   public String getCreatedAt() {
     return createdAt;
-  }
-
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public MTOShipment updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
   }
 
    /**
@@ -220,26 +190,13 @@ public class MTOShipment {
     return updatedAt;
   }
 
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public MTOShipment approvedDate(LocalDate approvedDate) {
-    this.approvedDate = approvedDate;
-    return this;
-  }
-
    /**
-   * Get approvedDate
+   * date when the shipment was given the status \&quot;APPROVED\&quot;
    * @return approvedDate
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "date when the shipment was given the status \"APPROVED\"")
   public LocalDate getApprovedDate() {
     return approvedDate;
-  }
-
-  public void setApprovedDate(LocalDate approvedDate) {
-    this.approvedDate = approvedDate;
   }
 
   public MTOShipment scheduledPickupDate(LocalDate scheduledPickupDate) {
@@ -260,11 +217,6 @@ public class MTOShipment {
     this.scheduledPickupDate = scheduledPickupDate;
   }
 
-  public MTOShipment requestedPickupDate(LocalDate requestedPickupDate) {
-    this.requestedPickupDate = requestedPickupDate;
-    return this;
-  }
-
    /**
    * Get requestedPickupDate
    * @return requestedPickupDate
@@ -272,10 +224,6 @@ public class MTOShipment {
   @ApiModelProperty(value = "")
   public LocalDate getRequestedPickupDate() {
     return requestedPickupDate;
-  }
-
-  public void setRequestedPickupDate(LocalDate requestedPickupDate) {
-    this.requestedPickupDate = requestedPickupDate;
   }
 
   public MTOShipment firstAvailableDeliveryDate(LocalDate firstAvailableDeliveryDate) {
@@ -332,11 +280,6 @@ public class MTOShipment {
     this.primeEstimatedWeight = primeEstimatedWeight;
   }
 
-  public MTOShipment primeEstimatedWeightRecordedDate(LocalDate primeEstimatedWeightRecordedDate) {
-    this.primeEstimatedWeightRecordedDate = primeEstimatedWeightRecordedDate;
-    return this;
-  }
-
    /**
    * Get primeEstimatedWeightRecordedDate
    * @return primeEstimatedWeightRecordedDate
@@ -344,10 +287,6 @@ public class MTOShipment {
   @ApiModelProperty(value = "")
   public LocalDate getPrimeEstimatedWeightRecordedDate() {
     return primeEstimatedWeightRecordedDate;
-  }
-
-  public void setPrimeEstimatedWeightRecordedDate(LocalDate primeEstimatedWeightRecordedDate) {
-    this.primeEstimatedWeightRecordedDate = primeEstimatedWeightRecordedDate;
   }
 
   public MTOShipment actualPickupDate(LocalDate actualPickupDate) {
@@ -368,11 +307,6 @@ public class MTOShipment {
     this.actualPickupDate = actualPickupDate;
   }
 
-  public MTOShipment requiredDeliveryDate(LocalDate requiredDeliveryDate) {
-    this.requiredDeliveryDate = requiredDeliveryDate;
-    return this;
-  }
-
    /**
    * Get requiredDeliveryDate
    * @return requiredDeliveryDate
@@ -380,10 +314,6 @@ public class MTOShipment {
   @ApiModelProperty(value = "")
   public LocalDate getRequiredDeliveryDate() {
     return requiredDeliveryDate;
-  }
-
-  public void setRequiredDeliveryDate(LocalDate requiredDeliveryDate) {
-    this.requiredDeliveryDate = requiredDeliveryDate;
   }
 
   public MTOShipment agents(MTOAgents agents) {
@@ -404,11 +334,6 @@ public class MTOShipment {
     this.agents = agents;
   }
 
-  public MTOShipment customerRemarks(String customerRemarks) {
-    this.customerRemarks = customerRemarks;
-    return this;
-  }
-
    /**
    * Get customerRemarks
    * @return customerRemarks
@@ -416,10 +341,6 @@ public class MTOShipment {
   @ApiModelProperty(example = "handle with care", value = "")
   public String getCustomerRemarks() {
     return customerRemarks;
-  }
-
-  public void setCustomerRemarks(String customerRemarks) {
-    this.customerRemarks = customerRemarks;
   }
 
   public MTOShipment shipmentType(MTOShipmentType shipmentType) {
@@ -512,11 +433,6 @@ public class MTOShipment {
     this.secondaryDeliveryAddress = secondaryDeliveryAddress;
   }
 
-  public MTOShipment eTag(String eTag) {
-    this.eTag = eTag;
-    return this;
-  }
-
    /**
    * Get eTag
    * @return eTag
@@ -524,15 +440,6 @@ public class MTOShipment {
   @ApiModelProperty(value = "")
   public String getETag() {
     return eTag;
-  }
-
-  public void setETag(String eTag) {
-    this.eTag = eTag;
-  }
-
-  public MTOShipment status(StatusEnum status) {
-    this.status = status;
-    return this;
   }
 
    /**
@@ -544,8 +451,13 @@ public class MTOShipment {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
-    this.status = status;
+   /**
+   * Get rejectionReason
+   * @return rejectionReason
+  **/
+  @ApiModelProperty(example = "MTO Shipment not good enough", value = "")
+  public String getRejectionReason() {
+    return rejectionReason;
   }
 
   public MTOShipment pointOfContact(String pointOfContact) {
@@ -598,12 +510,13 @@ public class MTOShipment {
         Objects.equals(this.secondaryDeliveryAddress, mtOShipment.secondaryDeliveryAddress) &&
         Objects.equals(this.eTag, mtOShipment.eTag) &&
         Objects.equals(this.status, mtOShipment.status) &&
+        Objects.equals(this.rejectionReason, mtOShipment.rejectionReason) &&
         Objects.equals(this.pointOfContact, mtOShipment.pointOfContact);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(moveTaskOrderID, id, createdAt, updatedAt, approvedDate, scheduledPickupDate, requestedPickupDate, firstAvailableDeliveryDate, primeActualWeight, primeEstimatedWeight, primeEstimatedWeightRecordedDate, actualPickupDate, requiredDeliveryDate, agents, customerRemarks, shipmentType, pickupAddress, destinationAddress, secondaryPickupAddress, secondaryDeliveryAddress, eTag, status, pointOfContact);
+    return Objects.hash(moveTaskOrderID, id, createdAt, updatedAt, approvedDate, scheduledPickupDate, requestedPickupDate, firstAvailableDeliveryDate, primeActualWeight, primeEstimatedWeight, primeEstimatedWeightRecordedDate, actualPickupDate, requiredDeliveryDate, agents, customerRemarks, shipmentType, pickupAddress, destinationAddress, secondaryPickupAddress, secondaryDeliveryAddress, eTag, status, rejectionReason, pointOfContact);
   }
 
 
@@ -634,6 +547,7 @@ public class MTOShipment {
     sb.append("    secondaryDeliveryAddress: ").append(toIndentedString(secondaryDeliveryAddress)).append("\n");
     sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    rejectionReason: ").append(toIndentedString(rejectionReason)).append("\n");
     sb.append("    pointOfContact: ").append(toIndentedString(pointOfContact)).append("\n");
     sb.append("}");
     return sb.toString();

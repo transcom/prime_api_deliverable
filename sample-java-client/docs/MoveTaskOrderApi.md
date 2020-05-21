@@ -4,16 +4,15 @@ All URIs are relative to *http://localhost/prime/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**fetchMTOUpdates**](MoveTaskOrderApi.md#fetchMTOUpdates) | **GET** /move-task-orders | Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE
-[**getMoveTaskOrderCustomer**](MoveTaskOrderApi.md#getMoveTaskOrderCustomer) | **GET** /move-task-orders/{moveTaskOrderID}/customer | Gets the customer associated with a move task order ID
-[**updateMTOPostCounselingInformation**](MoveTaskOrderApi.md#updateMTOPostCounselingInformation) | **PATCH** /move-task-orders/{moveTaskOrderID}/post-counseling-info | Updates move task order&#39;s post counseling information
+[**fetchMTOUpdates**](MoveTaskOrderApi.md#fetchMTOUpdates) | **GET** /move-task-orders | fetchMTOUpdates
+[**updateMTOPostCounselingInformation**](MoveTaskOrderApi.md#updateMTOPostCounselingInformation) | **PATCH** /move-task-orders/{moveTaskOrderID}/post-counseling-info | updateMTOPostCounselingInformation
 
 
 <a name="fetchMTOUpdates"></a>
 # **fetchMTOUpdates**
 > MoveTaskOrders fetchMTOUpdates(since)
 
-Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE
+fetchMTOUpdates
 
 Gets all move task orders where &#x60;isAvailableToPrime&#x60; is TRUE. This prevents viewing any move task orders that have not been made available to the Prime. 
 
@@ -54,58 +53,13 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getMoveTaskOrderCustomer"></a>
-# **getMoveTaskOrderCustomer**
-> Customer getMoveTaskOrderCustomer(moveTaskOrderID)
-
-Gets the customer associated with a move task order ID
-
-Gets the customer associated with a move task order ID.
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.MoveTaskOrderApi;
-
-
-MoveTaskOrderApi apiInstance = new MoveTaskOrderApi();
-String moveTaskOrderID = "moveTaskOrderID_example"; // String | ID of move order to use.
-try {
-    Customer result = apiInstance.getMoveTaskOrderCustomer(moveTaskOrderID);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling MoveTaskOrderApi#getMoveTaskOrderCustomer");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **moveTaskOrderID** | **String**| ID of move order to use. |
-
-### Return type
-
-[**Customer**](Customer.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="updateMTOPostCounselingInformation"></a>
 # **updateMTOPostCounselingInformation**
 > MoveTaskOrder updateMTOPostCounselingInformation(moveTaskOrderID, body, ifMatch)
 
-Updates move task order&#39;s post counseling information
+updateMTOPostCounselingInformation
 
-Updates move task order fields ppmType, ppmEstimatedWeight, and pointOfContact.
+Updates move task order after the counseling stage. Allows update of fields ppmType and ppmEstimatedWeight.
 
 ### Example
 ```java

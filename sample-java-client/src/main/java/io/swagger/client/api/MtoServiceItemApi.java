@@ -1,6 +1,6 @@
 /*
- * move.mil API
- * The Prime API for move.mil
+ * Milmove Prime API
+ * The Prime API is a RESTful API that enables the Prime contractor to request information about upcoming moves, update the details and status of those moves, and make payment requests. It uses Mutual TLS for authentication procedures.  All endpoints are located at `primelocal/prime/v1/`. 
  *
  * OpenAPI spec version: 0.0.1
  * Contact: dp3@truss.works
@@ -29,8 +29,6 @@ import java.io.IOException;
 
 import io.swagger.client.model.Error;
 import io.swagger.client.model.MTOServiceItem;
-import io.swagger.client.model.ResponsesPermissionDenied;
-import java.util.UUID;
 import io.swagger.client.model.ValidationError;
 
 import java.lang.reflect.Type;
@@ -60,21 +58,17 @@ public class MtoServiceItemApi {
 
     /**
      * Build call for createMTOServiceItem
-     * @param moveTaskOrderID UUID of Move Task Order to use. (required)
-     * @param mtoShipmentID UUID of MTO Shipment to use. (required)
      * @param body  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call createMTOServiceItemCall(UUID moveTaskOrderID, UUID mtoShipmentID, MTOServiceItem body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call createMTOServiceItemCall(MTOServiceItem body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
 
         // create path and map variables
-        String localVarPath = "/move-task-orders/{moveTaskOrderID}/mto-shipments/{mtoShipmentID}/mto-service-items"
-            .replaceAll("\\{" + "moveTaskOrderID" + "\\}", apiClient.escapeString(moveTaskOrderID.toString()))
-            .replaceAll("\\{" + "mtoShipmentID" + "\\}", apiClient.escapeString(mtoShipmentID.toString()));
+        String localVarPath = "/mto-service-items";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -112,64 +106,48 @@ public class MtoServiceItemApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call createMTOServiceItemValidateBeforeCall(UUID moveTaskOrderID, UUID mtoShipmentID, MTOServiceItem body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'moveTaskOrderID' is set
-        if (moveTaskOrderID == null) {
-            throw new ApiException("Missing the required parameter 'moveTaskOrderID' when calling createMTOServiceItem(Async)");
-        }
-        
-        // verify the required parameter 'mtoShipmentID' is set
-        if (mtoShipmentID == null) {
-            throw new ApiException("Missing the required parameter 'mtoShipmentID' when calling createMTOServiceItem(Async)");
-        }
+    private com.squareup.okhttp.Call createMTOServiceItemValidateBeforeCall(MTOServiceItem body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
 
-        com.squareup.okhttp.Call call = createMTOServiceItemCall(moveTaskOrderID, mtoShipmentID, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = createMTOServiceItemCall(body, progressListener, progressRequestListener);
         return call;
 
     }
 
     /**
-     * Creates MTO service items that is added to a Move Task Order and MTO Shipment
-     * Creates a new instance of mtoServiceItem, which come from the list of services that can be provided. Upon creation these items are associated with a Move Task Order and an MTO Shipment. 
-     * @param moveTaskOrderID UUID of Move Task Order to use. (required)
-     * @param mtoShipmentID UUID of MTO Shipment to use. (required)
+     * createMTOServiceItem
+     * Creates a new instance of mtoServiceItem, which come from the list of services that can be provided. Upon creation these items are associated with a Move Task Order and an MTO Shipment. Must include UUIDs for the MTO and MTO Shipment connected to this service item. 
      * @param body  (optional)
      * @return MTOServiceItem
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public MTOServiceItem createMTOServiceItem(UUID moveTaskOrderID, UUID mtoShipmentID, MTOServiceItem body) throws ApiException {
-        ApiResponse<MTOServiceItem> resp = createMTOServiceItemWithHttpInfo(moveTaskOrderID, mtoShipmentID, body);
+    public MTOServiceItem createMTOServiceItem(MTOServiceItem body) throws ApiException {
+        ApiResponse<MTOServiceItem> resp = createMTOServiceItemWithHttpInfo(body);
         return resp.getData();
     }
 
     /**
-     * Creates MTO service items that is added to a Move Task Order and MTO Shipment
-     * Creates a new instance of mtoServiceItem, which come from the list of services that can be provided. Upon creation these items are associated with a Move Task Order and an MTO Shipment. 
-     * @param moveTaskOrderID UUID of Move Task Order to use. (required)
-     * @param mtoShipmentID UUID of MTO Shipment to use. (required)
+     * createMTOServiceItem
+     * Creates a new instance of mtoServiceItem, which come from the list of services that can be provided. Upon creation these items are associated with a Move Task Order and an MTO Shipment. Must include UUIDs for the MTO and MTO Shipment connected to this service item. 
      * @param body  (optional)
      * @return ApiResponse&lt;MTOServiceItem&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MTOServiceItem> createMTOServiceItemWithHttpInfo(UUID moveTaskOrderID, UUID mtoShipmentID, MTOServiceItem body) throws ApiException {
-        com.squareup.okhttp.Call call = createMTOServiceItemValidateBeforeCall(moveTaskOrderID, mtoShipmentID, body, null, null);
+    public ApiResponse<MTOServiceItem> createMTOServiceItemWithHttpInfo(MTOServiceItem body) throws ApiException {
+        com.squareup.okhttp.Call call = createMTOServiceItemValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<MTOServiceItem>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * Creates MTO service items that is added to a Move Task Order and MTO Shipment (asynchronously)
-     * Creates a new instance of mtoServiceItem, which come from the list of services that can be provided. Upon creation these items are associated with a Move Task Order and an MTO Shipment. 
-     * @param moveTaskOrderID UUID of Move Task Order to use. (required)
-     * @param mtoShipmentID UUID of MTO Shipment to use. (required)
+     * createMTOServiceItem (asynchronously)
+     * Creates a new instance of mtoServiceItem, which come from the list of services that can be provided. Upon creation these items are associated with a Move Task Order and an MTO Shipment. Must include UUIDs for the MTO and MTO Shipment connected to this service item. 
      * @param body  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createMTOServiceItemAsync(UUID moveTaskOrderID, UUID mtoShipmentID, MTOServiceItem body, final ApiCallback<MTOServiceItem> callback) throws ApiException {
+    public com.squareup.okhttp.Call createMTOServiceItemAsync(MTOServiceItem body, final ApiCallback<MTOServiceItem> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -190,7 +168,7 @@ public class MtoServiceItemApi {
             };
         }
 
-        com.squareup.okhttp.Call call = createMTOServiceItemValidateBeforeCall(moveTaskOrderID, mtoShipmentID, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = createMTOServiceItemValidateBeforeCall(body, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MTOServiceItem>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

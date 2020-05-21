@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **createdAt** | **String** |  |  [optional]
 **updatedAt** | **String** |  |  [optional]
-**approvedDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
+**approvedDate** | [**LocalDate**](LocalDate.md) | date when the shipment was given the status \&quot;APPROVED\&quot; |  [optional]
 **scheduledPickupDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
 **requestedPickupDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
 **firstAvailableDeliveryDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **secondaryDeliveryAddress** | [**Address**](Address.md) |  |  [optional]
 **eTag** | **String** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**rejectionReason** | **String** |  |  [optional]
 **pointOfContact** | **String** | Email or id of a contact person for this update. |  [optional]
 
 

@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost/prime/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createPaymentRequest**](PaymentRequestsApi.md#createPaymentRequest) | **POST** /payment-requests | Creates a payment request
+[**createPaymentRequest**](PaymentRequestsApi.md#createPaymentRequest) | **POST** /payment-requests | createPaymentRequest
 
 
 <a name="createPaymentRequest"></a>
 # **createPaymentRequest**
 > PaymentRequest createPaymentRequest(body)
 
-Creates a payment request
+createPaymentRequest
 
 Creates a new instance of a paymentRequest. A newly created payment request is assigned the status &#x60;PENDING&#x60;. A move task order can have multiple payment requests, and a final payment request can be marked using boolean &#x60;isFinal&#x60;. 
 

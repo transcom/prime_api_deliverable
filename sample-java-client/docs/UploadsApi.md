@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost/prime/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createUpload**](UploadsApi.md#createUpload) | **POST** /payment-requests/{paymentRequestID}/uploads | Create a new upload for a payment request
+[**createUpload**](UploadsApi.md#createUpload) | **POST** /payment-requests/{paymentRequestID}/uploads | createUpload
 
 
 <a name="createUpload"></a>
 # **createUpload**
 > Upload createUpload(paymentRequestID, file)
 
-Create a new upload for a payment request
+createUpload
 
 Uploads represent a single digital file, such as a JPEG, PNG, or PDF.
 
