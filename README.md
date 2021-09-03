@@ -23,3 +23,10 @@ Read the documentation in the Prime API [Wiki](https://github.com/transcom/prime
   * [Postman](https://github.com/transcom/prime_api_deliverable/wiki/Using-Postman)
 * [Glossary](https://github.com/transcom/prime_api_deliverable/wiki/Glossary)
 * [Sequence Diagram](https://github.com/transcom/prime_api_deliverable/wiki/Sequence-Diagram)
+
+## Postman directory
+
+There is a Postman directory at the root of this repository. This exists to
+capture the work necessary to integrate with Postman Pro without having to use
+the Postman UI to create and modify collections. This tooling has been created
+to facilitate collaboration across engineering, delivery, and contracting teams.
