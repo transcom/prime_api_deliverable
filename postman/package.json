@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "postman-collection": "^4.1.0"
+  },
+  "name": "prime-api-postman",
+  "description": "The tool [Postman Collection][gh-link] will be used by the contents of this directory.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/transcom/prime_api_deliverables"
+  },
+  "author": "TrussWorks",
+  "license": "MIT"
+}
