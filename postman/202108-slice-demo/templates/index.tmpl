@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{view.pageTitle}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css" integrity="sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==" crossorigin="anonymous" />
+    <style>
+    li {
+        list-style-type: none !important;
+    }
+    .hide {
+        display: none;
+    }
+    .show {
+        display: block;
+    }
+    </style>
+    <script>
+
+</script>
+</head>
+<body>
+  <h2 class="site-preview-heading font-sans-2xl">{{view.pageHeading}}</h2>
+  <h3 class="site-component-section-title font-sans-xl">{{view.pageAction}}</h3>
+
+  <div class="usa-alert usa-alert--info" id="alert" >
+    <div class="usa-alert__body">
+      <h4 id="alert-heading" class="usa-alert__heading margin-bottom-4">{{view.alertTitle}}</h4>
+      <ul class="usa-content-list font-mono-md">
+        <li>
+          <strong>Customer Name:</strong> {{response.order.customer.firstName}} {{response.order.customer.lastName}}
+        </li>
+        <li>
+          <strong>Move ID:</strong> {{response.id}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

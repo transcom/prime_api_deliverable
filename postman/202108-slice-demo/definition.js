@@ -16,7 +16,7 @@ Demo. The following Prime Requests are performed in this collection.
 
 let definition = {
   info: {
-    name: "2021-08 Prime API Slice Demo",
+    name: "202108 Prime API Slice Demo",
     description: description,
     schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
   },
