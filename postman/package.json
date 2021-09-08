@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "mustache": "^4.2.0",
     "postman-collection": "^4.1.0"
   },
   "name": "prime-api-postman",
@@ -9,6 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "node index.js",
+    "build_202108-slice-demo": "node ./202108-slice-demo/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
