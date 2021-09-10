@@ -1,3 +1,4 @@
+const currentTime = require('../utils/currentTime');
 let environments = require('./environment');
 
 let description = `
@@ -16,7 +17,7 @@ Demo. The following Prime Requests are performed in this collection.
 
 let definition = {
   info: {
-    name: "202108 Prime API Slice Demo",
+    name: `${currentTime()} 202108 Prime API Slice Demo`,
     description: description,
     schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
   },
