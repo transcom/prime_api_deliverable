@@ -12,7 +12,6 @@ const fs = require('fs'),
           './templates/prime-update/counsels-move.html'
         )
       ),
-      updateShipmentPayload = require('./payloads/update-shipment'),
       DEMO_ENVIRONMENT_URL = 'https://api.demo.dp3.us',
       ACTUAL_WEIGHT = 5100,
       ESTIMATED_WEIGHT = 4800;
@@ -67,11 +66,6 @@ var environment = {
     id: 'updateShipmentTemplate',
     value: updateShipmentTemplate.toString(),
     type: 'string',
-  },
-  updateShipmentPayload: {
-    id: 'updateShipmentPayload',
-    value: updateShipmentPayload,
-    type: 'object',
   },
 };
 
