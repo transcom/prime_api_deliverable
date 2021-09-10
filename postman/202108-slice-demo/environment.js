@@ -1,13 +1,21 @@
 const fs = require('fs'),
       path = require('path'),
-      updateShipmentTemplate = fs.readFileSync(
-        path.resolve(__dirname, './templates/index.tmpl')
+      primeNotificationTemplate = fs.readFileSync(
+        path.resolve(
+          __dirname,
+          './templates/prime-notification/receive-move.html'
+        )
       ),
-      updateShipmentPayload = require('./payloads/update-shipment');
-
-const DEMO_ENVIRONMENT_URL = 'https://api.demo.dp3.us';
-const ACTUAL_WEIGHT = 5100;
-const ESTIMATED_WEIGHT = 4800;
+      updateShipmentTemplate = fs.readFileSync(
+        path.resolve(
+          __dirname,
+          './templates/prime-update/counsels-move.html'
+        )
+      ),
+      updateShipmentPayload = require('./payloads/update-shipment'),
+      DEMO_ENVIRONMENT_URL = 'https://api.demo.dp3.us',
+      ACTUAL_WEIGHT = 5100,
+      ESTIMATED_WEIGHT = 4800;
 
 var environment = {
   baseUrl: {
@@ -25,13 +33,18 @@ var environment = {
     value: '',
     type: 'string',
   },
+  reweighETag: {
+    id: 'reweighETag',
+    value: '',
+    type: 'string',
+  },
   shipmentID: {
     id: 'shipmentID',
     value: '',
     type: 'string',
   },
-  eTag: {
-    id: 'eTag',
+  shipmentETag: {
+    id: 'shipmentETag',
     value: '',
     type: 'string',
   },
@@ -44,6 +57,11 @@ var environment = {
     id: 'primeActualWeight',
     value: ACTUAL_WEIGHT,
     type: 'number',
+  },
+  primeNotificationTemplate: {
+    id: 'primeNotificationTemplate',
+    value: primeNotificationTemplate.toString(),
+    type: 'string',
   },
   updateShipmentTemplate: {
     id: 'updateShipmentTemplate',
