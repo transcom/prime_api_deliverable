@@ -1,9 +1,11 @@
+const Collection  = require('postman-collection').Collection,
+      Event       = require('postman-collection').Event,
+      Item        = require('postman-collection').Item,
+      Script      = require('postman-collection').Script;
+
 const fs = require('fs'),
       path = require('path'),
-      Collection = require('postman-collection').Collection,
-      Event = require('postman-collection').Event,
-      Item = require('postman-collection').Item,
-      Script = require('postman-collection').Script,
+      requestID = path.basename(__filename, '.js'),
       primeNotificationReceiveMoveScript = fs.readFileSync(
         path.resolve(
           __dirname,
@@ -14,7 +16,7 @@ const fs = require('fs'),
 
 module.exports = new Item({
   name: 'Notification: Prime receives new Move.',
-  id: 'notification-prime-receives-move',
+  id: requestID,
   request: {
     url: '{{baseUrl}}/move-task-orders/:shipmentID',
     method: 'GET',
