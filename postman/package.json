@@ -9,7 +9,6 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
     "build_202108-slice-demo": "node ./202108-slice-demo/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
