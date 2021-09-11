@@ -1,9 +1,13 @@
+const Collection  = require('postman-collection').Collection,
+      Event       = require('postman-collection').Event,
+      Item        = require('postman-collection').Item,
+      Script      = require('postman-collection').Script,
+      RequestBody = require('postman-collection').RequestBody;
+
 const fs = require('fs'),
       path = require('path'),
-      Collection = require('postman-collection').Collection,
-      Event = require('postman-collection').Event,
-      Item = require('postman-collection').Item,
-      Script = require('postman-collection').Script,
+      requestID = path.basename(__filename, '.js'),
+      payload = require(`../payloads/${requestID}`),
       preparePrimeCounselsMove = fs.readFileSync(
         path.resolve(
           __dirname,
@@ -18,20 +22,23 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Update: Prime updates Move with counseling information',
-  id: 'update-shipment-with-counseling',
+  name: 'Update Shipment With Actual Pickup Date',
+  id: requestID,
   request: {
     url: '{{baseUrl}}/move-task-orders/:shipmentID',
     method: 'PATCH',
+    header: {
+      'Content-Type': 'application/json',
+      'If-Match': '',
+    },
     description: `
-    This request is used to update the Move with a _destination address_
-    and _pickup dates_ that are _scheduled_ and _actual_ dates. This update
-    is a two-part process as the Prime is going to be doing a physical move
-    between updating the _scheduled_ pickup date and then the _actual_
-    pickup date. Since this is a two-part request, the Visualize tab will
-    contain a button to perform the secondary request rather than including a
-    different Request.
+    This request updates the Move with a actual pickup date This uses the
+    template called **prime-update/counsels-move.html**.
     `,
+    body: new RequestBody({
+      mode: 'raw',
+      raw: JSON.stringify(payload),
+    }),
   },
   event: [
     new Event({

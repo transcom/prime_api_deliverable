@@ -12,23 +12,16 @@
   li {
       list-style-type: none !important;
   }
-  .hide {
-      display: none;
-  }
-  .show {
-      display: block;
-  }
-  .my-move-header .usa-navbar {
-    height: auto !important;
-  }
   .usa-nav-container {
     max-width: 100% !important;
+  }
+  .usa-nav-container .usa-logo__text {
+    width: 100%;
+    text-align: center;
   }
   .my-prime-container {
     padding: 0 20px;
   }
-
-  .spacer { display: inline; }
   </style>
 </head>
 <body>
@@ -36,9 +29,7 @@
     <div class="my-move-header desktop:padding-bottom-3">
       <div class="usa-nav-container">
         <div class="usa-navbar">
-          <div class="usa-logo" id="basic-logo">
-            <em class="usa-logo__text">August 2021 Slice Demo</em>
-          </div>
+          <p class="usa-logo__text">August 2021 Slice Demo</p>
         </div>
       </div>
     </div>
@@ -52,6 +43,22 @@
       <div class="usa-alert__body">
         <h4 id="alert-heading" class="usa-alert__heading margin-bottom-4">{{alertTitle}}</h4>
         <ul class="usa-content-list font-mono-md">
+          {{#if scheduledPickupDate}}
+
+          {{/if}}
+
+          {{#if estimatedWeight}}
+
+          {{/if}}
+
+          {{#if actualPickupDate}}
+
+          {{/if}}
+
+          {{#if actualWeight}}
+
+          {{/if}}
+
           <li>
             <strong>Customer name:</strong> {{response.order.customer.firstName}} {{response.order.customer.lastName}}
           </li>
@@ -85,57 +92,12 @@
           <li>
             <strong>Reweigh status:</strong> ✅ {{reweighStatus}}
           </li>
+          <li>
+            <strong>Reweigh requested by:</strong> {{reweighRequestedBy}}
+          </li>
         </ul>
       </div>
     </div>
-
-    <div class='margin-top-4 margin-bottom-2'>
-      <button class='usa-button' id='updateMove' onclick='showMoveUpdate()'>Update the Move</button>
-    </div>
-    <div class='hide' id='updatedShipment'>
-      <table class='usa-table usa-table--borderless usa-table--striped'>
-      <caption>Updated Shipment Information</caption>
-
-      <tbody>
-        <tr>
-          <th scope='row'>Destination Address</th>
-          <td>{{shipment.destinationAddress.streetAddress1}}, {{shipment.destinationAddress.city}}, {{shipment.destinationAddress.state}}, {{shipment.destinationAddress.postalCode}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Scheduled Pickup Date</th>
-          <td>{{shipment.scheduledPickupDate}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Estimated Weight</th>
-          <td>{{shipment.primeEstimatedWeight}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Actual Pickup Date</th>
-          <td>{{shipment.actualPickupDate}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Actual Weight</th>
-          <td>{{shipment.primeActualWeight}}</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
   </div>
-  <script>
-    function showMoveUpdate(){
-      // Show updated shipment table
-      update = document.getElementById('updatedShipment');
-      update.className = 'show';
-
-      // Change alert text
-      alert = document.getElementById('alert-heading');
-      alert.innerText = 'Shipment Updated';
-    }
-  </script>
-
 </body>
 </html>
