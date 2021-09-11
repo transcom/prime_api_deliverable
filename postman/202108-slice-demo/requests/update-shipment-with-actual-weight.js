@@ -22,7 +22,7 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Update: Prime updates Move with Actual Weight',
+  name: 'Update Shipment With Actual Weight',
   id: requestID,
   request: {
     url: '{{baseUrl}}/move-task-orders/:shipmentID',

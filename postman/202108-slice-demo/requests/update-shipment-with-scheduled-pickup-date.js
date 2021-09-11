@@ -23,7 +23,7 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Update: Prime updates Move with Scheduled Pickup Date',
+  name: 'Update Shipment With Scheduled Pickup Date',
   id: requestID,
   request: {
     url: '{{baseUrl}}/move-task-orders/:shipmentID',

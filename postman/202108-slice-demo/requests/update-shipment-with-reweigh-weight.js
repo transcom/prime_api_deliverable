@@ -22,7 +22,7 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Update: Prime updates Move with Reweigh Weight',
+  name: 'Update Shipment With Reweigh Weight',
   id: requestID,
   request: {
     url: '{{baseUrl}}/mto-shipments/:shipmentID/reweighs/:reweighID',
