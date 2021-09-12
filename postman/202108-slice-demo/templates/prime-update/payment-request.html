@@ -10,36 +10,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <style>
   li {
-      list-style-type: none !important;
-  }
-  .usa-nav-container .usa-logo__text {
-    width: 100%;
-    text-align: center;
+    list-style-type: none !important;
   }
   .usa-nav-container {
     max-width: 100% !important;
   }
+  .usa-logo__text {
+    width: 100%;
+    text-align: center;
+  }
   .my-prime-container {
     padding: 0 20px;
+  }
+  hr.divider {
+    height: 10px;
+    margin: 10px 0 0;
+    border: none;
+    border-top: 1px dotted #252f3e;
   }
   </style>
 </head>
 <body>
   <header class="usa-header usa-header--basic" role="banner">
-    <div class="my-move-header desktop:padding-bottom-3">
-      <div class="usa-nav-container">
-        <div class="usa-navbar">
-          <p class="usa-logo__text">August 2021 Slice Demo</p>
-        </div>
-      </div>
+    <div class="my-move-header">
+      <p class="usa-logo__text">For Demo Purposes Only August 2021 Slice Demo</p>
     </div>
   </header>
 
-  <div class="my-prime container">
-    <h2 class="site-preview-heading font-sans-2xl">{{pageHeading}}</h2>
+  <div class="my-prime-container">
+    <h2 class="site-preview-heading font-sans-2xl">{{pageTitle}}: {{pageHeading}}</h2>
     <h3 class="site-component-section-title font-sans-xl">{{pageAction}}</h3>
 
-    <div class="usa-alert usa-alert--info" id="alert" >
+    <div class="usa-alert usa-alert--{{alertType}}" id="alert" >
       <div class="usa-alert__body">
         <h4 id="alert-heading" class="usa-alert__heading margin-bottom-4">{{alertTitle}}</h4>
         <ul class="usa-content-list font-mono-md">
@@ -53,86 +55,22 @@
             <strong>Move ID:</strong> {{moveID}}
           </li>
           <li>
-            <strong>Service items:</strong>
-            {{#each serviceItems}}
-              {{@key}}: {{this}}
-            {{/each}}
-          </li>
-          <hr>
-          <li>
-            <strong>Actual pickup date:</strong> {{actualPickupDate}}
+            <strong>Status:</strong> {{{status}}}
           </li>
           <li>
-            <strong>Estimated weight:</strong> {{estimatedWeight}}
+            <strong>Payment request number:</strong> {{{paymentRequestNumber}}}
           </li>
-          <hr>
+          {{#if fileUploaded}}
           <li>
-            <strong>Actual weight:</strong> {{actualWeight}}
-          </li>
-          <li>
-            <strong>Reweigh weight:</strong> {{reweighWeight}}
-          </li>
-          <hr>
-          <li>
-            <strong>Reweigh status:</strong> 🔴 {{reweighStatus}}
+            <strong>Created at:</strong> {{createdAt}}
           </li>
           <li>
-            <strong>Reweigh status:</strong> 🟢 {{reweighStatus}}
+            <strong>File name:</strong> {{fileName}}
           </li>
-          <li>
-            <strong>Reweigh status:</strong> ✅ {{reweighStatus}}
-          </li>
+          {{/if}}
         </ul>
       </div>
     </div>
-
-    <div class='margin-top-4 margin-bottom-2'>
-      <button class='usa-button' id='updateMove' onclick='showMoveUpdate()'>Update the Move</button>
-    </div>
-    <div class='hide' id='updatedShipment'>
-      <table class='usa-table usa-table--borderless usa-table--striped'>
-      <caption>Updated Shipment Information</caption>
-
-      <tbody>
-        <tr>
-          <th scope='row'>Destination Address</th>
-          <td>{{shipment.destinationAddress.streetAddress1}}, {{shipment.destinationAddress.city}}, {{shipment.destinationAddress.state}}, {{shipment.destinationAddress.postalCode}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Scheduled Pickup Date</th>
-          <td>{{shipment.scheduledPickupDate}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Estimated Weight</th>
-          <td>{{shipment.primeEstimatedWeight}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Actual Pickup Date</th>
-          <td>{{shipment.actualPickupDate}}</td>
-        </tr>
-
-        <tr>
-          <th scope='row'>Actual Weight</th>
-          <td>{{shipment.primeActualWeight}}</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
   </div>
-  <script>
-    function showMoveUpdate(){
-      // Show updated shipment table
-      update = document.getElementById('updatedShipment');
-      update.className = 'show';
-
-      // Change alert text
-      alert = document.getElementById('alert-heading');
-      alert.innerText = 'Shipment Updated';
-    }
-  </script>
-
 </body>
 </html>

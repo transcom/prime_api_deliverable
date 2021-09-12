@@ -6,379 +6,130 @@ function envSet(k, v) {
   pm.collectionVariables.set(k, v);
 }
 
-const response = pm.response.json();
-
-const responseJSON = pm.response.json(),
-      envGet = function(v) {
-        return pm.collectionVariables.get(v);
+const response = pm.response.json(),
+  template = envGet('updateShipmentTemplate'),
+  pmRequestID = pm.request.getHeaders()['Postman-Request-ID'],
+  undefHTML = '<code>undefined</code>',
+  requestIDsToAction = {
+        'update-shipment-with-scheduled-pickup-date' : 'Schedules Pickup Date',
+        'update-shipment-with-estimated-weight'      : 'Counsels Estimated Weight',
+        'update-shipment-with-actual-pickup-date'    : 'Submits Actual Pickup Date',
+        'update-shipment-with-actual-weight'         : 'Submits Actual Weight',
+        'update-shipment-with-reweigh-weight'        : 'Submits Reweigh Weight',
       },
-      envSet = function(k, v) {
-        pm.collectionVariables.set(k, v);
+      requestIDsToAlertType = {
+        'update-shipment-with-scheduled-pickup-date' : 'info',
+        'update-shipment-with-estimated-weight'      : 'info',
+        'update-shipment-with-actual-pickup-date'    : 'info',
+        'update-shipment-with-actual-weight'         : 'info',
+        'update-shipment-with-reweigh-weight'        : 'success',
       };
 
+// Create a view object rather than using the Response object that comes from
+// Postman so we can modify the presentation of things in JavaScript rather
+// than Handlerbars. It's probably cleaner to do this in the Handlebar template
+// in the future.
+// TODO: Research moving a lot of this logic surrounding the View object in
+// plain {{}} templating.
 var view = {
-  pageTitle: 'GHC Contractor - Reweighs',
-  pageHeading: 'GHC Contractor',
-  pageAction: 'Moves',
-  alertTitle: 'New Move Approved',
+  pageTitle           : 'GHC Contractor',
+  pageHeading         : 'Updating a shipment',
+  pageAction          : requestIDsToAction[pmRequestID],
+  alertType           : requestIDsToAlertType[pmRequestID],
+  customerFullName    : undefHTML,
+  moveCode            : undefHTML,
+  moveID              : undefHTML,
+  scheduledPickupDate : undefHTML,
+  actualPickupDate    : undefHTML,
+  estimatedWeight     : undefHTML,
+  actualWeight        : undefHTML,
+  reweighWeight       : undefHTML,
+  reweighStatus       : undefHTML,
+  reweighRequestedBy  : undefHTML,
+  reweighSuccess      : false,
 };
 
-// var shipment = ''
+var hasReweigh = false;
 
-var template = envGet('updateShipmentTemplate');
+// If the response is OK, let's modify the View object.
+if (pm.response.code === 200) {
+  // These are coming from the previous requests.
+  view.customerFullName = envGet('customerFullName');
+  view.moveCode         = envGet('moveTaskOrderCode');
+  view.moveID           = envGet('moveTaskOrderID');
 
-if (pm.response.code == 200) {
+  const baseUrl = envGet('baseUrl'),
+        postRequest = {
+          url: `${baseUrl}/move-task-orders/${view.moveID}`,
+          method: 'GET',
+        };
 
-  let payload = envGet('updateShipmentPayload');
+  // I don't like this, but we've got a bug that prevents the Prime from seeing
+  // Reweigh information when updating a shipment's details. The Swagger files
+  // says it returns the Reweigh object, but the actual response is missing it.
+  // TODO: Make a Jira ticket about this.
+  pm.sendRequest(postRequest, (error, mtoResponse) => {
+    if (mtoResponse.code === 200) {
 
-  console.log('updateShipmentPayload', payload);
+      // FIXME: This is a terribly hacky way to do this, but the secondary
+      // request gets all the Shipments items and then we take the first one
+      // (as we're only expecting 1) and then we take that Reweigh object and
+      // put it in here so it's like the Prime API returns the Reweigh object
+      // we're expecting.
+      // TODO: This this to the Jira ticket, maybe.
+      response.reweigh = mtoResponse.json().mtoShipments[0].reweigh;
+      hasReweigh = (typeof response.reweigh === 'object');
 
-  pm.visualizer.set(template, {
-    view: view,
-    response: responseJSON
-  })
+      if (hasReweigh) {
+        view.reweighStatus      = '🟢 A Reweigh has been requested.';
+        view.reweighRequestedBy = `<code>${response.reweigh.requestedBy}</code>`;
+        if (response.reweigh.weight) {
+          view.reweighStatus  = '✅ A Reweigh has been set by the GHC Contractor.';
+          view.reweighWeight  = response.reweigh.weight;
+          view.reweighSuccess = true;
+        }
+      } else {
+        view.reweighStatus = '🔴 A Reweigh has not been requested.';
+      }
 
-  envSet('shipmentID', responseJSON.mtoShipments[0].id)
-  envSet('eTag', responseJSON.mtoShipments[0].eTag)
+      // Attempt to set a bunch of variables or 'undefined'.
+      view.primeActualWeight   = response.primeActualWeight;
+      view.scheduledPickupDate = response.scheduledPickupDate;
+      view.actualPickupDate    = response.actualPickupDate;
+      view.estimatedWeight     = response.primeEstimatedWeight;
+      view.actualWeight        = response.primeActualWeight;
 
-  if (responseJSON.mtoShipments[0].destinationAddress) {
-    console.log('Destination address found - excluding from update')
-    payload.destinationAddress = {};
-  }
+      // These are being set for the next request to consume as a {{variable}}.
+      envSet('shipmentETag', response.eTag);
+      envSet('shipmentID', response.id);
 
-  let primeWeights = {
-    primeEstimatedWeight: envGet('primeEstimatedWeight'),
-    primeActualWeight: envGet('primeActualWeight'),
-  }
+      // README: To get past the limitation of Postman variables, we'll have to
+      // log the JSON payload for the next request into the Console for
+      // copying into the Body of the Create Payment Request.
+      // We only need to do this on the last request.
+      if (pmRequestID === 'update-shipment-with-reweigh-weight') {
+        var serviceItemsIDs = [];
+        mtoResponse.json().mtoServiceItems.forEach(function(item) {
+          serviceItemsIDs.push({
+            id: item.id,
+          });
+        });
+        envSet('serviceItemsIDs', serviceItemsIDs);
+        console.info('Create Payment Request Body payload', JSON.stringify({
+          isFinal: false,
+          moveTaskOrderID: envGet('moveTaskOrderID'),
+          serviceItems: serviceItemsIDs,
+        }));
+      }
 
-  if (responseJSON.mtoShipments[0].primeEstimatedWeight ||
-      responseJSON.mtoShipments[0].primeActualWeight) {
-    console.log('Weights found - excluding from update')
-    primeWeights = {}
-  }
-  // Represents updating a shipment with pickup dates, weights, and new
-  // destination address
-  const patchUpdateShipment = {
-    url: envGet('baseUrl') + '/mto-shipments/' + envGet('shipmentID'),
-    method: 'PATCH',
-    header: {
-      'Content-Type': 'application/json',
-      'If-Match': envGet('eTag')
-    },
-    body: {
-      mode: 'raw',
-      raw: JSON.stringify({
-        ...payload,
-        ...primeWeights,
-      })
-    }
-  }
-  pm.sendRequest(patchUpdateShipment, (error, response) => {
-    let shipment = response.json();
-    if (response.code == 200) {
-      envSet('mtoShipmentETag', shipment.eTag);
-      envSet('destinationAddressID', shipment.destinationAddress.id);
-      envSet('destinationAddressETag', shipment.destinationAddress.eTag)
-      pm.visualizer.set(template, {
-        response: responseJSON,
-        shipment: shipment,
-      });
+      if (hasReweigh) {
+        envSet('reweighID', response.reweigh.id);
+        envSet('reweighETag', response.reweigh.eTag);
+      }
+
+      pm.visualizer.set(template, view);
+
     }
 
   });
-
-    /*
-
-  pm.sendRequest(patchUpdateShipment, (error, response) => {
-    shipment = response.json()
-    console.log(error ? error : shipment);
-console.log('PATCH UPDATE SHIPMENT')
-    template += `
-  `
-
-    if (response.code == 200) {``
-      pm.environment.set('mtoShipmentETag', shipment.eTag)
-      pm.environment.set('destinationAddressID', shipment.destinationAddress.id)
-      pm.environment.set('destinationAddressETag', shipment.destinationAddress.eTag)
-      pm.visualizer.set(template, {
-        response: responseJSON,
-        shipment: shipment,
-        cratingServiceItem: cratingServiceItem
-      })
-            console.log('IN SERVICE ITEMS')
-        //CRATING :
-        const postServiceItemCrating = {
-                url: pm.environment.get('baseUrl') + '/mto-service-items/',
-                method: 'POST',
-                header: {
-                    'Content-Type': 'application/json',
-                    'If-Match': pm.environment.get('mtoShipmentETag')
-                },
-                body: {
-                    mode: 'raw',
-                    raw: JSON.stringify({
-                        'crate': {
-                            'height': 2400,
-                            'length': 2400,
-                            'width': 2400
-                        },
-                        'description': 'Antique dinnerware',
-                        'item': {
-                            'height': 2000,
-                            'length': 2000,
-                            'width': 2000
-                        },
-                        'reServiceCode': 'DCRT',
-                        'reason': 'customer has antique dinnerware that needs to be crated',
-                        'modelType': 'MTOServiceItemDomesticCrating',
-                        'moveTaskOrderID': pm.environment.get('moveTaskOrderID'),
-                        'mtoShipmentID': pm.environment.get('mtoShipmentID'),
-                    })
-                }
-            }
-
-        pm.sendRequest(postServiceItemCrating, (error, response) => {
-            const serviceItems = response.json()
-            console.log(error ? error : serviceItems);
-            console.log('CREATED SERVICE ITEM')
-
-
-            cratingServiceItem = serviceItems[0]
-            console.log(cratingServiceItem)
-            console.log(response.code)
-            if (response.code == 200) {``
-                template += `
-                <div class='margin-top-4 margin-bottom-2'>
-                <button class='usa-button' id='serviceItem' onclick='showCratingUpdate()'>Create a Service Item for Crating</button>
-                </div>
-                <div class='hide' id='cratingServiceItem'>
-                <table class='usa-table usa-table--borderless usa-table--striped'>
-                <caption>Crating Service Item</caption>
-
-                <tbody>
-                    <tr>
-                    <th scope='row'>Service Item ID</th>
-                    <td>{{cratingServiceItem.id}}</td>
-                    </tr>
-                    <tr>
-                    <th scope='row'>Length</th>
-                    <td>{{cratingServiceItem.crate.length}}</td>
-                    </tr>
-
-                    <tr>
-                    <th scope='row'>Width</th>
-                    <td>{{cratingServiceItem.crate.width}}</td>
-                    </tr>
-
-                    <tr>
-                    <th scope='row'>Height</th>
-                    <td>{{cratingServiceItem.crate.height}}</td>
-                    </tr>
-                </tbody>
-                </table>
-                </div>
-
-                <script>
-                function showCratingUpdate(){
-                    // Show updated crating table
-                    cratingServiceItem = document.getElementById('cratingServiceItem');
-                    cratingServiceItem.className = 'show';
-
-                    // Change alert text
-                    alert = document.getElementById('alert-heading');
-                    alert.innerText = 'Crating Service Item created';
-                }
-                </script>
-                `
-            pm.visualizer.set(template, {
-                cratingID : cratingServiceItem.id,
-                response: responseJSON,
-                shipment: shipment,
-                cratingServiceItem: cratingServiceItem
-            })
-            }
-        });
-
-            // SHUTTLING
-            const postServiceItemShuttling = {
-                url: pm.environment.get('baseUrl') + '/mto-service-items/',
-                method: 'POST',
-                header: {
-                    'Content-Type': 'application/json',
-                    'If-Match': pm.environment.get('mtoShipmentETag')
-                },
-                body: {
-                    mode: 'raw',
-                    raw: JSON.stringify({
-                        'modelType': 'MTOServiceItemShuttle',
-                        'reServiceCode': 'DOSHUT',
-                        'reason': 'narrow street at origin address, needs shuttling',
-                        'description': 'Things to be moved to the place by shuttle.',
-                        'estimatedWeight': 1000,
-                        'actualWeight': 2000,
-                        'moveTaskOrderID': pm.environment.get('moveTaskOrderID'),
-                        'mtoShipmentID': pm.environment.get('mtoShipmentID'),
-                    })
-                }
-            }
-
-        pm.sendRequest(postServiceItemShuttling, (error, response) => {
-            const serviceItems = response.json()
-            console.log(error ? error : serviceItems);
-            console.log('CREATED SHUTTLING SERVICE ITEM*****')
-
-            shuttlingServiceItem = serviceItems[0]
-            console.log(serviceItems)
-            console.log(shuttlingServiceItem)
-        // const responseJSON = pm.response.json;
-            console.log(response)
-            if (response.code == 200) {``
-                template += `
-                    <div class='margin-top-4 margin-bottom-2'>
-                    <button class='usa-button' id='serviceItem' onclick='showShuttlingUpdate()'> Create a Service Item for Shuttling</button>
-                    </div>
-                    <div class='hide' id='shuttlingServiceItem'>
-                    <table class='usa-table usa-table--borderless usa-table--striped'>
-                    <caption>Shuttling Service Item</caption>
-
-                    <tbody>
-                        <tr>
-                        <th scope='row'>Shuttling Service Item ID</th>
-                        <td>{{shuttlingServiceItem.id}}</td>
-                        </tr>
-                        <tr>
-                        <th scope='row'>Estimated Weight</th>
-                        <td>{{shuttlingServiceItem.estimatedWeight}}</td>
-                        </tr>
-
-                        <tr>
-                        <th scope='row'>Actual Weight</th>
-                        <td>{{shuttlingServiceItem.actualWeight}}</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                    </div>
-
-                    <script>
-                    function showShuttlingUpdate(){
-                        // Show updated shuttling table
-                        shuttlingServiceItem = document.getElementById('shuttlingServiceItem');
-                        shuttlingServiceItem.className = 'show';
-
-                        // Change alert text
-                        alert = document.getElementById('alert-heading');
-                        alert.innerText = 'Shuttling Service Item created';
-                    }
-                    </script>
-                    `
-
-            pm.visualizer.set(template, {
-                response: responseJSON,
-                cratingServiceItem: cratingServiceItem,
-                shuttlingServiceItem: shuttlingServiceItem,
-                shipment: shipment
-            })
-            }
-        });
-
-          const postServiceItemUncrating = {
-                url: pm.environment.get('baseUrl') + '/mto-service-items/',
-                method: 'POST',
-                header: {
-                    'Content-Type': 'application/json',
-                    'If-Match': pm.environment.get('mtoShipmentETag')
-                },
-                body: {
-                    mode: 'raw',
-                    raw: JSON.stringify({
-                        'crate': {
-                            'height': 2400,
-                            'length': 2400,
-                            'width': 2400
-                        },
-                        'description': 'uncrating dinnerware',
-                        'item': {
-                            'height': 2000,
-                            'length': 2000,
-                            'width': 2000
-                        },
-                        'reServiceCode': 'DUCRT',
-                        'reason': null,
-                        'modelType': 'MTOServiceItemDomesticCrating',
-                        'moveTaskOrderID': pm.environment.get('moveTaskOrderID'),
-                        'mtoShipmentID': pm.environment.get('mtoShipmentID'),
-                    })
-                }
-            }
-
-
-          pm.sendRequest(postServiceItemUncrating, (error, response) => {
-            const serviceItems = response.json()
-            console.log(error ? error : serviceItems);
-            console.log('CREATED UNCRATING SERVICE ITEM*****')
-            const uncratingServiceItem = serviceItems[0]
-            console.log(uncratingServiceItem)
-            template += `
-               <div class='margin-top-4 margin-bottom-2'>
-                <button class='usa-button' id='serviceItem' onclick='showUncratingUpdate()'>Create a Service Item for Uncrating</button>
-                </div>
-                <div class='hide' id='uncratingServiceItem'>
-                <table class='usa-table usa-table--borderless usa-table--striped'>
-                <caption>Uncrating Service Item</caption>
-
-                <tbody>
-                    <tr>
-                    <th scope='row'>Service Item ID</th>
-                    <td>{{uncratingServiceItem.id}}</td>
-                    </tr>
-                    <tr>
-                    <th scope='row'>Length</th>
-                    <td>{{uncratingServiceItem.crate.length}}</td>
-                    </tr>
-
-                    <tr>
-                    <th scope='row'>Width</th>
-                    <td>{{uncratingServiceItem.crate.width}}</td>
-                    </tr>
-
-                    <tr>
-                    <th scope='row'>Height</th>
-                    <td>{{uncratingServiceItem.crate.height}}</td>
-                    </tr>
-                </tbody>
-                </table>
-                </div>
-
-        <script>
-          function showUncratingUpdate(){
-            // Show updated uncrating table
-            uncratingServiceItem = document.getElementById('uncratingServiceItem');
-            uncratingServiceItem.className = 'show';
-
-            // Change alert text
-            alert = document.getElementById('alert-heading');
-            alert.innerText = 'Uncrating Service Item created';
-          }
-        </script>
-          `
-        //   const responseJSON = pm.response.json;
-            console.log(response)
-            if (response.code == 200) {``
-            pm.visualizer.set(template, {
-                response: responseJSON,
-                cratingServiceItem: cratingServiceItem,
-                uncratingServiceItem: uncratingServiceItem,
-                shuttlingServiceItem: shuttlingServiceItem,
-                shipment: shipment
-            })
-            }
-          });
-        }
-
-
-
-
-
-    })
-    */
-  };
+}

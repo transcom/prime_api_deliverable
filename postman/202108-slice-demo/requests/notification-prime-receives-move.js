@@ -15,11 +15,14 @@ const fs = require('fs'),
 
 
 module.exports = new Item({
-  name: 'Notification: Prime receives new Move.',
+  name: 'Receives notification for new shipment for move',
   id: requestID,
   request: {
-    url: '{{baseUrl}}/move-task-orders/:shipmentID',
+    url: '{{baseUrl}}/move-task-orders/{{moveID}}',
     method: 'GET',
+    header: {
+      'Postman-Request-ID': requestID,
+    },
     description: `
     This request is to show the Prime cannot access a Move until it is made
     available to the Prime. This request must be run before the Move is

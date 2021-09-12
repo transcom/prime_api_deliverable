@@ -7,28 +7,22 @@ const Collection  = require('postman-collection').Collection,
 const fs = require('fs'),
       path = require('path'),
       requestID = path.basename(__filename, '.js'),
-      preparePrimeCounselsMove = fs.readFileSync(
+      createPaymentRequest = fs.readFileSync(
         path.resolve(
           __dirname,
-          '../tests/prime-update/prepare-counsels-move.js'
-        )
-      ),
-      primeCounselsMove = fs.readFileSync(
-        path.resolve(
-          __dirname,
-          '../tests/prime-update/counsels-move.js'
+          '../tests/prime-update/create-payment-request.js'
         )
       );
 
 module.exports = new Item({
-  name: 'Create Payment Request',
+  name: 'Create payment request for move',
   id: requestID,
   request: {
     url: '{{baseUrl}}/payment-requests',
     method: 'POST',
     header: {
+      'Postman-Request-ID': requestID,
       'Content-Type': 'application/json',
-      'If-Match': '',
     },
     description: `
     This requests creates a Payment Request for a Move. This uses the
@@ -37,15 +31,9 @@ module.exports = new Item({
   },
   event: [
     new Event({
-      listen: 'prerequest',
-      script: new Script({
-        exec: preparePrimeCounselsMove.toString().split('\n'),
-      }),
-    }),
-    new Event({
       listen: 'test',
       script: new Script({
-        exec: primeCounselsMove.toString().split('\n'),
+        exec: createPaymentRequest.toString().split('\n'),
       }),
     })
   ],

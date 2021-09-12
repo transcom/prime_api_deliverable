@@ -7,12 +7,6 @@ const Collection  = require('postman-collection').Collection,
 const fs = require('fs'),
       path = require('path'),
       requestID = path.basename(__filename, '.js'),
-      prepareUploadProofOfService = fs.readFileSync(
-        path.resolve(
-          __dirname,
-          '../tests/prime-update/prepare-upload-proof-of-service.js'
-        )
-      ),
       uploadProofOfService = fs.readFileSync(
         path.resolve(
           __dirname,
@@ -21,28 +15,31 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Upload Proof Of Service',
+  name: 'Upload proof of service for payment request',
   id: requestID,
   request: {
-    url: '{{baseUrl}}/payment-requests/:paymentRequestID/uploads',
+    url: '{{baseUrl}}/payment-requests/{{paymentRequestID}}/uploads',
     method: 'POST',
     header: {
-      'Content-Type': 'application/json',
-      'If-Match': ''
+      'Postman-Request-ID': requestID,
+      'Content-Type': 'multipart/form-data; charset=utf-8; boundary=";"',
     },
     description: `
     This request updates the Move with an estimated weight. This may or may not
     trigger a reweigh. This uses the template called
     **prime-update/counsels-move.html**.
     `,
+    body: new RequestBody({
+      mode: 'formdata',
+      formdata: [{
+        key: 'file',
+        description: 'The file to upload.',
+        type: 'file',
+        src: '/Users/rsr/Downloads/proof_of_service.pdf',
+      }],
+    }),
   },
   event: [
-    new Event({
-      listen: 'prerequest',
-      script: new Script({
-        exec: prepareUploadProofOfService.toString().split('\n'),
-      }),
-    }),
     new Event({
       listen: 'test',
       script: new Script({

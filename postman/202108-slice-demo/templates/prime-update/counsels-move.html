@@ -10,91 +10,76 @@
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <style>
   li {
-      list-style-type: none !important;
+    list-style-type: none !important;
   }
   .usa-nav-container {
     max-width: 100% !important;
   }
-  .usa-nav-container .usa-logo__text {
+  .usa-logo__text {
     width: 100%;
     text-align: center;
   }
   .my-prime-container {
     padding: 0 20px;
   }
+  hr.divider {
+    height: 10px;
+    margin: 10px 0 0;
+    border: none;
+    border-top: 1px dotted #252f3e;
+  }
   </style>
 </head>
 <body>
   <header class="usa-header usa-header--basic" role="banner">
-    <div class="my-move-header desktop:padding-bottom-3">
-      <div class="usa-nav-container">
-        <div class="usa-navbar">
-          <p class="usa-logo__text">August 2021 Slice Demo</p>
-        </div>
-      </div>
+    <div class="my-move-header">
+      <p class="usa-logo__text">For Demo Purposes Only August 2021 Slice Demo</p>
     </div>
   </header>
 
-  <div class="my-prime container">
-    <h2 class="site-preview-heading font-sans-2xl">{{pageHeading}}</h2>
+  <div class="my-prime-container">
+    <h2 class="site-preview-heading font-sans-2xl">{{pageTitle}}: {{pageHeading}}</h2>
     <h3 class="site-component-section-title font-sans-xl">{{pageAction}}</h3>
 
-    <div class="usa-alert usa-alert--info" id="alert" >
+    <div class="usa-alert usa-alert--{{alertType}}" id="alert" >
       <div class="usa-alert__body">
         <h4 id="alert-heading" class="usa-alert__heading margin-bottom-4">{{alertTitle}}</h4>
         <ul class="usa-content-list font-mono-md">
-          {{#if scheduledPickupDate}}
-
-          {{/if}}
-
-          {{#if estimatedWeight}}
-
-          {{/if}}
-
-          {{#if actualPickupDate}}
-
-          {{/if}}
-
-          {{#if actualWeight}}
-
-          {{/if}}
-
           <li>
-            <strong>Customer name:</strong> {{response.order.customer.firstName}} {{response.order.customer.lastName}}
+            <strong>Customer name:</strong> {{customerFullName}}
           </li>
           <li>
-            <strong>Move ID:</strong> {{response.id}}
+            <strong>Move code:</strong> {{moveCode}}
           </li>
+          <li>
+            <strong>Move ID:</strong> {{moveID}}
+          </li>
+          <li>
+            <strong>Reweigh status:</strong> {{reweighStatus}}
+          </li>
+          <li>
+            <strong>Reweigh requested by:</strong> {{{reweighRequestedBy}}}
+          </li>
+          <li>
+            <strong>Reweigh weight:</strong> {{{reweighWeight}}}
+          </li>
+          {{#unless reweighSuccess}}
+          <hr class="divider">
           <li>
             <strong>Scheduled pickup date:</strong> {{scheduledPickupDate}}
           </li>
-          <hr>
+          <hr class="divider">
           <li>
-            <strong>Actual pickup date:</strong> {{actualPickupDate}}
+            <strong>Actual pickup date:</strong> {{{actualPickupDate}}}
           </li>
           <li>
-            <strong>Estimated weight:</strong> {{estimatedWeight}}
+            <strong>Estimated weight:</strong> {{{estimatedWeight}}}
           </li>
-          <hr>
+          <hr class="divider">
           <li>
-            <strong>Actual weight:</strong> {{actualWeight}}
+            <strong>Actual weight:</strong> {{{actualWeight}}}
           </li>
-          <li>
-            <strong>Reweigh weight:</strong> {{reweighWeight}}
-          </li>
-          <hr>
-          <li>
-            <strong>Reweigh status:</strong> 🔴 {{reweighStatus}}
-          </li>
-          <li>
-            <strong>Reweigh status:</strong> 🟢 {{reweighStatus}}
-          </li>
-          <li>
-            <strong>Reweigh status:</strong> ✅ {{reweighStatus}}
-          </li>
-          <li>
-            <strong>Reweigh requested by:</strong> {{reweighRequestedBy}}
-          </li>
+          {{/unless}}
         </ul>
       </div>
     </div>

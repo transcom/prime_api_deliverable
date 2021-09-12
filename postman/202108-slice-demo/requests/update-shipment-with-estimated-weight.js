@@ -8,12 +8,6 @@ const fs = require('fs'),
       path = require('path'),
       requestID = path.basename(__filename, '.js'),
       payload = require(`../payloads/${requestID}`),
-      preparePrimeCounselsMove = fs.readFileSync(
-        path.resolve(
-          __dirname,
-          '../tests/prime-update/prepare-counsels-move.js'
-        )
-      ),
       primeCounselsMove = fs.readFileSync(
         path.resolve(
           __dirname,
@@ -22,14 +16,15 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Update Shipment With Estimated Weight',
+  name: 'Update shipment with estimated weight',
   id: requestID,
   request: {
-    url: '{{baseUrl}}/move-task-orders/:shipmentID',
+    url: '{{baseUrl}}/mto-shipments/{{shipmentID}}',
     method: 'PATCH',
     header: {
+      'Postman-Request-ID': requestID,
       'Content-Type': 'application/json',
-      'If-Match': ''
+      'If-Match': '{{shipmentETag}}',
     },
     description: `
     This request updates the Move with an estimated weight. This may or may not
@@ -42,12 +37,6 @@ module.exports = new Item({
     }),
   },
   event: [
-    new Event({
-      listen: 'prerequest',
-      script: new Script({
-        exec: preparePrimeCounselsMove.toString().split('\n'),
-      }),
-    }),
     new Event({
       listen: 'test',
       script: new Script({

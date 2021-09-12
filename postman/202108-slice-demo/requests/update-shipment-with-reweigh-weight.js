@@ -8,12 +8,6 @@ const fs = require('fs'),
       path = require('path'),
       requestID = path.basename(__filename, '.js'),
       payload = require(`../payloads/${requestID}`),
-      preparePrimeCounselsMove = fs.readFileSync(
-        path.resolve(
-          __dirname,
-          '../tests/prime-update/prepare-counsels-move.js'
-        )
-      ),
       primeCounselsMove = fs.readFileSync(
         path.resolve(
           __dirname,
@@ -22,14 +16,15 @@ const fs = require('fs'),
       );
 
 module.exports = new Item({
-  name: 'Update Shipment With Reweigh Weight',
+  name: 'Update shipment with reweigh weight',
   id: requestID,
   request: {
-    url: '{{baseUrl}}/mto-shipments/:shipmentID/reweighs/:reweighID',
+    url: '{{baseUrl}}/mto-shipments/{{shipmentID}}/reweighs/{{reweighID}}',
     method: 'PATCH',
     header: {
+      'Postman-Request-ID': requestID,
       'Content-Type': 'application/json',
-      'If-Match': '',
+      'If-Match': '{{reweighETag}}',
     },
     description: `
     This request updates the Move with a scheduled pickup date This uses the
@@ -41,12 +36,6 @@ module.exports = new Item({
     }),
   },
   event: [
-    new Event({
-      listen: 'prerequest',
-      script: new Script({
-        exec: preparePrimeCounselsMove.toString().split('\n'),
-      }),
-    }),
     new Event({
       listen: 'test',
       script: new Script({

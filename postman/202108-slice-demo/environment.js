@@ -18,7 +18,7 @@ const fs = require('fs'),
           './templates/prime-update/counsels-move.html'
         )
       ),
-      api_url = 'https://api.stg.move.mil',
+      api_url = 'https://primelocal:9443',
       environment = {
         baseUrl: {
           id: 'baseUrl',
@@ -35,10 +35,25 @@ const fs = require('fs'),
           value: '',
           type: 'string',
         },
-        serviceItemsIDs: {
-          id: 'serviceItemsIDs',
-          value: [],
-          type: 'array'
+        paymentRequestStatus: {
+          id: 'paymentRequestStatus',
+          value: '',
+          type: 'string',
+        },
+        paymentRequestNumber: {
+          id: 'paymentRequestNumber',
+          value: '',
+          type: 'string',
+        },
+        customerFullName: {
+          id: 'customerFullName',
+          value: '',
+          type: 'string',
+        },
+        moveTaskOrderCode: {
+          id: 'moveTaskOrderCode',
+          value: '',
+          type: 'string',
         },
         moveTaskOrderID: {
           id: 'moveTaskOrderID',
