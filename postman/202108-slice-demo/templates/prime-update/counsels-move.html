@@ -54,6 +54,7 @@
           <li>
             <strong>Move ID:</strong> {{moveID}}
           </li>
+          {{#if reweighStatus}}
           <li>
             <strong>Reweigh status:</strong> {{reweighStatus}}
           </li>
@@ -63,6 +64,7 @@
           <li>
             <strong>Reweigh weight:</strong> {{{reweighWeight}}}
           </li>
+          {{/if}}
           {{#unless reweighSuccess}}
           <hr class="divider">
           <li>

@@ -44,7 +44,7 @@ var view = {
   estimatedWeight     : undefHTML,
   actualWeight        : undefHTML,
   reweighWeight       : undefHTML,
-  reweighStatus       : undefHTML,
+  reweighStatus       : false,
   reweighRequestedBy  : undefHTML,
   reweighSuccess      : false,
 };
@@ -88,8 +88,6 @@ if (pm.response.code === 200) {
           view.reweighWeight  = response.reweigh.weight;
           view.reweighSuccess = true;
         }
-      } else {
-        view.reweighStatus = '🔴 A Reweigh has not been requested.';
       }
 
       // Attempt to set a bunch of variables or 'undefined'.
