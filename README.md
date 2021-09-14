@@ -26,7 +26,7 @@ Read the documentation in the Prime API [Wiki](https://github.com/transcom/prime
 
 ## Postman directory
 
-There is a Postman directory at the root of this repository. This exists to
-capture the work necessary to integrate with Postman Pro without having to use
-the Postman UI to create and modify collections. This tooling has been created
-to facilitate collaboration across engineering, delivery, and contracting teams.
+There is a `postman/` directory at the root of this repository. This repository
+is how the Truss engineering teams create Postman Collections to be used in
+various ways. Please see the documentation in that directory for more
+information on how to leverage Postman for the Prime API.
