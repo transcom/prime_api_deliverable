@@ -1,7 +1,7 @@
 const fs = require('fs'),
       path = require('path'),
       Collection = require('postman-collection').Collection,
-      fileName = `${Date.now()}.${path.basename(__dirname + '.postman_collection.json')}`,
+      fileName = path.basename(__dirname + '.postman_collection.json'),
       savePath = path.join(process.cwd(), '/collections'),
       filePath = `${savePath}/${fileName}`,
       definition = require('./definition'),

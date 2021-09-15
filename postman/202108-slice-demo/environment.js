@@ -18,7 +18,7 @@ const fs = require('fs'),
           './templates/prime-update/counsels-move.html'
         )
       ),
-      api_url = 'https://primelocal:9443',
+      api_url = 'https://api.stg.move.mil',
       environment = {
         baseUrl: {
           id: 'baseUrl',
