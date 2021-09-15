@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{pageTitle}}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css" integrity="sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==" crossorigin="anonymous" />
+  <link href="https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+  li {
+    list-style-type: none !important;
+  }
+  .usa-nav-container {
+    max-width: 100% !important;
+  }
+  .usa-logo__text {
+    width: 100%;
+    text-align: center;
+  }
+  .my-prime-container {
+    padding: 0 20px;
+  }
+  hr.divider {
+    height: 10px;
+    margin: 10px 0 0;
+    border: none;
+    border-top: 1px dotted #252f3e;
+  }
+  </style>
+</head>
+<body>
+  <header class="usa-header usa-header--basic" role="banner">
+    <div class="my-move-header">
+      <p class="usa-logo__text">For Demo Purposes Only August 2021 Slice Demo</p>
+    </div>
+  </header>
+
+  <div class="my-prime-container">
+    <h2 class="site-preview-heading font-sans-2xl">{{pageTitle}}: {{pageHeading}}</h2>
+    <h3 class="site-component-section-title font-sans-xl">{{pageAction}}</h3>
+
+    <div class="usa-alert usa-alert--{{alertType}}" id="alert" >
+      <div class="usa-alert__body">
+        <h4 id="alert-heading" class="usa-alert__heading margin-bottom-4">{{alertTitle}}</h4>
+        <ul class="usa-content-list font-mono-md">
+          <li>
+            <strong>Customer name:</strong> {{customerFullName}}
+          </li>
+          <li>
+            <strong>Move code:</strong> {{moveCode}}
+          </li>
+          <li>
+            <strong>Move ID:</strong> {{moveID}}
+          </li>
+          {{#if reweighStatus}}
+          <li>
+            <strong>Reweigh status:</strong> {{reweighStatus}}
+          </li>
+          <li>
+            <strong>Reweigh requested by:</strong> {{{reweighRequestedBy}}}
+          </li>
+          <li>
+            <strong>Reweigh weight:</strong> {{{reweighWeight}}}
+          </li>
+          {{/if}}
+          {{#unless reweighSuccess}}
+          <hr class="divider">
+          <li>
+            <strong>Scheduled pickup date:</strong> {{scheduledPickupDate}}
+          </li>
+          <hr class="divider">
+          <li>
+            <strong>Actual pickup date:</strong> {{{actualPickupDate}}}
+          </li>
+          <li>
+            <strong>Estimated weight:</strong> {{{estimatedWeight}}}
+          </li>
+          <hr class="divider">
+          <li>
+            <strong>Actual weight:</strong> {{{actualWeight}}}
+          </li>
+          {{/unless}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

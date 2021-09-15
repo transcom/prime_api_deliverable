@@ -1,0 +1,8 @@
+# README: https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes
+
+# Generated JSON file by various `npm`/`yarn` commands.
+package-lock.json binary
+yarn.lock binary
+
+# Generated Postman Collection files by the `npm` automation commands.
+postman/collections/*.postman_collection.json binary

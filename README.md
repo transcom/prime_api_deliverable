@@ -23,3 +23,10 @@ Read the documentation in the Prime API [Wiki](https://github.com/transcom/prime
   * [Postman](https://github.com/transcom/prime_api_deliverable/wiki/Using-Postman)
 * [Glossary](https://github.com/transcom/prime_api_deliverable/wiki/Glossary)
 * [Sequence Diagram](https://github.com/transcom/prime_api_deliverable/wiki/Sequence-Diagram)
+
+## Postman directory
+
+There is a `postman/` directory at the root of this repository. This repository
+is how the Truss engineering teams create Postman Collections to be used in
+various ways. Please see the documentation in that directory for more
+information on how to leverage Postman for the Prime API.

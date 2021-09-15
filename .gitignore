@@ -1,0 +1,19 @@
+# Ignore local environment variables
+postman/.envrc
+
+# OS and Editor files
+.DS_Store
+*.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+.svn
+.idea
+
+# Node modules
+node_modules/
+npm-debug.log
+
+# Ignore fun directories
+tmp/
+work/

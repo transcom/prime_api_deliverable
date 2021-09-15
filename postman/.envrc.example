@@ -1,0 +1,2 @@
+export MTLS_PATH_CERTIFICATE=""
+export MTLS_PATH_KEY=""
