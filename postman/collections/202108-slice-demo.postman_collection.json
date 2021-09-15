@@ -5,7 +5,7 @@
       "name": "Get all moves available to GHC Prime",
       "request": {
         "description": {
-          "content": "\n    This is a helper request that will not be used in the demo but may be\n    helpful to the Prime to see all the Moves in the system available to the\n    Prime.\n    ",
+          "content": "\n    This is a helper request that will not be used in the demo but may be\n    helpful to get all the Moves available to the Prime.\n    ",
           "type": "text/plain"
         },
         "url": {
@@ -34,7 +34,7 @@
       "name": "Receives notification for new shipment for move",
       "request": {
         "description": {
-          "content": "\n    This request is to show the Prime cannot access a Move until it is made\n    available to the Prime. This request must be run before the Move is\n    available to the Prime otherwise there will never be a sucessful 404\n    state for the template to show the error message. This request can also\n    be used to show that the Prime has access to a Move given a Move Code\n    or a MoveID.\n    ",
+          "content": "\n    This request can be used to show that the Prime cannot access a Move until\n    it is made available to the Prime.\n\n    This request must be run before the Move is available to the Prime\n    otherwise there will never be a 404 response for the template to show the\n    error message.\n\n    This request can also be used to show that the Prime has access to a Move\n    given a Move Code or a MoveID and will show a success notification.\n\n    This Request uses the templates found in\n    **templates/prime-notification/receive-move.html**.\n    ",
           "type": "text/plain"
         },
         "url": {
@@ -61,7 +61,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "fbe19aad-f8e2-4e83-8812-f4f1eff44140",
+            "id": "f0c3fd2d-f059-4c83-834d-630dac54288a",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -168,7 +168,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"scheduledPickupDate\":\"2021-10-11\",\"destinationAddress\":{\"streetAddress1\":\"7 Q Street\",\"city\":\"Corpus Christi\",\"state\":\"TX\",\"postalCode\":\"78412\",\"country\":\"US\"}}"
+          "raw": "{\"scheduledPickupDate\":\"2021-10-12\",\"destinationAddress\":{\"streetAddress1\":\"7 Q Street\",\"city\":\"Corpus Christi\",\"state\":\"TX\",\"postalCode\":\"78412\",\"country\":\"US\"}}"
         }
       },
       "response": [],
@@ -176,7 +176,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "9773fa76-de8a-4eb7-a5e3-2190ae9159ce",
+            "id": "5bbc6180-d629-4b2b-b25f-cffe7f3e98f8",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -293,6 +293,7 @@
               "            id: item.id,",
               "          });",
               "        });",
+              "        envSet('serviceItemsIDs', serviceItemsIDs);",
               "        console.info('Create Payment Request Body payload', JSON.stringify({",
               "          isFinal: false,",
               "          moveTaskOrderID: envGet('moveTaskOrderID'),",
@@ -361,7 +362,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "88184230-9745-4e0f-8980-276d89528a79",
+            "id": "04666689-f6a4-490e-9e49-a6809137481c",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -478,6 +479,7 @@
               "            id: item.id,",
               "          });",
               "        });",
+              "        envSet('serviceItemsIDs', serviceItemsIDs);",
               "        console.info('Create Payment Request Body payload', JSON.stringify({",
               "          isFinal: false,",
               "          moveTaskOrderID: envGet('moveTaskOrderID'),",
@@ -538,7 +540,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"actualPickupDate\":\"2021-10-01\"}"
+          "raw": "{\"actualPickupDate\":\"2021-10-02\"}"
         }
       },
       "response": [],
@@ -546,7 +548,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "5f1eba6d-c910-4b78-9ae3-d96ec93e2212",
+            "id": "5c4d48f2-8961-489a-8e1d-62bd21192b7b",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -663,6 +665,7 @@
               "            id: item.id,",
               "          });",
               "        });",
+              "        envSet('serviceItemsIDs', serviceItemsIDs);",
               "        console.info('Create Payment Request Body payload', JSON.stringify({",
               "          isFinal: false,",
               "          moveTaskOrderID: envGet('moveTaskOrderID'),",
@@ -731,7 +734,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "ad294e8f-cdbf-44c2-ad35-c071991f2a09",
+            "id": "967d0d11-be15-47be-9be6-dbf1469e1eb9",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -848,6 +851,7 @@
               "            id: item.id,",
               "          });",
               "        });",
+              "        envSet('serviceItemsIDs', serviceItemsIDs);",
               "        console.info('Create Payment Request Body payload', JSON.stringify({",
               "          isFinal: false,",
               "          moveTaskOrderID: envGet('moveTaskOrderID'),",
@@ -918,7 +922,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "9694db5c-44b8-4cf4-83db-091451c8d05a",
+            "id": "7e551da5-eb98-456d-bdac-e00b5dc1a5ba",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1035,6 +1039,7 @@
               "            id: item.id,",
               "          });",
               "        });",
+              "        envSet('serviceItemsIDs', serviceItemsIDs);",
               "        console.info('Create Payment Request Body payload', JSON.stringify({",
               "          isFinal: false,",
               "          moveTaskOrderID: envGet('moveTaskOrderID'),",
@@ -1094,7 +1099,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "f2b15415-6044-48e0-a801-2a190a00a182",
+            "id": "152ddbc3-408f-486c-b279-70f57b0b59e2",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1206,7 +1211,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "e0f0b740-0e3c-41a9-a28e-cbdb8a78d947",
+            "id": "f137ca00-340f-43cc-ad53-fac2ed7ea7a7",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1351,7 +1356,7 @@
     }
   ],
   "info": {
-    "_postman_id": "3bcd6d12-34a4-48f3-8162-1d8d7f0a5ff5",
+    "_postman_id": "c84efb83-28a8-4a97-962c-8b09217adb56",
     "name": "2021 August Prime API Slice Demo",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
