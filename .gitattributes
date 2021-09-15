@@ -5,4 +5,4 @@ package-lock.json binary
 yarn.lock binary
 
 # Generated Postman Collection files by the `npm` automation commands.
-collections/*.postman_collection.json binary
+postman/collections/*.postman_collection.json binary
