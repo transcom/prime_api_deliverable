@@ -24,12 +24,18 @@ module.exports = new Item({
       'Postman-Request-ID': requestID,
     },
     description: `
-    This request is to show the Prime cannot access a Move until it is made
-    available to the Prime. This request must be run before the Move is
-    available to the Prime otherwise there will never be a sucessful 404
-    state for the template to show the error message. This request can also
-    be used to show that the Prime has access to a Move given a Move Code
-    or a MoveID.
+    This request can be used to show that the Prime cannot access a Move until
+    it is made available to the Prime.
+
+    This request must be run before the Move is available to the Prime
+    otherwise there will never be a 404 response for the template to show the
+    error message.
+
+    This request can also be used to show that the Prime has access to a Move
+    given a Move Code or a MoveID and will show a success notification.
+
+    This Request uses the templates found in
+    **templates/prime-notification/receive-move.html**.
     `,
   },
   event: [
