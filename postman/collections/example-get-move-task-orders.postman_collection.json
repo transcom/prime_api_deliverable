@@ -1,0 +1,183 @@
+{
+  "item": [
+    {
+      "id": "get-move-task-orders-by-id",
+      "name": "Get MoveTaskOrders by ID",
+      "request": {
+        "description": {
+          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis request can be used to show that the Prime cannot access a Move until it\nis made available to the Prime.\n\nThis request must be run before the Move is available to the Prime otherwise\nthere will never be a 404 response for the template to show the error message.\n\nThis request can also be used to show that the Prime has access to a Move given\na Move Code or a MoveID and will show a success notification.\n\nThis Request uses the templates found in\n**templates/prime-notification/receive-move.html**.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "move-task-orders",
+            "{{moveTaskOrderID}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "get-move-task-orders-by-id"
+          }
+        ],
+        "method": "GET"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "3d63616c-9de5-45cd-9805-396bbed658c5",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/prerequest.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "2592733e-2ec3-4843-91e8-5d916ae953fd",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/test.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "// A helpful function that's less characters to type to get a Collection",
+              "// Variable.",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "// A helpful function that's less characters to type to set a Collection",
+              "// Variable.",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "// The response JSON that Postman created.",
+              "const response = pm.response.json();",
+              "",
+              "// The template file that is set in example-get-move-task-orders/index.js that",
+              "// references example-get-move-task-orders/templates/visualize.html",
+              "const template = envGet('visualizeTemplate');",
+              "",
+              "// A helpful string that can be used to show \"undefined\" in the Visualize tab.",
+              "const undefHTML = '<code>undefined</code>';",
+              "",
+              "// The view object that gets fed into the template file. These are base values",
+              "// and will be modified in the next conditional checks around the status code.",
+              "var view = {",
+              "  pageTitle: 'GHC Contractor - Move Card',",
+              "  pageHeading: 'GHC Contractor',",
+              "  pageAction: 'Receives Moves information',",
+              "  alertTitle: '',",
+              "  alertType: '',",
+              "  customerFullName: envGet('customerFullName'),",
+              "  moveCode: envGet('moveCode'),",
+              "  moveID: envGet('moveID'),",
+              "  errorMessage: '',",
+              "};",
+              "",
+              "// By default, a shipment would not have a Reweigh until it was requested.",
+              "var hasReweigh = false;",
+              "",
+              "// If the Move is found, we'll update the view object appropriately.",
+              "if (pm.response.code === 200) {",
+              "  view.customerFullName += response.order.customer.firstName.trim();",
+              "  view.customerFullName += ' ';",
+              "  view.customerFullName += response.order.customer.lastName.trim();",
+              "",
+              "  console.info('Setting customerFullName in the Collection Variables');",
+              "  envSet('customerFullName', view.customerFullName);",
+              "",
+              "  view.moveCode = response.moveCode;",
+              "  view.moveID = response.id;",
+              "",
+              "  console.info('Setting moveTaskOrderCode, moveTaskOrderID, moveTaskOrderETag in the Collection Variables');",
+              "  envSet('moveTaskOrderCode', view.moveCode);",
+              "  envSet('moveTaskOrderID', view.moveID);",
+              "  envSet('moveTaskOrderETag', response.eTag);",
+              "",
+              "  view.alertTitle = 'Move is now available to GHC Prime Contractor';",
+              "  view.alertType  = 'success';",
+              "}",
+              "",
+              "// If the Move is not found, we'll update the view object appropriately.",
+              "if (pm.response.code === 404) {",
+              "  view.alertTitle   = 'Move is not available to GHC Prime Contractor';",
+              "  view.alertType    = 'error';",
+              "  view.moveCode     = undefHTML;",
+              "  view.moveID       = undefHTML;",
+              "  view.errorMessage = response.title;",
+              "}",
+              "",
+              "// Setup the visualization template.",
+              "pm.visualizer.set(template, view);",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "id": "baseUrl",
+      "type": "string",
+      "value": "https://api.stg.move.mil/prime/v1"
+    },
+    {
+      "id": "customerFullName",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderCode",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderETag",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "visualizeTemplate",
+      "type": "string",
+      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">For Demo Purposes Only Get Move Task Order By ID</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Move code:</strong> {{{moveCode}}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{{moveID}}}\n          </li>\n          {{#if errorMessage}}\n          <li>\n            <strong>Error: </strong> {{errorMessage}}\n          </li>\n          {{else}}\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          {{/if}}\n        </ul>\n      </div>\n    </div>\n  </div>\n</body>\n</html>\n\n"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc3a5d1a-e420-4048-8389-5829fa3b2e4b",
+    "name": "Get Move Task Orders",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n# Get Move Task Orders\n\nThis Postman Collection was created with the Postman SDK and not the Postman.app UI.\n",
+      "type": "text/plain"
+    }
+  }
+}
