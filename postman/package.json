@@ -10,6 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "build_202108-slice-demo": "node ./202108-slice-demo/index.js",
+    "build_example-get-move-task-orders": "node ./example-get-move-task-orders/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
