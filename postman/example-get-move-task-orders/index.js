@@ -116,6 +116,7 @@ collection.items.add(
     },
     // An Event is an item in the event Array and represents a script that runs
     // either in Pre-Script or Tests.
+    // README: https://www.postmanlabs.com/postman-collection/Event.html
     event: [
       new Event({
         listen: 'prerequest',
