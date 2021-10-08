@@ -75,6 +75,17 @@
         {{/each}}
         </ul>
         {{/if}}
+        {{#if create_sit_mto_service_items}}
+          {{#each sitServiceItem}}
+            {{#each this}} <!-- each service item as 3 are created -->
+            <ul class="usa-content-list font-mono-md">
+              <li>
+                <strong>{{@key}}: </strong> {{{this}}}
+              </li>
+            </ul>
+            {{/each}}
+          {{/each}}
+        {{/if}}
         {{#if mto_shipments_sit_extensions}}
         <ul class="usa-content-list font-mono-md">
           {{#each sitExtension}}

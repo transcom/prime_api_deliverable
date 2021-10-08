@@ -107,6 +107,24 @@ if (pmRequestID === 'move-task-orders') {
   }
 }
 
+if (pmRequestID === 'create-sit-mto-service-items') {
+  view.create_sit_mto_service_items = true;
+  view.pageAction = 'Create Destination SIT Service Items';
+
+  if (pm.response.code === 200) {
+    view.alertTitle     = 'Destination SIT Service Items Created';
+    view.alertType      = 'success';
+    view.sitServiceItem = response;
+  } else {
+    console.debug(response);
+    view.alertTitle     = 'Destination SIT Service Items Create Failed';
+    view.alertType      = 'error';
+    view.errorMessage   = response.title;
+    view.errorDetail    = response.detail;
+    view.errorTraceId   = response.instance;
+  }
+}
+
 if (pmRequestID === 'mto-shipments-sit-extensions') {
   view.mto_shipments_sit_extensions = true;
 
