@@ -84,6 +84,17 @@
           {{/each}}
         </ul>
         {{/if}}
+        {{#if errorMessage}}
+        <li>
+          <strong>Error: </strong> {{errorMessage}}
+        </li>
+        <li>
+          <strong>Detail: </strong> {{errorDetail}}
+        </li>
+        <li>
+          <strong>Trace ID: </strong> {{errorTraceId}}
+        </li>
+        {{/if}}
       </div>
     </div>
 

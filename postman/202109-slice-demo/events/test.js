@@ -44,10 +44,21 @@ var view = {
   moveID: envGet('moveID'),
   mtoShipmentID: envGet('mtoShipmentID'),
   errorMessage: '',
+  errorDetail: '',
+  errorTraceId: '',
   move_task_orders: false,
   moves: false,
   mto_shipments_sit_extensions: false,
 };
+
+if (pm.response.code >= 300) {
+  console.debug(response);
+  view.alertTitle     = 'Something went wrong';
+  view.alertType      = 'error';
+  view.errorMessage   = response.title;
+  view.errorDetail    = response.detail;
+  view.errorTraceId   = response.instance;
+}
 
 if (pmRequestID === 'moves') {
   view.moves = true;
