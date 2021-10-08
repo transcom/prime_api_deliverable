@@ -1,7 +1,3 @@
-console.info('I am inside example-get-move-task-orders/events/test.js');
-console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');
-console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');
-
 // A helpful function that's less characters to type to get a Collection
 // Variable.
 function envGet(v) {
