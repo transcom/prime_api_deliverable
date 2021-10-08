@@ -3,9 +3,9 @@ module.exports = {
   "mtoShipmentID": "{{mtoShipmentID}}",
   "modelType": "MTOServiceItemDestSIT",
   "reServiceCode": "DDFSIT",
-  "firstAvailableDeliveryDate1": "2021-09-02",
+  "firstAvailableDeliveryDate1": "{{sitDate}}",
   "timeMilitary1": "0942Z",
-  "firstAvailableDeliveryDate2": "2021-09-02",
+  "firstAvailableDeliveryDate2": "{{sitDate}}",
   "timeMilitary2": "0942Z",
-  "sitEntryDate": "2021-09-02",
+  "sitEntryDate": "{{sitDate}}",
 }

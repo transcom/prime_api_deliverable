@@ -1,6 +1,7 @@
 // Node JS libraries for working with the file system and file paths.
-const fs   = require('fs'),
-      path = require('path');
+const fs      = require('fs'),
+      path    = require('path')
+      addDays = require('../utils/addDays');
 
 // Postman SDK functions required from the `postman-collection` library.
 const Collection = require('postman-collection').Collection;
@@ -40,11 +41,6 @@ let collection = new Collection({
       type: "string",
     },
     {
-      id: "customerFullName",
-      value: "",
-      type: "string",
-    },
-    {
       id: "moveTaskOrderID",
       value: "RDY4PY",
       type: "string",
@@ -55,7 +51,17 @@ let collection = new Collection({
       type: "string",
     },
     {
-      id: "shipmentID",
+      id: "sitDate",
+      value: addDays(-30),
+      type: "string",
+    },
+    {
+      id: "customerFullName",
+      value: "",
+      type: "string",
+    },
+    {
+      id: "mtoShipmentID",
       value: "",
       type: "string",
     },
