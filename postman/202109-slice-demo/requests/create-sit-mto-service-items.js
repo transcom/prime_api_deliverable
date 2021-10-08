@@ -19,10 +19,8 @@ const requestDescription = `
 This Postman Request was created with the Postman SDK and not the Postman.app
 UI.
 
-This endpoint creates a storage in transit (SIT) extension request for a
-shipment. A SIT extension request is a request an increase in the shipment day
-allowance for the number of days a shipment is allowed to be in SIT. The total
-SIT day allowance includes time spent in both origin and destination SIT.
+This endpoint creates a storage in transit (SIT) service item for a
+shipment.
 
 This Request uses the templates found in
 **templates/visualize.html**.
@@ -37,11 +35,11 @@ const requestTestScriptFilePath = path.resolve(__dirname, '../events/test.js'),
       requestTestScript = fs.readFileSync(requestTestScriptFilePath);
 
 module.exports = new Item({
-  name: 'Create SIT Extension',
+  name: 'Create DOFSIT & DOASIT',
   id: requestID,
   // A Request is a plain JS object and not a Postman SDK Request.
   request: {
-    url: '{{baseUrl}}/mto-shipments/{{shipmentID}}/sit-extensions',
+    url: '{{baseUrl}}/mto-service-items',
     method: 'POST',
     header: {
       'Postman-Request-ID': requestID,

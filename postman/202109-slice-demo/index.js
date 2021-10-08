@@ -75,6 +75,7 @@ let collection = new Collection({
 // See the files in the ./requests folder to see what they export.
 const movesRequest          = require('./requests/moves');
 const moveTaskOrdersRequest = require('./requests/move-task-orders');
+const createSITServiceItems = require('./requests/create-sit-mto-service-items');
 const createSITExtension    = require('./requests/mto-shipments-sit-extensions');
 
 // Add a Request Item to the collection variable. This follows the
@@ -82,6 +83,7 @@ const createSITExtension    = require('./requests/mto-shipments-sit-extensions')
 // README: https://www.postmanlabs.com/postman-collection/Item.html
 collection.items.add(movesRequest);
 collection.items.add(moveTaskOrdersRequest);
+collection.items.add(createSITServiceItems);
 collection.items.add(createSITExtension);
 
 // Write the file synchronously to the disk.
