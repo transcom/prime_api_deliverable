@@ -48,7 +48,7 @@ module.exports = new Item({
     description: requestDescription,
     body: new RequestBody({
       mode: 'raw',
-      raw: JSON.stringify(payload, null, 2),
+      raw: JSON.stringify(payload, null, 2).replace(/"{{/g, '{{').replace(/}}"/g, '}}'),
     }),
   },
   // An Event is an item in the event Array and represents a script that runs
