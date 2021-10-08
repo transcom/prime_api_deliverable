@@ -1,6 +1,6 @@
 module.exports = {
   "moveTaskOrderID": "{{moveTaskOrderID}}",
-  "mtoShipmentID": "{{shipmentID}}",
+  "mtoShipmentID": "{{mtoShipmentID}}",
   "modelType": "MTOServiceItemDestSIT",
   "reServiceCode": "DDFSIT",
   "firstAvailableDeliveryDate1": "2021-09-02",

@@ -42,7 +42,7 @@ var view = {
   customerFullName: envGet('customerFullName'),
   moveCode: envGet('moveCode'),
   moveID: envGet('moveID'),
-  shipmentID: envGet('shipmentID'),
+  mtoShipmentID: envGet('mtoShipmentID'),
   errorMessage: '',
   move_task_orders: false,
   moves: false,
@@ -80,7 +80,7 @@ if (pmRequestID === 'move-task-orders') {
     envSet('moveTaskOrderCode', view.moveCode);
     envSet('moveTaskOrderID', view.moveID);
     envSet('moveTaskOrderETag', response.eTag);
-    envSet('shipmentID', response.mtoShipments[0].id);
+    envSet('mtoShipmentID', response.mtoShipments[0].id);
 
     view.alertTitle = 'Move is now available to GHC Prime Contractor';
     view.alertType  = 'success';

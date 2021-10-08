@@ -41,7 +41,7 @@ module.exports = new Item({
   id: requestID,
   // A Request is a plain JS object and not a Postman SDK Request.
   request: {
-    url: '{{baseUrl}}/mto-shipments/{{shipmentID}}/sit-extensions',
+    url: '{{baseUrl}}/mto-shipments/{{mtoShipmentID}}/sit-extensions',
     method: 'POST',
     header: {
       'Postman-Request-ID': requestID,
