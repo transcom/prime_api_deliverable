@@ -50,7 +50,7 @@ module.exports = new Item({
     description: requestDescription,
     body: new RequestBody({
       mode: 'raw',
-      raw: JSON.stringify(payload),
+      raw: JSON.stringify(payload, null, 2),
     }),
   },
   // An Event is an item in the event Array and represents a script that runs
