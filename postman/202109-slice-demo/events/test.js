@@ -43,6 +43,9 @@ var view = {
   moveCode: envGet('moveCode'),
   moveID: envGet('moveID'),
   mtoShipmentID: envGet('mtoShipmentID'),
+  mtoShipmentETag: envGet('mtoShipmentETag'),
+  reweighID: envGet('reweighID'),
+  reweighETag: envGet('reweighETag'),
   errorMessage: '',
   errorDetail: '',
   errorTraceId: '',
@@ -92,6 +95,9 @@ if (pmRequestID === 'move-task-orders') {
     envSet('moveTaskOrderID', view.moveID);
     envSet('moveTaskOrderETag', response.eTag);
     envSet('mtoShipmentID', response.mtoShipments[0].id);
+    envSet('mtoShipmentETag', response.mtoShipments[0].eTag);
+    envSet('reweighID', response.mtoShipments[0].reweigh.id);
+    envSet('reweighETag', response.mtoShipments[0].reweigh.eTag);
 
     view.alertTitle = 'Move is now available to GHC Prime Contractor';
     view.alertType  = 'success';
