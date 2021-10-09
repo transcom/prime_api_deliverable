@@ -80,7 +80,7 @@ if (pmRequestID === 'move-task-orders') {
 
   // If the Move is found, we'll update the view object appropriately.
   if (pm.response.code === 200) {
-    view.customerFullName += response.order.customer.firstName.trim();
+    view.customerFullName = response.order.customer.firstName.trim();
     view.customerFullName += ' ';
     view.customerFullName += response.order.customer.lastName.trim();
 
