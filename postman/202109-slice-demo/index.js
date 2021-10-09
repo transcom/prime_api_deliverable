@@ -41,6 +41,11 @@ let collection = new Collection({
       type: "string",
     },
     {
+      id: "serviceItemsToInvoice",
+      value: "DLH,FSC",
+      type: "string",
+    },
+    {
       id: "moveTaskOrderID",
       value: "RDY4PY",
       type: "string",

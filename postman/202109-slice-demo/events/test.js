@@ -111,16 +111,28 @@ if (pmRequestID === 'move-task-orders') {
       serviceItems: [
       ]
     };
+    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');
     response.mtoServiceItems
       .filter((serviceItem) => {
-        return serviceItem.mtoShipmentID === response.mtoShipments[0].id;
+        return serviceItemsToInvoice.includes(serviceItem.reServiceCode) && serviceItem.mtoShipmentID === response.mtoShipments[0].id;
       })
       .forEach((serviceItem) => {
         console.info(serviceItem);
-        const si = { id: serviceItem.id  };
+        const si = { id: serviceItem.id };
+        if (serviceItem.reServiceCode === "DDASIT") {
+          si.params = [{
+
+            key: "SITPaymentRequestStart",
+            value: "2021-09-01",
+          },{
+            key: "SITPaymentRequestEnd",
+            value: "2021-09-30",
+          }];
+        }
         paymentRequest.serviceItems.add(si);
       });
     envSet('paymentRequestPayload', JSON.stringify(paymentRequest, null, 2));
+    console.info(envGet('paymentRequestPayload'));
   }
 
   // If the Move is not found, we'll update the view object appropriately.
