@@ -96,8 +96,10 @@ if (pmRequestID === 'move-task-orders') {
     envSet('moveTaskOrderETag', response.eTag);
     envSet('mtoShipmentID', response.mtoShipments[0].id);
     envSet('mtoShipmentETag', response.mtoShipments[0].eTag);
-    envSet('reweighID', response.mtoShipments[0].reweigh.id);
-    envSet('reweighETag', response.mtoShipments[0].reweigh.eTag);
+    if (response.mtoShipments[0].reweigh) {
+      envSet('reweighID', response.mtoShipments[0].reweigh.id);
+      envSet('reweighETag', response.mtoShipments[0].reweigh.eTag);
+    }
 
     view.alertTitle = 'Move is now available to GHC Prime Contractor';
     view.alertType  = 'success';
