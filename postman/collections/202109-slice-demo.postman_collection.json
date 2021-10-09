@@ -24,14 +24,18 @@
             "value": "moves"
           }
         ],
-        "method": "GET"
+        "method": "GET",
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        }
       },
       "response": [],
       "event": [
         {
           "listen": "prerequest",
           "script": {
-            "id": "51087f14-052c-4dc6-aa79-f9118755aec3",
+            "id": "74109641-0714-4553-bb69-32c4669684d2",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -48,7 +52,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "4eb96453-94d0-4748-ada6-9f2c3983a57d",
+            "id": "1fc0bc85-872e-42e2-a836-10d09da44898",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -161,8 +165,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -261,14 +264,18 @@
             "value": "move-task-orders"
           }
         ],
-        "method": "GET"
+        "method": "GET",
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        }
       },
       "response": [],
       "event": [
         {
           "listen": "prerequest",
           "script": {
-            "id": "5e58de06-0994-41e2-a1ae-e08e3013e83a",
+            "id": "0dcf4183-02c8-4983-8895-4f28fc3d6912",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -285,7 +292,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "c274d54f-6e9a-4c7c-9875-16c3d062a979",
+            "id": "12a0bdd9-cfb0-42de-853c-28971d98c9aa",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -398,8 +405,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -512,7 +518,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "be54f437-4601-4969-96ce-14054b4cd31d",
+            "id": "f1ded8a6-7bcc-4653-81a6-f6f82e2fdc9d",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -529,7 +535,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "ea5940f2-fb3f-4cbe-ab55-21410a4c022d",
+            "id": "285733de-bbb7-45db-bd10-d381a834a479",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -642,8 +648,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -758,7 +763,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "8ce4c734-901f-4e33-9657-2a735094dcd2",
+            "id": "2e10a787-7fa7-4767-a9af-870d0ace16cd",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -775,7 +780,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "e8da0196-bd84-4917-8198-83fd5a80d346",
+            "id": "d31a9669-af35-4a80-92bd-9e70c1e0259c",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -888,8 +893,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -1007,7 +1011,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "b2e7b6b0-5023-409d-834e-adb21792b64b",
+            "id": "2b234ece-6b06-44d2-8769-8718b3417fd9",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1024,7 +1028,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "550cb081-9833-422e-9fc4-0ca1da936a42",
+            "id": "28169ef2-a16e-4660-8307-8726c8d2507e",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1137,8 +1141,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -1256,7 +1259,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "18e9a4e3-8d29-477e-86ae-47cad211d93a",
+            "id": "8be1b947-dde6-45e6-a6a1-82af5e44e7f8",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1273,7 +1276,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "dca0a4b9-d070-4fe2-bd49-54baf4062b1f",
+            "id": "d652fde5-211a-4e77-a36a-bad2c45f609f",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1386,8 +1389,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -1462,7 +1464,7 @@
       ]
     },
     {
-      "id": "update-mto-shipment-destination-address",
+      "id": "a25e8eaf-3cd7-422d-b79d-0d0e18a2882b",
       "name": "Update the destination address on a shipment",
       "request": {
         "description": {
@@ -1505,7 +1507,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "039bcc79-9f56-4ff7-aac6-af177f85f009",
+            "id": "cd012606-e518-4605-9119-5d962d32b3a3",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1522,7 +1524,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "639f83df-ec1e-43d4-bc9a-b3fbdeec23b2",
+            "id": "62261acd-982c-42c9-beba-59d28ad99c7b",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1635,8 +1637,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -1754,7 +1755,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "2de87729-9877-44fa-8a06-f53515a0e5e6",
+            "id": "2869525c-2e81-4bc7-b99d-4ff94f8f8bc3",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1771,7 +1772,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "ad978151-9b16-4f1a-907e-9cfc1748c6c9",
+            "id": "4e20e169-903a-4651-9635-6b124222434c",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1884,8 +1885,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -1997,7 +1997,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"weight\": 4000,\n  \"verificationReason\": \"The reweigh was not performed because the shipment was already delivered\"\n}"
+          "raw": "{\n  \"verificationReason\": \"The reweigh was not performed because the shipment was already delivered\"\n}"
         }
       },
       "response": [],
@@ -2005,7 +2005,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "5153c742-b3b3-4d55-a80d-26759d50bb4c",
+            "id": "fd3bc71b-fd96-4daf-bb11-84c934757a52",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -2022,7 +2022,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "d3daf9ff-7acc-4689-8be6-d9b14a7291c9",
+            "id": "48c94f6e-ee42-4863-9cad-62db2fa3ece5",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2135,8 +2135,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -2249,7 +2248,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "42c8cf20-269f-414b-a574-fcfea6b46559",
+            "id": "be424d99-16ad-4fac-9e0c-2f51b7a8bb98",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -2266,7 +2265,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "d0de1b5f-e727-4361-bd19-872354be3d6d",
+            "id": "79ceaaf2-98e6-4c13-9967-ca49ad4851f4",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2379,8 +2378,7 @@
               "    const paymentRequest = {",
               "      isFinal: false,",
               "      moveTaskOrderID: view.moveID,",
-              "      serviceItems: [",
-              "      ]",
+              "      serviceItems: []",
               "    };",
               "    const serviceItemsToInvoice = envGet('serviceItemsToInvoice');",
               "    response.mtoServiceItems",
@@ -2534,7 +2532,7 @@
     }
   ],
   "info": {
-    "_postman_id": "68564920-1173-449f-8947-95fb4bb0e161",
+    "_postman_id": "33522e8f-3357-4ab3-9a76-0a181e0b8e13",
     "name": "September 2021 Slice Demo",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
