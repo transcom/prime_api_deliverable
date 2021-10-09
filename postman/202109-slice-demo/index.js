@@ -56,6 +56,16 @@ let collection = new Collection({
       type: "string",
     },
     {
+      id: "primeEstimatedWeight",
+      value: 13000,
+      type: "int",
+    },
+    {
+      id: "primeActualWeight",
+      value: 13128,
+      type: "int",
+    },
+    {
       id: "customerFullName",
       value: "",
       type: "string",

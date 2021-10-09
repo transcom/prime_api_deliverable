@@ -1,5 +1,5 @@
 const payload = {
-  primeActualWeight: 6000,
+  primeActualWeight: "{{primeActualWeight}}",
 };
 
 module.exports = payload;
