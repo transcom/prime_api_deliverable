@@ -108,8 +108,7 @@ if (pmRequestID === 'move-task-orders') {
     const paymentRequest = {
       isFinal: false,
       moveTaskOrderID: view.moveID,
-      serviceItems: [
-      ]
+      serviceItems: []
     };
     const serviceItemsToInvoice = envGet('serviceItemsToInvoice');
     response.mtoServiceItems
