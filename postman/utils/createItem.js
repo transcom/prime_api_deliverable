@@ -10,8 +10,6 @@ const Item        = require('postman-collection').Item,
 
 /**
  * createItem builds a Postman Item object
- *
- * params
  */
 const createItem = ({
   name,
@@ -21,9 +19,28 @@ const createItem = ({
   headers,
   description,
   payload,
-  prerequestScript,
-  testScript,
+  prerequestScript = null,
+  testScript = null,
 }) => {
+  // An Event is an item in the event Array and represents a script that runs
+  // either in Pre-Script or Tests.
+  // README: https://www.postmanlabs.com/postman-collection/Event.html
+  const events = [];
+  if (prerequestScript !== null) {
+    const e = new Event({
+      listen: 'prerequest',
+      script: prerequestScript.toString(),
+    });
+    events.push(e);
+  }
+  if (testScript !== null) {
+    const e = new Event({
+      listen: 'test',
+      script: testScript.toString(),
+    });
+    events.push(e);
+  }
+
   return new Item({
     name: name,
     id: requestID,
@@ -38,19 +55,7 @@ const createItem = ({
         raw: payload,
       }),
     },
-    // An Event is an item in the event Array and represents a script that runs
-    // either in Pre-Script or Tests.
-    // README: https://www.postmanlabs.com/postman-collection/Event.html
-    event: [
-      new Event({
-        listen: 'prerequest',
-        script: prerequestScript.toString(),
-      }),
-      new Event({
-        listen: 'test',
-        script: testScript.toString(),
-      }),
-    ],
+    event: events,
   });
 }
 

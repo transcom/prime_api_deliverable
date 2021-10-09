@@ -26,7 +26,6 @@ const requestPreRequestScript = readScript(__dirname, '../events/prerequest.js')
 // Get the contents of the events/test.js file
 const requestTestScript = readScript(__dirname, '../events/test.js');
 
-
 module.exports = createItem({
   name: 'Update the pickup date on a shipment',
   requestID: requestID,
