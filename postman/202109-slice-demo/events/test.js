@@ -103,6 +103,24 @@ if (pmRequestID === 'move-task-orders') {
 
     view.alertTitle = 'Move is now available to GHC Prime Contractor';
     view.alertType  = 'success';
+
+    // prepare a payment request
+    const paymentRequest = {
+      isFinal: false,
+      moveTaskOrderID: view.moveID,
+      serviceItems: [
+      ]
+    };
+    response.mtoServiceItems
+      .filter((serviceItem) => {
+        return serviceItem.mtoShipmentID === response.mtoShipments[0].id;
+      })
+      .forEach((serviceItem) => {
+        console.info(serviceItem);
+        const si = { id: serviceItem.id  };
+        paymentRequest.serviceItems.add(si);
+      });
+    envSet('paymentRequestPayload', JSON.stringify(paymentRequest, null, 2));
   }
 
   // If the Move is not found, we'll update the view object appropriately.

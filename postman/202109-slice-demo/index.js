@@ -96,6 +96,11 @@ let collection = new Collection({
       type: "string",
     },
     {
+      id: "paymentRequestPayload",
+      value: "",
+      type: "string",
+    },
+    {
       id: 'visualizeTemplate',
       value: visualizeTemplate.toString(),
       type: 'string',
