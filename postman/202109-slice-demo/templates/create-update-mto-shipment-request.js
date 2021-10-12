@@ -10,8 +10,10 @@ module.exports = ({requestID, payload, name, description}) => {
   const requestTestScript = readScript(__dirname, '../events/test.js');
 
   return createItem({
-    name: 'Update the actual weight on a shipment',
-    requestID: requestID,
+    name,
+    requestID,
+    description,
+    payload,
     url: '{{baseUrl}}/mto-shipments/{{mtoShipmentID}}',
     method: 'PATCH',
     headers: {
@@ -19,8 +21,6 @@ module.exports = ({requestID, payload, name, description}) => {
       'Content-Type': 'application/json',
       'If-Match': '{{mtoShipmentETag}}',
     },
-    description: description,
-    payload: payload,
     prerequestScript: requestPreRequestScript,
     testScript: requestTestScript,
   });
