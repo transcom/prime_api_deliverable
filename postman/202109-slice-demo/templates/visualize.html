@@ -62,6 +62,14 @@
           </li>
           {{/if}}
         </ul>
+          {{#if show_reweigh}}
+          <h5 class="usa-alert__heading margin-bottom-4">Reweigh Request Details</h5>
+        <ul>
+          {{#each reweigh_details}}
+          <li><strong>{{@key}}:</strong> {{{this}}}</li>
+          {{/each}}
+        </ul>
+          {{/if}}
         {{/if}}
         {{#if moves}}
         <ul class="usa-content-list font-mono-md">

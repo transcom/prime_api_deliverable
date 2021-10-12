@@ -52,6 +52,7 @@ var view = {
   move_task_orders: false,
   moves: false,
   mto_shipments_sit_extensions: false,
+  show_reweigh: false,
 };
 
 if (pm.response.code >= 300) {
@@ -99,10 +100,32 @@ if (pmRequestID === 'move-task-orders') {
     if (response.mtoShipments[0].reweigh) {
       envSet('reweighID', response.mtoShipments[0].reweigh.id);
       envSet('reweighETag', response.mtoShipments[0].reweigh.eTag);
+      view.show_reweigh = true;
     }
 
-    view.alertTitle = 'Move is now available to GHC Prime Contractor';
-    view.alertType  = 'success';
+    if (view.show_reweigh) {
+      const reweigh = response.mtoShipments[0].reweigh;
+      if (reweigh.weight || reweigh.verificationReason) {
+        // reweigh requested and performed
+        view.alertTitle = 'Reweigh has been requested and completed';
+        view.alertType  = 'success';
+      } else {
+        // reweigh requested but not performed yet
+        view.alertTitle = 'Reweigh has been requested';
+        view.alertType  = 'warning';
+      }
+      view.reweigh_details = {
+        id: reweigh.id,
+        requestedAt: reweigh.requestedAt,
+        requestedBy: reweigh.requestedBy,
+        weight: reweigh.weight,
+        verificationReason: reweigh.verificationReason,
+        verificationProvidedAt: reweigh.verificationProvidedAt,
+      }
+    } else {
+      view.alertTitle = 'Move is now available to GHC Prime Contractor';
+      view.alertType  = 'success';
+    }
 
     // prepare a payment request
     const paymentRequest = {
