@@ -1,7 +1,7 @@
 // payloads and utils
 const payloads = require('../payloads'),
-      { readScript, getRequestID } = require('../../utils/fileUtils'),
-      createItem = require('../../utils/createItem');
+      { getRequestID } = require('../../utils/fileUtils'),
+      createUpdateMTOShipmentRequest = require('../templates/create-update-mto-shipment-request');
 
 // The Request ID. This is made up and is only used because we need to pass an
 // ID to Postman SDK.
@@ -20,24 +20,9 @@ This Request uses the templates found in
 **templates/visualize.html**.
 `;
 
-// Get the contents of the events/prerequest.js file
-const requestPreRequestScript = readScript(__dirname, '../events/prerequest.js');
-
-// Get the contents of the events/test.js file
-const requestTestScript = readScript(__dirname, '../events/test.js');
-
-module.exports = createItem({
+module.exports = createUpdateMTOShipmentRequest({
   name: 'Update the estimated weight on a shipment',
   requestID: requestID,
-  url: '{{baseUrl}}/mto-shipments/{{mtoShipmentID}}',
-  method: 'PATCH',
-  headers: {
-    'Postman-Request-ID': requestID,
-    'Content-Type': 'application/json',
-    'If-Match': '{{mtoShipmentETag}}',
-  },
   description: requestDescription,
   payload: JSON.stringify(payload, null, 2).replace(/"{{/g, '{{').replace(/}}"/g, '}}'),
-  prerequestScript: requestPreRequestScript,
-  testScript: requestTestScript,
 });
