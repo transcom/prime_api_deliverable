@@ -85,13 +85,13 @@
         {{/if}}
         {{#if create_sit_mto_service_items}}
           {{#each sitServiceItem}}
-            {{#each this}} <!-- each service item as 3 are created -->
+            <br />
             <ul class="usa-content-list font-mono-md">
-              <li>
-                <strong>{{@key}}: </strong> {{{this}}}
-              </li>
+              <li><strong>Service name: </strong> {{{this.reServiceName}}}</li>
+              <li><strong>Service Code: </strong> {{{this.reServiceCode}}}</li>
+              <li><strong>Status: </strong> {{{this.status}}}</li>
+              <li><strong>Entry Date: </strong> {{{this.sitEntryDate}}}</li>
             </ul>
-            {{/each}}
           {{/each}}
         {{/if}}
         {{#if mto_shipments_sit_extensions}}
