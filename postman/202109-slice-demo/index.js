@@ -118,12 +118,12 @@ const movesRequest          = require('./requests/moves');
 const moveTaskOrdersRequest = require('./requests/move-task-orders');
 const createSITServiceItems = require('./requests/create-sit-mto-service-items');
 const createSITExtension    = require('./requests/mto-shipments-sit-extensions');
+const updateMTOShipmentSch  = require('./requests/update-mto-shipment-scheduled-date');
 const updateMTOShipmentEst  = require('./requests/update-mto-shipment-estimated-weight');
 const updateMTOShipmentAct  = require('./requests/update-mto-shipment-actual-weight');
 const updateMTOShipmentDst  = require('./requests/update-mto-shipment-destination-address');
-const updateMTOShipmentPic  = require('./requests/update-mto-shipment-pickup-date');
-const addReweighWeight      = require('./requests/add-reweigh-weight');
 const paymentRequest        = require('./requests/create-payment-request');
+const addReweighWeight      = require('./requests/add-reweigh-weight');
 
 // Add a Request Item to the collection variable. This follows the
 // documentation for what an Item is in Postman SDK.
@@ -132,12 +132,12 @@ collection.items.add(movesRequest);
 collection.items.add(moveTaskOrdersRequest);
 collection.items.add(createSITServiceItems);
 collection.items.add(createSITExtension);
+collection.items.add(updateMTOShipmentSch);
 collection.items.add(updateMTOShipmentEst);
 collection.items.add(updateMTOShipmentAct);
 collection.items.add(updateMTOShipmentDst);
-collection.items.add(updateMTOShipmentPic);
-collection.items.add(addReweighWeight);
 collection.items.add(paymentRequest);
+collection.items.add(addReweighWeight);
 
 // Write the file synchronously to the disk.
 fs.writeFileSync(

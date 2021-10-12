@@ -171,7 +171,11 @@ if (pmRequestID === 'mto-shipments-sit-extensions') {
     view.pageAction = 'Create SIT Extension';
     view.sitExtension = response;
   }
+}
 
+// response from update-mto-shipment endpoint is shipment JSON with new eTag
+if (request.url.includes('/prime/v1/mto-shipments') && request.method === "PATCH") {
+  envSet('mtoShipmentETag', response.eTag);
 }
 
 // Setup the visualization template.
