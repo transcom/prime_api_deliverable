@@ -23,8 +23,8 @@ const payloads = {
     "sitEntryDate": "{{sitDate}}",
   },
   "mto-shipments-sit-extensions": {
-    requestReason: "IMPENDING_ASSIGNEMENT",
-    contractorRemarks: "We need SIT additional days. The customer has not found a house yet.",
+    requestReason: "NONAVAILABILITY_OF_CIVILIAN_HOUSING",
+    contractorRemarks: "Customer is in the middle of closing on a house, expects it to be in 10 days.",
     requestedDays: 30,
   },
   "update-mto-shipment-actual-weight": {
