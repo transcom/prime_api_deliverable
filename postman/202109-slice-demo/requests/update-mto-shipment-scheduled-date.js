@@ -21,7 +21,7 @@ This Request uses the templates found in
 `;
 
 module.exports = createUpdateMTOShipmentRequest({
-  name: 'Update the pickup date on a shipment',
+  name: 'Update the scheduled date on a shipment',
   requestID: requestID,
   description: requestDescription,
   payload: JSON.stringify(payload, null, 2),

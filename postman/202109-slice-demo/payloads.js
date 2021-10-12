@@ -28,6 +28,7 @@ const payloads = {
     requestedDays: 30,
   },
   "update-mto-shipment-actual-weight": {
+    actualPickupDate: addDays(-7),
     primeActualWeight: "{{primeActualWeight}}",
   },
   "update-mto-shipment-destination-address": {
@@ -42,8 +43,8 @@ const payloads = {
   "update-mto-shipment-estimated-weight": {
     primeEstimatedWeight: "{{primeEstimatedWeight}}",
   },
-  "update-mto-shipment-pickup-date": {
-    actualPickupDate: addDays(-7),
+  "update-mto-shipment-scheduled-date": {
+    scheduledPickupDate: addDays(-7),
   },
 };
 
