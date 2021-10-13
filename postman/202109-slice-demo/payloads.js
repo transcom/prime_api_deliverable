@@ -44,7 +44,7 @@ const payloads = {
     primeEstimatedWeight: "{{primeEstimatedWeight}}",
   },
   "update-mto-shipment-scheduled-date": {
-    scheduledPickupDate: addDays(3),
+    scheduledPickupDate: addDays(7),
   },
 };
 
