@@ -1,0 +1,574 @@
+{
+  "item": [
+    {
+      "id": "moves",
+      "name": "List All Moves",
+      "request": {
+        "description": {
+          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nGets all moves that have been reviewed and approved by the TOO. The `since`\nparameter can be used to filter this list down to only the moves that have been\nupdated since the provided timestamp. A move will be considered updated if the\n`updatedAt` timestamp on the move or on its orders, shipments, service items,\nor payment requests, is later than the provided date and time.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "moves"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "moves"
+          }
+        ],
+        "method": "GET"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "47d0f659-aec2-4029-91a9-40a3644d5d72",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/prerequest.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "88f8c7c1-e62d-48e3-830a-427dd9f191a8",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/test.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "// A helpful function that's less characters to type to get a Collection",
+              "// Variable.",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "// A helpful function that's less characters to type to set a Collection",
+              "// Variable.",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "// A helpful map of relationships between request file names and titles.",
+              "const requestIDToTitle = {",
+              "  'move-task-orders': 'Get MoveTaskOrder By ID',",
+              "  moves: 'Get All Moves',",
+              "  'mto-shipments-sit-extensions': 'Create SIT Extension For Shipment ID',",
+              "};",
+              "",
+              "// The response JSON that Postman created.",
+              "const response = pm.response.json();",
+              "",
+              "// The custom header for Postman Request ID which is the filename of the",
+              "// ./requests files.",
+              "const pmRequestID = pm.request.getHeaders()['Postman-Request-ID'];",
+              "",
+              "// The template file that is set in example-get-move-task-orders/index.js that",
+              "// references example-get-move-task-orders/templates/visualize.html",
+              "const template = envGet('visualizeTemplate');",
+              "",
+              "// A helpful string that can be used to show \"undefined\" in the Visualize tab.",
+              "const undefHTML = '<code>undefined</code>';",
+              "",
+              "// The view object that gets fed into the template file. These are base values",
+              "// and will be modified in the next conditional checks around the status code.",
+              "var view = {",
+              "  pageTitle: requestIDToTitle[pmRequestID],",
+              "  pageHeading: 'GHC Contractor',",
+              "  pageAction: 'Receives Moves information',",
+              "  alertTitle: '',",
+              "  alertType: '',",
+              "  customerFullName: envGet('customerFullName'),",
+              "  moveCode: envGet('moveCode'),",
+              "  moveID: envGet('moveID'),",
+              "  errorMessage: '',",
+              "  move_task_orders: false,",
+              "  moves: false,",
+              "  mto_shipments_sit_extensions: false,",
+              "};",
+              "",
+              "if (pmRequestID === 'moves') {",
+              "  view.moves = true;",
+              "",
+              "  if (pm.response.code === 200) {",
+              "    view.alertTitle = 'List all Moves';",
+              "    view.alertType  = 'success';",
+              "    view.movesList = response;",
+              "  }",
+              "",
+              "}",
+              "",
+              "if (pmRequestID === 'move-task-orders') {",
+              "  view.move_task_orders = true;",
+              "",
+              "  // If the Move is found, we'll update the view object appropriately.",
+              "  if (pm.response.code === 200) {",
+              "    view.customerFullName += response.order.customer.firstName.trim();",
+              "    view.customerFullName += ' ';",
+              "    view.customerFullName += response.order.customer.lastName.trim();",
+              "",
+              "    console.info('Setting customerFullName in the Collection Variables');",
+              "    envSet('customerFullName', view.customerFullName);",
+              "",
+              "    view.moveCode = response.moveCode;",
+              "    view.moveID = response.id;",
+              "",
+              "    console.info('Setting moveTaskOrderCode, moveTaskOrderID, moveTaskOrderETag in the Collection Variables');",
+              "    envSet('moveTaskOrderCode', view.moveCode);",
+              "    envSet('moveTaskOrderID', view.moveID);",
+              "    envSet('moveTaskOrderETag', response.eTag);",
+              "    envSet('shipmentID', response.mtoShipments[0].id);",
+              "",
+              "    view.alertTitle = 'Move is now available to GHC Prime Contractor';",
+              "    view.alertType  = 'success';",
+              "  }",
+              "",
+              "  // If the Move is not found, we'll update the view object appropriately.",
+              "  if (pm.response.code === 404) {",
+              "    view.alertTitle   = 'Move is not available to GHC Prime Contractor';",
+              "    view.alertType    = 'error';",
+              "    view.moveCode     = undefHTML;",
+              "    view.moveID       = undefHTML;",
+              "    view.errorMessage = response.title;",
+              "  }",
+              "}",
+              "",
+              "if (pmRequestID === 'mto-shipments-sit-extensions') {",
+              "  view.mto_shipments_sit_extensions = true;",
+              "",
+              "  if (pm.response.code === 201) {",
+              "",
+              "  }",
+              "",
+              "}",
+              "",
+              "// Setup the visualization template.",
+              "pm.visualizer.set(template, view);",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "move-task-orders",
+      "name": "MoveTaskOrders by ID",
+      "request": {
+        "description": {
+          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint gets an individual MoveTaskOrder by ID.\n\nIt will provide information about the Customer and any associated MTOShipments,\nMTOServiceItems and PaymentRequests.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "move-task-orders",
+            "{{moveTaskOrderID}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "move-task-orders"
+          }
+        ],
+        "method": "GET"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "f7c41fb4-a10b-432f-b7e0-db983bd858f6",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/prerequest.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "2aeef81d-c14c-4f47-ad6c-1bb97aaf7e4f",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/test.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "// A helpful function that's less characters to type to get a Collection",
+              "// Variable.",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "// A helpful function that's less characters to type to set a Collection",
+              "// Variable.",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "// A helpful map of relationships between request file names and titles.",
+              "const requestIDToTitle = {",
+              "  'move-task-orders': 'Get MoveTaskOrder By ID',",
+              "  moves: 'Get All Moves',",
+              "  'mto-shipments-sit-extensions': 'Create SIT Extension For Shipment ID',",
+              "};",
+              "",
+              "// The response JSON that Postman created.",
+              "const response = pm.response.json();",
+              "",
+              "// The custom header for Postman Request ID which is the filename of the",
+              "// ./requests files.",
+              "const pmRequestID = pm.request.getHeaders()['Postman-Request-ID'];",
+              "",
+              "// The template file that is set in example-get-move-task-orders/index.js that",
+              "// references example-get-move-task-orders/templates/visualize.html",
+              "const template = envGet('visualizeTemplate');",
+              "",
+              "// A helpful string that can be used to show \"undefined\" in the Visualize tab.",
+              "const undefHTML = '<code>undefined</code>';",
+              "",
+              "// The view object that gets fed into the template file. These are base values",
+              "// and will be modified in the next conditional checks around the status code.",
+              "var view = {",
+              "  pageTitle: requestIDToTitle[pmRequestID],",
+              "  pageHeading: 'GHC Contractor',",
+              "  pageAction: 'Receives Moves information',",
+              "  alertTitle: '',",
+              "  alertType: '',",
+              "  customerFullName: envGet('customerFullName'),",
+              "  moveCode: envGet('moveCode'),",
+              "  moveID: envGet('moveID'),",
+              "  errorMessage: '',",
+              "  move_task_orders: false,",
+              "  moves: false,",
+              "  mto_shipments_sit_extensions: false,",
+              "};",
+              "",
+              "if (pmRequestID === 'moves') {",
+              "  view.moves = true;",
+              "",
+              "  if (pm.response.code === 200) {",
+              "    view.alertTitle = 'List all Moves';",
+              "    view.alertType  = 'success';",
+              "    view.movesList = response;",
+              "  }",
+              "",
+              "}",
+              "",
+              "if (pmRequestID === 'move-task-orders') {",
+              "  view.move_task_orders = true;",
+              "",
+              "  // If the Move is found, we'll update the view object appropriately.",
+              "  if (pm.response.code === 200) {",
+              "    view.customerFullName += response.order.customer.firstName.trim();",
+              "    view.customerFullName += ' ';",
+              "    view.customerFullName += response.order.customer.lastName.trim();",
+              "",
+              "    console.info('Setting customerFullName in the Collection Variables');",
+              "    envSet('customerFullName', view.customerFullName);",
+              "",
+              "    view.moveCode = response.moveCode;",
+              "    view.moveID = response.id;",
+              "",
+              "    console.info('Setting moveTaskOrderCode, moveTaskOrderID, moveTaskOrderETag in the Collection Variables');",
+              "    envSet('moveTaskOrderCode', view.moveCode);",
+              "    envSet('moveTaskOrderID', view.moveID);",
+              "    envSet('moveTaskOrderETag', response.eTag);",
+              "    envSet('shipmentID', response.mtoShipments[0].id);",
+              "",
+              "    view.alertTitle = 'Move is now available to GHC Prime Contractor';",
+              "    view.alertType  = 'success';",
+              "  }",
+              "",
+              "  // If the Move is not found, we'll update the view object appropriately.",
+              "  if (pm.response.code === 404) {",
+              "    view.alertTitle   = 'Move is not available to GHC Prime Contractor';",
+              "    view.alertType    = 'error';",
+              "    view.moveCode     = undefHTML;",
+              "    view.moveID       = undefHTML;",
+              "    view.errorMessage = response.title;",
+              "  }",
+              "}",
+              "",
+              "if (pmRequestID === 'mto-shipments-sit-extensions') {",
+              "  view.mto_shipments_sit_extensions = true;",
+              "",
+              "  if (pm.response.code === 201) {",
+              "",
+              "  }",
+              "",
+              "}",
+              "",
+              "// Setup the visualization template.",
+              "pm.visualizer.set(template, view);",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "mto-shipments-sit-extensions",
+      "name": "Create SIT Extension",
+      "request": {
+        "description": {
+          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint creates a storage in transit (SIT) extension request for a\nshipment. A SIT extension request is a request an increase in the shipment day\nallowance for the number of days a shipment is allowed to be in SIT. The total\nSIT day allowance includes time spent in both origin and destination SIT.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "mto-shipments",
+            "{{shipmentID}}",
+            "sit-extensions"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "mto-shipments-sit-extensions"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"requestReason\":\"IMPENDING_ASSIGNEMENT\",\"contractorRemarks\":\"We need SIT additional days. The customer has not found a house yet.\",\"requestedDays\":30}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "ad4566df-ea8f-47cd-a8ff-d3df60e168ed",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/prerequest.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "bcc216ac-0410-4972-894f-527bc3ffefe5",
+            "type": "text/javascript",
+            "exec": [
+              "console.info('I am inside example-get-move-task-orders/events/test.js');",
+              "console.info('This file runs within the Postman.app JavaScript Runtime and not within Node JS.');",
+              "console.info('For more documentation on this, see this URL: https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#using-external-libraries');",
+              "",
+              "// A helpful function that's less characters to type to get a Collection",
+              "// Variable.",
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "// A helpful function that's less characters to type to set a Collection",
+              "// Variable.",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "// A helpful map of relationships between request file names and titles.",
+              "const requestIDToTitle = {",
+              "  'move-task-orders': 'Get MoveTaskOrder By ID',",
+              "  moves: 'Get All Moves',",
+              "  'mto-shipments-sit-extensions': 'Create SIT Extension For Shipment ID',",
+              "};",
+              "",
+              "// The response JSON that Postman created.",
+              "const response = pm.response.json();",
+              "",
+              "// The custom header for Postman Request ID which is the filename of the",
+              "// ./requests files.",
+              "const pmRequestID = pm.request.getHeaders()['Postman-Request-ID'];",
+              "",
+              "// The template file that is set in example-get-move-task-orders/index.js that",
+              "// references example-get-move-task-orders/templates/visualize.html",
+              "const template = envGet('visualizeTemplate');",
+              "",
+              "// A helpful string that can be used to show \"undefined\" in the Visualize tab.",
+              "const undefHTML = '<code>undefined</code>';",
+              "",
+              "// The view object that gets fed into the template file. These are base values",
+              "// and will be modified in the next conditional checks around the status code.",
+              "var view = {",
+              "  pageTitle: requestIDToTitle[pmRequestID],",
+              "  pageHeading: 'GHC Contractor',",
+              "  pageAction: 'Receives Moves information',",
+              "  alertTitle: '',",
+              "  alertType: '',",
+              "  customerFullName: envGet('customerFullName'),",
+              "  moveCode: envGet('moveCode'),",
+              "  moveID: envGet('moveID'),",
+              "  errorMessage: '',",
+              "  move_task_orders: false,",
+              "  moves: false,",
+              "  mto_shipments_sit_extensions: false,",
+              "};",
+              "",
+              "if (pmRequestID === 'moves') {",
+              "  view.moves = true;",
+              "",
+              "  if (pm.response.code === 200) {",
+              "    view.alertTitle = 'List all Moves';",
+              "    view.alertType  = 'success';",
+              "    view.movesList = response;",
+              "  }",
+              "",
+              "}",
+              "",
+              "if (pmRequestID === 'move-task-orders') {",
+              "  view.move_task_orders = true;",
+              "",
+              "  // If the Move is found, we'll update the view object appropriately.",
+              "  if (pm.response.code === 200) {",
+              "    view.customerFullName += response.order.customer.firstName.trim();",
+              "    view.customerFullName += ' ';",
+              "    view.customerFullName += response.order.customer.lastName.trim();",
+              "",
+              "    console.info('Setting customerFullName in the Collection Variables');",
+              "    envSet('customerFullName', view.customerFullName);",
+              "",
+              "    view.moveCode = response.moveCode;",
+              "    view.moveID = response.id;",
+              "",
+              "    console.info('Setting moveTaskOrderCode, moveTaskOrderID, moveTaskOrderETag in the Collection Variables');",
+              "    envSet('moveTaskOrderCode', view.moveCode);",
+              "    envSet('moveTaskOrderID', view.moveID);",
+              "    envSet('moveTaskOrderETag', response.eTag);",
+              "    envSet('shipmentID', response.mtoShipments[0].id);",
+              "",
+              "    view.alertTitle = 'Move is now available to GHC Prime Contractor';",
+              "    view.alertType  = 'success';",
+              "  }",
+              "",
+              "  // If the Move is not found, we'll update the view object appropriately.",
+              "  if (pm.response.code === 404) {",
+              "    view.alertTitle   = 'Move is not available to GHC Prime Contractor';",
+              "    view.alertType    = 'error';",
+              "    view.moveCode     = undefHTML;",
+              "    view.moveID       = undefHTML;",
+              "    view.errorMessage = response.title;",
+              "  }",
+              "}",
+              "",
+              "if (pmRequestID === 'mto-shipments-sit-extensions') {",
+              "  view.mto_shipments_sit_extensions = true;",
+              "",
+              "  if (pm.response.code === 201) {",
+              "",
+              "  }",
+              "",
+              "}",
+              "",
+              "// Setup the visualization template.",
+              "pm.visualizer.set(template, view);",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "id": "baseUrl",
+      "type": "string",
+      "value": "https://primelocal:9443/prime/v1"
+    },
+    {
+      "id": "customerFullName",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderCode",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "shipmentID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderETag",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "visualizeTemplate",
+      "type": "string",
+      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">(For Demo Purposes Only) {{pageTitle}}</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        {{#if move_task_orders}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Move code:</strong> {{{moveCode}}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{{moveID}}}\n          </li>\n          {{#if errorMessage}}\n          <li>\n            <strong>Error: </strong> {{errorMessage}}\n          </li>\n          {{else}}\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          {{/if}}\n        </ul>\n        {{/if}}\n        {{#if moves}}\n        <ul class=\"usa-content-list font-mono-md\">\n        {{#each movesList}}\n        <hr>\n        {{#each this}}\n        <li>\n          <strong>{{@key}}:</strong> {{this}}\n        </li>\n        {{/each}}\n        {{/each}}\n        </ul>\n        {{/if}}\n        {{#if mto_shipments_sit_extensions}}\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each sitExtension}}\n          <li>\n            <strong>{{@key}}: </strong> {{{this}}}\n          </li>\n          {{/each}}\n        </ul>\n        {{/if}}\n      </div>\n    </div>\n\n  </div>\n</body>\n</html>\n\n"
+    }
+  ],
+  "info": {
+    "_postman_id": "8f20c5fa-4e6a-4880-bec5-ea7598aea925",
+    "name": "MB-9088 Testing Prime SIT Extension Submission",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n# MB-9088 Testing Prime SIT Extension Submission\n\n> Taken from MB-9298\n\n##### User Statement\n\n**Given** I'm the Prime\n**When** I submit a SIT extension for a shipment on a move\n**Then** I need the move status to change to `approvals requested`\n**So** that I can be confident that the TOO will be made aware of my request\n\n##### Acceptance Criteria\n\n- When the prime creates an extension request, the move status is set to\n  approvals requested\n- Confirm in the TOO UI that the move shows up on the TOO move queue.\n\nThis Postman Collection was created with the Postman SDK and not the Postman.app UI.\n",
+      "type": "text/plain"
+    }
+  }
+}
