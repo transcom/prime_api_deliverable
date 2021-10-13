@@ -118,6 +118,13 @@
           <li><strong>Created At: </strong> {{{proofOfServiceDetails.createdAt}}}</li>
         </ul>
         {{/if}}
+        {{#if show_updated_mto_shipment}}
+        <ul class="usa-content-list font-mono-md">
+          {{#each updatesMade}}
+          <li><strong>{{@key}}: </strong> {{{this}}}</li>
+          {{/each}}
+        </ul>
+        {{/if}}
         {{#if errorMessage}}
         <div>
           <ul class="usa-content-list font-mono-md">

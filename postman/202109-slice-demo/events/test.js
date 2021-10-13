@@ -55,6 +55,7 @@ var view = {
   show_reweigh: false,
   show_payment_request: false,
   show_proof_of_service: false,
+  show_updated_mto_shipment: false,
 };
 
 if (pm.response.code >= 300) {
@@ -225,7 +226,20 @@ if (pmRequestID === 'upload-proof-of-service') {
 
 // response from update-mto-shipment endpoint is shipment JSON with new eTag
 if (request.url.includes('/prime/v1/mto-shipments') && request.method === "PATCH") {
-  envSet('mtoShipmentETag', response.eTag);
+  view.show_updated_mto_shipment = true
+  view.pageAction = 'Update Shipment';
+  if (pm.response.code == 200) {
+    envSet('mtoShipmentETag', response.eTag);
+    view.alertTitle = 'Update Succeeded';
+    view.alertType = 'success';
+    view.updatesMade = {};
+    Object.keys(JSON.parse(request.data)).forEach((key) => {
+      view.updatesMade[key] = response[key];
+    })
+  } else {
+    view.alertTitle = 'Update Failed';
+    view.alertType = 'error';
+  }
 }
 
 // Setup the visualization template.
