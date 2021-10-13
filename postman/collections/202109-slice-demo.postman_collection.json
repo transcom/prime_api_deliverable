@@ -35,7 +35,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "a2d7b3ac-ab8f-49bf-b29b-68c07d20c461",
+            "id": "3c22cda7-ae68-4f55-842f-711f16a5d10d",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -52,7 +52,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "8f52a0b9-3484-4878-8ae1-b90dfc564646",
+            "id": "2c27e54d-cba2-45a5-a103-03e868c8490b",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -91,6 +91,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -114,6 +115,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -263,6 +266,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -343,7 +347,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "82952f09-d2ee-4804-bc60-2a46c04e2b48",
+            "id": "e0a31cdc-2bd5-471a-8e17-a7a7f44f7f14",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -360,7 +364,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "f49ae5b5-48a4-4899-b83d-4d9e1c976aaf",
+            "id": "49b4329d-862f-4666-8855-284aad7373dc",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -399,6 +403,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -422,6 +427,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -571,6 +578,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -617,7 +625,7 @@
     },
     {
       "id": "create-sit-mto-service-items",
-      "name": "Create DOFSIT & DOASIT",
+      "name": "Create DDFSIT & DDASIT",
       "request": {
         "description": {
           "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint creates a storage in transit (SIT) service item for a\nshipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
@@ -654,7 +662,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "cc0ccabf-f518-48f5-84a9-1d8e0b9c0f1a",
+            "id": "b7724561-710b-4b0b-9b59-8f897c63c7df",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -671,7 +679,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "46b8aa30-888c-48df-9cdc-8af2a8a76a5c",
+            "id": "bb19e1bf-3b84-48c5-b669-172c7571a17f",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -710,6 +718,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -733,6 +742,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -882,6 +893,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -967,7 +979,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "3969abc3-3105-405e-a022-13af02fe822e",
+            "id": "224419ae-d524-4325-850e-49d6da51c4db",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -984,7 +996,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "b6e4cc32-9322-4388-b710-fa0cb281ac35",
+            "id": "28128529-092b-4297-81f5-56ee0df2b321",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1023,6 +1035,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -1046,6 +1059,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -1195,6 +1210,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -1275,7 +1291,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"scheduledPickupDate\": \"2021-10-05\"\n}"
+          "raw": "{\n  \"scheduledPickupDate\": \"2021-10-16\"\n}"
         }
       },
       "response": [],
@@ -1283,7 +1299,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "8392cab6-5169-48ef-b873-f352b8353d3a",
+            "id": "cfb41627-6121-45e6-8713-b207233f1ae9",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1322,6 +1338,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -1345,6 +1362,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -1494,6 +1513,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -1582,7 +1602,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "86444a26-d16c-4602-814e-04c11dca599d",
+            "id": "64dad022-f9ce-4cfb-a5c8-52874ddbf9ff",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1621,6 +1641,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -1644,6 +1665,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -1793,6 +1816,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -1873,7 +1897,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"actualPickupDate\": \"2021-10-05\",\n  \"primeActualWeight\": {{primeActualWeight}}\n}"
+          "raw": "{\n  \"actualPickupDate\": \"2021-10-13\",\n  \"primeActualWeight\": {{primeActualWeight}}\n}"
         }
       },
       "response": [],
@@ -1881,7 +1905,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "16002e93-52fd-45a2-85ea-c16f6d1f523d",
+            "id": "721d8ef9-3609-4e35-9abc-b9d1ef96f22c",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1920,6 +1944,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -1943,6 +1968,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -2092,6 +2119,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -2137,7 +2165,7 @@
       ]
     },
     {
-      "id": "17e453d8-25a1-488d-b1cb-c22dd0eaabad",
+      "id": "fe8dfe1b-2c04-4e93-b7b9-c86e80975f4f",
       "name": "Update the destination address on a shipment",
       "request": {
         "description": {
@@ -2176,7 +2204,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "184f58e6-3ada-434f-a768-6a75a6c65057",
+            "id": "25a8e5be-4f18-4479-bb61-6dcbd6b7b78b",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2215,6 +2243,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -2238,6 +2267,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -2387,6 +2418,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -2470,7 +2502,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "1553a60a-60ae-4ff9-a083-8cb8c3af0b1f",
+            "id": "69f5bb8c-a011-41cb-9afc-cc08633de991",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -2487,7 +2519,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "ca574192-e1d2-489f-a1d9-0d3c13ec6bae",
+            "id": "8d5235a0-976a-4fc1-81cd-e123ff22287f",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2526,6 +2558,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -2549,6 +2582,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -2698,6 +2733,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -2794,7 +2830,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "f3f97dbd-4016-4dd6-af4e-c53497ed7ab0",
+            "id": "1e1f2ad7-c7fa-4610-be3a-087e397d3d0e",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -2811,7 +2847,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "4b4ad2eb-acd6-47e1-890f-771807ac78a5",
+            "id": "f8a73f7a-e313-4437-8c40-15c6be302f4e",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2850,6 +2886,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -2873,6 +2910,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -3022,6 +3061,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -3112,7 +3152,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "f500d105-e27c-4e81-ba9d-6f4d4940450b",
+            "id": "a8284e4f-ab37-49af-9fa8-dbb33455f598",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -3129,7 +3169,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "724f67f3-75a2-47b6-ada7-0912fcca26d5",
+            "id": "0b1c5c14-d937-4fe3-8999-34c7fc93953f",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -3168,6 +3208,7 @@
               "// The view object that gets fed into the template file. These are base values",
               "// and will be modified in the next conditional checks around the status code.",
               "var view = {",
+              "  viewUpdatedAt: '',",
               "  pageTitle: requestIDToTitle[pmRequestID],",
               "  pageHeading: 'GHC Contractor',",
               "  pageAction: 'Receives Moves information',",
@@ -3191,6 +3232,8 @@
               "  show_proof_of_service: false,",
               "  show_updated_mto_shipment: false,",
               "};",
+              "",
+              "view.viewUpdatedAt = `${new Date()}`;",
               "",
               "if (pm.response.code >= 300) {",
               "  console.debug(response);",
@@ -3340,6 +3383,7 @@
               "    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);",
               "    total = total/100",
               "    view.paymentRequest.total = total;",
+              "    view.paymentRequest.payload = request.data;",
               "  } else {",
               "    view.alertTitle = 'Creation Failed';",
               "  }",
@@ -3410,7 +3454,7 @@
     {
       "id": "sitDate",
       "type": "string",
-      "value": "2021-09-12"
+      "value": "2021-09-13"
     },
     {
       "id": "primeEstimatedWeight",
@@ -3465,11 +3509,11 @@
     {
       "id": "visualizeTemplate",
       "type": "string",
-      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">(For Demo Purposes Only) {{pageTitle}}</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        {{#if move_task_orders}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Move code:</strong> {{{moveCode}}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{{moveID}}}\n          </li>\n          {{#if errorMessage}}\n          <li>\n            <strong>Error: </strong> {{errorMessage}}\n          </li>\n          {{else}}\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          {{/if}}\n        </ul>\n          {{#if show_reweigh}}\n          <h5 class=\"usa-alert__heading margin-bottom-4\">Reweigh Request Details</h5>\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each reweigh_details}}\n          <li><strong>{{@key}}:</strong> {{{this}}}</li>\n          {{/each}}\n        </ul>\n          {{/if}}\n        {{/if}}\n        {{#if moves}}\n        <ul class=\"usa-content-list font-mono-md\">\n        {{#each movesList}}\n        <hr>\n        {{#each this}}\n        <li>\n          <strong>{{@key}}:</strong> {{this}}\n        </li>\n        {{/each}}\n        {{/each}}\n        </ul>\n        {{/if}}\n        {{#if create_sit_mto_service_items}}\n          {{#each sitServiceItem}}\n            <br />\n            <ul class=\"usa-content-list font-mono-md\">\n              <li><strong>Service name: </strong> {{{this.reServiceName}}}</li>\n              <li><strong>Service Code: </strong> {{{this.reServiceCode}}}</li>\n              <li><strong>Status: </strong> {{{this.status}}}</li>\n              <li><strong>Entry Date: </strong> {{{this.sitEntryDate}}}</li>\n            </ul>\n          {{/each}}\n        {{/if}}\n        {{#if mto_shipments_sit_extensions}}\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each sitExtension}}\n          <li>\n            <strong>{{@key}}: </strong> {{{this}}}\n          </li>\n          {{/each}}\n        </ul>\n        {{/if}}\n        {{#if show_payment_request}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li><strong>ID: </strong> {{{paymentRequest.id}}}</li>\n          <li><strong>Payment Request Number: </strong> {{{paymentRequest.paymentRequestNumber}}}</li>\n          <li><strong>Move Task Order ID: </strong> {{{paymentRequest.moveTaskOrderID}}}</li>\n          <li><strong>Total: </strong> ${{{paymentRequest.total}}}</li>\n        </ul>\n        {{/if}}\n        {{#if show_proof_of_service}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li><strong>Filename: </strong> {{{proofOfServiceDetails.filename}}}</li>\n          <li><strong>Size in bytes: </strong> {{{proofOfServiceDetails.bytes}}}</li>\n          <li><strong>Created At: </strong> {{{proofOfServiceDetails.createdAt}}}</li>\n        </ul>\n        {{/if}}\n        {{#if show_updated_mto_shipment}}\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each updatesMade}}\n          <li><strong>{{@key}}: </strong> {{{this}}}</li>\n          {{/each}}\n        </ul>\n        {{/if}}\n        {{#if errorMessage}}\n        <div>\n          <ul class=\"usa-content-list font-mono-md\">\n            <li>\n              <strong>Error: </strong> {{errorMessage}}\n            </li>\n            <li>\n              <strong>Detail: </strong> {{errorDetail}}\n            </li>\n            <li>\n              <strong>Trace ID: </strong> {{errorTraceId}}\n            </li>\n          </ul>\n        </div>\n        {{/if}}\n      </div>\n    </div>\n\n  </div>\n</body>\n</html>\n"
+      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">(For Demo Purposes Only) {{pageTitle}}</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        {{#if move_task_orders}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Move code:</strong> {{{moveCode}}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{{moveID}}}\n          </li>\n          {{#if errorMessage}}\n          <li>\n            <strong>Error: </strong> {{errorMessage}}\n          </li>\n          {{else}}\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          {{/if}}\n        </ul>\n          {{#if show_reweigh}}\n          <h5 class=\"usa-alert__heading margin-bottom-4\">Reweigh Request Details</h5>\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each reweigh_details}}\n          <li><strong>{{@key}}:</strong> {{{this}}}</li>\n          {{/each}}\n        </ul>\n          {{/if}}\n        {{/if}}\n        {{#if moves}}\n        <ul class=\"usa-content-list font-mono-md\">\n        {{#each movesList}}\n        <hr>\n        {{#each this}}\n        <li>\n          <strong>{{@key}}:</strong> {{this}}\n        </li>\n        {{/each}}\n        {{/each}}\n        </ul>\n        {{/if}}\n        {{#if create_sit_mto_service_items}}\n          {{#each sitServiceItem}}\n            <br />\n            <ul class=\"usa-content-list font-mono-md\">\n              <li><strong>Service name: </strong> {{{this.reServiceName}}}</li>\n              <li><strong>Service Code: </strong> {{{this.reServiceCode}}}</li>\n              <li><strong>Status: </strong> {{{this.status}}}</li>\n              <li><strong>Entry Date: </strong> {{{this.sitEntryDate}}}</li>\n            </ul>\n          {{/each}}\n        {{/if}}\n        {{#if mto_shipments_sit_extensions}}\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each sitExtension}}\n          <li>\n            <strong>{{@key}}: </strong> {{{this}}}\n          </li>\n          {{/each}}\n        </ul>\n        {{/if}}\n        {{#if show_payment_request}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li><strong>ID: </strong> {{{paymentRequest.id}}}</li>\n          <li><strong>Payment Request Number: </strong> {{{paymentRequest.paymentRequestNumber}}}</li>\n          <li><strong>Move Task Order ID: </strong> {{{paymentRequest.moveTaskOrderID}}}</li>\n          <li><strong>Total: </strong> ${{{paymentRequest.total}}}</li>\n        </ul>\n        <br />\n        <strong>Payload sent by Prime</strong><br />\n        <pre>{{{paymentRequest.payload}}}</pre>\n        {{/if}}\n        {{#if show_proof_of_service}}\n        <ul class=\"usa-content-list font-mono-md\">\n          <li><strong>Filename: </strong> {{{proofOfServiceDetails.filename}}}</li>\n          <li><strong>Size in bytes: </strong> {{{proofOfServiceDetails.bytes}}}</li>\n          <li><strong>Created At: </strong> {{{proofOfServiceDetails.createdAt}}}</li>\n        </ul>\n        {{/if}}\n        {{#if show_updated_mto_shipment}}\n        <ul class=\"usa-content-list font-mono-md\">\n          {{#each updatesMade}}\n          <li><strong>{{@key}}: </strong> {{{this}}}</li>\n          {{/each}}\n        </ul>\n        {{/if}}\n        {{#if errorMessage}}\n        <div>\n          <ul class=\"usa-content-list font-mono-md\">\n            <li>\n              <strong>Error: </strong> {{errorMessage}}\n            </li>\n            <li>\n              <strong>Detail: </strong> {{errorDetail}}\n            </li>\n            <li>\n              <strong>Trace ID: </strong> {{errorTraceId}}\n            </li>\n          </ul>\n        </div>\n        {{/if}}\n      </div>\n    </div>\n\n  </div>\n  <footer class=\"usa-footer usa-footer--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">View updated {{viewUpdatedAt}}</p>\n    </div>\n  </header>\n</body>\n</html>\n"
     }
   ],
   "info": {
-    "_postman_id": "de0da6b3-a84a-40f4-9d9c-091ab16b0ffe",
+    "_postman_id": "1256868a-22d2-444c-a1e8-b4041c5bd499",
     "name": "September 2021 Slice Demo",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
