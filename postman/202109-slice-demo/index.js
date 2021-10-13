@@ -4,7 +4,7 @@ const fs      = require('fs'),
       addDays = require('../utils/addDays');
 
 // Postman SDK functions required from the `postman-collection` library.
-const Collection = require('postman-collection').Collection;
+const { Collection } = require('postman-collection');
 
 // Helpful variables for saving Collection JSON files to the disk. It leverages
 // the name of the current directory and the current working directory of this

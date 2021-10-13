@@ -3,10 +3,7 @@ const fs   = require('fs'),
       path = require('path');
 
 // Postman SDK functions required from the `postman-collection` library.
-const Item        = require('postman-collection').Item,
-      Event       = require('postman-collection').Event,
-      Script      = require('postman-collection').Script,
-      RequestBody = require('postman-collection').RequestBody;
+const { Item, Event, Script, RequestBody } = require('postman-collection');
 
 /**
  * createItem builds a Postman Item object

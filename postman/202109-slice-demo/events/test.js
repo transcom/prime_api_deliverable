@@ -176,12 +176,7 @@ if (pmRequestID === 'create-sit-mto-service-items') {
     view.alertType      = 'success';
     view.sitServiceItem = response;
   } else {
-    console.debug(response);
     view.alertTitle     = 'Destination SIT Service Items Create Failed';
-    view.alertType      = 'error';
-    view.errorMessage   = response.title;
-    view.errorDetail    = response.detail;
-    view.errorTraceId   = response.instance;
   }
 }
 

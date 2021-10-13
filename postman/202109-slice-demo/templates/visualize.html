@@ -64,7 +64,7 @@
         </ul>
           {{#if show_reweigh}}
           <h5 class="usa-alert__heading margin-bottom-4">Reweigh Request Details</h5>
-        <ul>
+        <ul class="usa-content-list font-mono-md">
           {{#each reweigh_details}}
           <li><strong>{{@key}}:</strong> {{{this}}}</li>
           {{/each}}
@@ -104,15 +104,19 @@
         </ul>
         {{/if}}
         {{#if errorMessage}}
-        <li>
-          <strong>Error: </strong> {{errorMessage}}
-        </li>
-        <li>
-          <strong>Detail: </strong> {{errorDetail}}
-        </li>
-        <li>
-          <strong>Trace ID: </strong> {{errorTraceId}}
-        </li>
+        <div>
+          <ul class="usa-content-list font-mono-md">
+            <li>
+              <strong>Error: </strong> {{errorMessage}}
+            </li>
+            <li>
+              <strong>Detail: </strong> {{errorDetail}}
+            </li>
+            <li>
+              <strong>Trace ID: </strong> {{errorTraceId}}
+            </li>
+          </ul>
+        </div>
         {{/if}}
       </div>
     </div>
@@ -120,4 +124,3 @@
   </div>
 </body>
 </html>
-
