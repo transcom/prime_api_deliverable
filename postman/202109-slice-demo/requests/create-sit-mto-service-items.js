@@ -28,7 +28,7 @@ const requestPreRequestScript = readScript(__dirname, '../events/prerequest.js')
 const requestTestScript = readScript(__dirname, '../events/test.js');
 
 module.exports = createItem({
-  name: 'Create DOFSIT & DOASIT',
+  name: 'Create DDFSIT & DDASIT',
   requestID: requestID,
   url: '{{baseUrl}}/mto-service-items',
   method: 'POST',
