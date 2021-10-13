@@ -110,6 +110,9 @@
           <li><strong>Move Task Order ID: </strong> {{{paymentRequest.moveTaskOrderID}}}</li>
           <li><strong>Total: </strong> ${{{paymentRequest.total}}}</li>
         </ul>
+        <br />
+        <strong>Payload sent by Prime</strong><br />
+        <pre>{{{paymentRequest.payload}}}</pre>
         {{/if}}
         {{#if show_proof_of_service}}
         <ul class="usa-content-list font-mono-md">

@@ -209,6 +209,7 @@ if (pmRequestID === 'create-payment-request') {
     view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);
     total = total/100
     view.paymentRequest.total = total;
+    view.paymentRequest.payload = request.data;
   } else {
     view.alertTitle = 'Creation Failed';
   }
