@@ -111,6 +111,13 @@
           <li><strong>Total: </strong> ${{{paymentRequest.total}}}</li>
         </ul>
         {{/if}}
+        {{#if show_proof_of_service}}
+        <ul class="usa-content-list font-mono-md">
+          <li><strong>Filename: </strong> {{{proofOfServiceDetails.filename}}}</li>
+          <li><strong>Size in bytes: </strong> {{{proofOfServiceDetails.bytes}}}</li>
+          <li><strong>Created At: </strong> {{{proofOfServiceDetails.createdAt}}}</li>
+        </ul>
+        {{/if}}
         {{#if errorMessage}}
         <div>
           <ul class="usa-content-list font-mono-md">

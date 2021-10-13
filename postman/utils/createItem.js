@@ -15,7 +15,8 @@ const createItem = ({
   method,
   headers,
   description,
-  payload,
+  body = null,
+  payload = null,
   prerequestScript = null,
   testScript = null,
 }) => {
@@ -38,19 +39,24 @@ const createItem = ({
     events.push(e);
   }
 
+  let reqBody = new RequestBody({
+    mode: 'raw',
+    raw: payload,
+  });
+  if (body !== null) {
+    reqBody = body;
+  }
+
   return new Item({
     name: name,
     id: requestID,
     // A Request is a plain JS object and not a Postman SDK Request.
     request: {
-      url: url,
-      method: method,
+      url,
+      method,
       header: headers,
-      description: description,
-      body: new RequestBody({
-        mode: 'raw',
-        raw: payload,
-      }),
+      description,
+      body: reqBody,
     },
     event: events,
   });

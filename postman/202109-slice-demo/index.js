@@ -128,6 +128,7 @@ const updateMTOShipmentEst  = require('./requests/update-mto-shipment-estimated-
 const updateMTOShipmentAct  = require('./requests/update-mto-shipment-actual-weight');
 const updateMTOShipmentDst  = require('./requests/update-mto-shipment-destination-address');
 const paymentRequest        = require('./requests/create-payment-request');
+const proofOfService        = require('./requests/upload-proof-of-service');
 const addReweighWeight      = require('./requests/add-reweigh-weight');
 
 // Add a Request Item to the collection variable. This follows the
@@ -142,6 +143,7 @@ collection.items.add(updateMTOShipmentEst);
 collection.items.add(updateMTOShipmentAct);
 collection.items.add(updateMTOShipmentDst);
 collection.items.add(paymentRequest);
+collection.items.add(proofOfService);
 collection.items.add(addReweighWeight);
 
 // Write the file synchronously to the disk.

@@ -54,6 +54,7 @@ var view = {
   mto_shipments_sit_extensions: false,
   show_reweigh: false,
   show_payment_request: false,
+  show_proof_of_service: false,
 };
 
 if (pm.response.code >= 300) {
@@ -206,6 +207,19 @@ if (pmRequestID === 'create-payment-request') {
     view.paymentRequest.total = total;
   } else {
     view.alertTitle = 'Creation Failed';
+  }
+}
+
+if (pmRequestID === 'upload-proof-of-service') {
+  view.show_proof_of_service = true
+  view.pageAction = 'Proof of Service Upload';
+  if (pm.response.code == 201) {
+    view.alertTitle = 'Upload Succeeded';
+    view.alertType = 'success';
+    view.proofOfServiceDetails = response;
+  } else {
+    view.alertTitle = 'Upload Failed';
+    view.alertType = 'error';
   }
 }
 
