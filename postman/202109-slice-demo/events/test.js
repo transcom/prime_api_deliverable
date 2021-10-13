@@ -53,6 +53,7 @@ var view = {
   moves: false,
   mto_shipments_sit_extensions: false,
   show_reweigh: false,
+  show_payment_request: false,
 };
 
 if (pm.response.code >= 300) {
@@ -188,6 +189,23 @@ if (pmRequestID === 'mto-shipments-sit-extensions') {
     view.alertType  = 'success';
     view.pageAction = 'Create SIT Extension';
     view.sitExtension = response;
+  }
+}
+
+if (pmRequestID === 'create-payment-request') {
+  view.show_payment_request = true
+  view.pageAction = 'Payment Request Creation';
+  if (pm.response.code == 201) {
+    let total = 0;
+    view.alertTitle = 'Creation Succeeded';
+    view.alertType = 'success';
+    envSet('paymentRequestID', response.id);
+    view.paymentRequest = response;
+    view.paymentRequest.paymentServiceItems.forEach(psi => total += psi.priceCents);
+    total = total/100
+    view.paymentRequest.total = total;
+  } else {
+    view.alertTitle = 'Creation Failed';
   }
 }
 

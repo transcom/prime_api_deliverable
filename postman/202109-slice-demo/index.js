@@ -71,6 +71,11 @@ let collection = new Collection({
       type: "int",
     },
     {
+      id: "paymentRequestID",
+      value: "",
+      type: "string",
+    },
+    {
       id: "customerFullName",
       value: "",
       type: "string",

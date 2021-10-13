@@ -103,6 +103,14 @@
           {{/each}}
         </ul>
         {{/if}}
+        {{#if show_payment_request}}
+        <ul class="usa-content-list font-mono-md">
+          <li><strong>ID: </strong> {{{paymentRequest.id}}}</li>
+          <li><strong>Payment Request Number: </strong> {{{paymentRequest.paymentRequestNumber}}}</li>
+          <li><strong>Move Task Order ID: </strong> {{{paymentRequest.moveTaskOrderID}}}</li>
+          <li><strong>Total: </strong> ${{{paymentRequest.total}}}</li>
+        </ul>
+        {{/if}}
         {{#if errorMessage}}
         <div>
           <ul class="usa-content-list font-mono-md">
