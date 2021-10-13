@@ -34,6 +34,7 @@ const undefHTML = '<code>undefined</code>';
 // The view object that gets fed into the template file. These are base values
 // and will be modified in the next conditional checks around the status code.
 var view = {
+  viewUpdatedAt: '',
   pageTitle: requestIDToTitle[pmRequestID],
   pageHeading: 'GHC Contractor',
   pageAction: 'Receives Moves information',
@@ -57,6 +58,8 @@ var view = {
   show_proof_of_service: false,
   show_updated_mto_shipment: false,
 };
+
+view.viewUpdatedAt = `${new Date()}`;
 
 if (pm.response.code >= 300) {
   console.debug(response);
