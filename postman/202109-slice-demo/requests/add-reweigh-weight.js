@@ -11,13 +11,9 @@ const payload = payloads[requestID];
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
-
-This endpoint Updates the shipment.
-
-This Request uses the templates found in
-**templates/visualize.html**.
+This request will send a payload to the reweigh endpoint. It requires mtoShipmentID,
+reweighETag, and reweighID to be set. These can be set by running the \`MoveTaskOrders by ID\`
+request.
 `;
 
 // Get the contents of the events/prerequest.js file

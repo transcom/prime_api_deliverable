@@ -10,11 +10,15 @@ const requestID = getRequestID(__filename);
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
+This request uploads a proof of service document.
 
-This Request uses the templates found in
-**templates/visualize.html**.
+It requries the \`paymentRequestID\` to be set in the collection, which  can be done
+by running the \`Create Payment Request\` request.
+
+This request also requires that you provide the file, open the \`Body\` tab under the url
+and fill in the first row. For **key** set it to \`file\`. Hover over the key row and set 
+the type to \`file\`. Finally click **Select file** in the **Value** column and pick the file
+you wish to upload.
 `;
 
 // Get the contents of the events/prerequest.js file

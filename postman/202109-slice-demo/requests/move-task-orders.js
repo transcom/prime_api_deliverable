@@ -9,16 +9,17 @@ const requestID = getRequestID(__filename);
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
+This retrieves a specific move using \`moveTaskOrderID\` collection variable. The
+end point that is ues supports mto id or move code so either will work in this one variable.
 
-This endpoint gets an individual MoveTaskOrder by ID.
+This request will fill in all the other variables related to the move including etags.
 
-It will provide information about the Customer and any associated MTOShipments,
-MTOServiceItems and PaymentRequests.
+The visualization for this request will also show if a reweigh has been requested.
 
-This Request uses the templates found in
-**templates/visualize.html**.
+This request will generate a payment request payload and save it in \`paymentRequestPayload\`
+for use by the \`Create Payment Request\` request. The payment request payload will only contain
+service items with codes listed in \`serviceItemsToInvoice\` and for the first shipment in the
+move data response.
 `;
 
 // Get the contents of the events/prerequest.js file

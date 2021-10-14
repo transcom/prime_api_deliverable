@@ -11,14 +11,9 @@ const payload = payloads[requestID];
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
-
-This endpoint creates a storage in transit (SIT) service item for a
-shipment.
-
-This Request uses the templates found in
-**templates/visualize.html**.
+This request creates Destination SIT service items for a shipment. It needs the 
+shimpent id to be stored in \`mtoShipmentID\` collection variable. That can be set
+by running \`MoveTaskOrders by ID\` request first.
 `;
 
 // Get the contents of the events/prerequest.js file

@@ -11,13 +11,9 @@ const payload = payloads[requestID];
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
+Updates the shipment identified by \`mtoShipmentID\` to update the estimated weight.
 
-This endpoint Updates the shipment.
-
-This Request uses the templates found in
-**templates/visualize.html**.
+Requires the setting of scheduled pick up date.
 `;
 
 // Get the contents of the events/test.js file

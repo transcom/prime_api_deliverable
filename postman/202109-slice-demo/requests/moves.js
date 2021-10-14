@@ -9,17 +9,11 @@ const requestID = getRequestID(__filename);
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
-
 Gets all moves that have been reviewed and approved by the TOO. The \`since\`
 parameter can be used to filter this list down to only the moves that have been
 updated since the provided timestamp. A move will be considered updated if the
 \`updatedAt\` timestamp on the move or on its orders, shipments, service items,
 or payment requests, is later than the provided date and time.
-
-This Request uses the templates found in
-**templates/visualize.html**.
 `;
 
 // Get the contents of the events/prerequest.js file

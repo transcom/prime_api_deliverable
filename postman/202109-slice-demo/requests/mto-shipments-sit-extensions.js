@@ -11,16 +11,12 @@ const payload = payloads[requestID];
 // The Request Description. This is used in the Postman.app to document what
 // the Request does. It is displayed on the right-side of the UI.
 const requestDescription = `
-This Postman Request was created with the Postman SDK and not the Postman.app
-UI.
-
 This endpoint creates a storage in transit (SIT) extension request for a
 shipment. A SIT extension request is a request an increase in the shipment day
 allowance for the number of days a shipment is allowed to be in SIT. The total
 SIT day allowance includes time spent in both origin and destination SIT.
 
-This Request uses the templates found in
-**templates/visualize.html**.
+Requries \`MoveTaskOrders by ID\` to be run first to fill in needed variables.
 `;
 
 // Get the contents of the events/prerequest.js file
