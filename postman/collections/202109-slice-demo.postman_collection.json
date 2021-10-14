@@ -5,7 +5,7 @@
       "name": "List All Moves",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nGets all moves that have been reviewed and approved by the TOO. The `since`\nparameter can be used to filter this list down to only the moves that have been\nupdated since the provided timestamp. A move will be considered updated if the\n`updatedAt` timestamp on the move or on its orders, shipments, service items,\nor payment requests, is later than the provided date and time.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nGets all moves that have been reviewed and approved by the TOO. The `since`\nparameter can be used to filter this list down to only the moves that have been\nupdated since the provided timestamp. A move will be considered updated if the\n`updatedAt` timestamp on the move or on its orders, shipments, service items,\nor payment requests, is later than the provided date and time.\n",
           "type": "text/plain"
         },
         "url": {
@@ -35,7 +35,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "b5588909-31bb-4785-be60-0a371df7b8b2",
+            "id": "c9d3b87c-d7a9-419c-97d9-84e150443871",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -52,7 +52,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "4feb547e-7648-44ea-b83f-d64ea7e4155a",
+            "id": "a1e42799-ad05-4b88-a723-a6559e0455ae",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -316,7 +316,7 @@
       "name": "MoveTaskOrders by ID",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint gets an individual MoveTaskOrder by ID.\n\nIt will provide information about the Customer and any associated MTOShipments,\nMTOServiceItems and PaymentRequests.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nThis retrieves a specific move using `moveTaskOrderID` collection variable. The\nend point that is ues supports mto id or move code so either will work in this one variable.\n\nThis request will fill in all the other variables related to the move including etags.\n\nThe visualization for this request will also show if a reweigh has been requested.\n\nThis request will generate a payment request payload and save it in `paymentRequestPayload`\nfor use by the `Create Payment Request` request. The payment request payload will only contain\nservice items with codes listed in `serviceItemsToInvoice` and for the first shipment in the\nmove data response.\n",
           "type": "text/plain"
         },
         "url": {
@@ -347,7 +347,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "cddf8827-ffa6-4852-afd2-4df79004d504",
+            "id": "e1f31289-0681-42f2-b056-a586a99bb684",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -364,7 +364,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "3e1af276-2d88-459c-bbf4-e2938520e855",
+            "id": "ebe451d8-95c8-4288-bf8c-7eec0de8e554",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -628,7 +628,7 @@
       "name": "Create DDFSIT & DDASIT",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint creates a storage in transit (SIT) service item for a\nshipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nThis request creates Destination SIT service items for a shipment. It needs the \nshimpent id to be stored in `mtoShipmentID` collection variable. That can be set\nby running `MoveTaskOrders by ID` request first.\n",
           "type": "text/plain"
         },
         "url": {
@@ -662,7 +662,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "6f256a5f-0c0b-4974-810b-78522d9925cf",
+            "id": "a03102ff-6b21-4cbc-b132-2ef6de22b3e4",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -679,7 +679,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "93a46bd6-44e3-4f5c-9df6-ff379d3552ba",
+            "id": "111741b7-fcb7-42cb-aa85-2f97bb0b5f20",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -943,7 +943,7 @@
       "name": "Create SIT Extension",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint creates a storage in transit (SIT) extension request for a\nshipment. A SIT extension request is a request an increase in the shipment day\nallowance for the number of days a shipment is allowed to be in SIT. The total\nSIT day allowance includes time spent in both origin and destination SIT.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nThis endpoint creates a storage in transit (SIT) extension request for a\nshipment. A SIT extension request is a request an increase in the shipment day\nallowance for the number of days a shipment is allowed to be in SIT. The total\nSIT day allowance includes time spent in both origin and destination SIT.\n\nRequries `MoveTaskOrders by ID` to be run first to fill in needed variables.\n",
           "type": "text/plain"
         },
         "url": {
@@ -979,7 +979,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "00716253-9547-4ac8-ba74-17c2677d5a35",
+            "id": "c0e88d6c-c190-4cd1-bcfe-aa2bfb81f984",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -996,7 +996,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "fcba7142-a2b4-47b3-bdf3-f1e68684099d",
+            "id": "9346b8f4-3c50-48bc-98b2-a1f6b0268c81",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1260,7 +1260,7 @@
       "name": "Update the scheduled date on a shipment",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint Updates the shipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nUpdates the shipment identified by `mtoShipmentID` to update the scheduled pickup date.\n",
           "type": "text/plain"
         },
         "url": {
@@ -1291,7 +1291,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"scheduledPickupDate\": \"2021-10-20\"\n}"
+          "raw": "{\n  \"scheduledPickupDate\": \"2021-10-21\"\n}"
         }
       },
       "response": [],
@@ -1299,7 +1299,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "997493d9-b45a-4655-87c4-990f9dfa09b9",
+            "id": "659a5b4f-ff16-4994-9e21-c1564c3aba22",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1563,7 +1563,7 @@
       "name": "Update the estimated weight on a shipment",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint Updates the shipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nUpdates the shipment identified by `mtoShipmentID` to update the estimated weight.\n\nRequires the setting of scheduled pick up date.\n",
           "type": "text/plain"
         },
         "url": {
@@ -1602,7 +1602,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "1593325b-3429-43d7-ac69-3ef1fef8703b",
+            "id": "9c273f4c-4330-40ea-aefe-ee884bd819db",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -1866,7 +1866,7 @@
       "name": "Update the actual weight on a shipment",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint Updates the shipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nUpdates the shipment identified by `mtoShipmentID` to update the actual weight\nand actual pickup date.\n",
           "type": "text/plain"
         },
         "url": {
@@ -1897,7 +1897,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"actualPickupDate\": \"2021-10-13\",\n  \"primeActualWeight\": {{primeActualWeight}}\n}"
+          "raw": "{\n  \"actualPickupDate\": \"2021-10-14\",\n  \"primeActualWeight\": {{primeActualWeight}}\n}"
         }
       },
       "response": [],
@@ -1905,7 +1905,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "54b55284-7f73-4489-a08a-5a75e8df5bcd",
+            "id": "bf6e2339-edf9-4474-8d72-4b32b0dbd33d",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2165,11 +2165,11 @@
       ]
     },
     {
-      "id": "3385ece2-a0de-468a-8cf2-8736a80d98cd",
+      "id": "ebc78a7f-c26c-44c2-b125-67b21dde713c",
       "name": "Update the destination address on a shipment",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint Updates the shipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nUpdates the shipment identified by `mtoShipmentID` to update the destination address.\n\nNote: you can only do this if there is not already a destination address on the shipment.\n",
           "type": "text/plain"
         },
         "url": {
@@ -2204,7 +2204,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "c3fffe09-574b-49aa-be02-15d41a839d6b",
+            "id": "84ef1251-c6ea-4d51-b995-799e5108e286",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2468,7 +2468,7 @@
       "name": "Create Payment Request",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nThis request creates a payment request. It requires a payload which can be\nautomatically generated by running the `MoveTaskOrders by ID` request. The\ncollection variable `serviceItemsToInvoice` defines which service items are\npopulated in the payload. The payload is stored in `paymentRequestPayload`\ncollection variable.\n\nNote the generated payload is also output to the console for easy debugging.\n\nThis request will store the payment request id in the collection var `paymentRequestID`.\n",
           "type": "text/plain"
         },
         "url": {
@@ -2502,7 +2502,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "876426ac-e54a-4287-a485-c737ea3803da",
+            "id": "be0efc2b-6634-4eff-a8c6-d8aeb779c63a",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -2519,7 +2519,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "c0a503ae-4076-40ba-82ca-a8a0ed05416e",
+            "id": "3837aa2b-f96f-4b48-a5b2-c07227064718",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -2783,7 +2783,7 @@
       "name": "Upload Proof Of Service",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nThis request uploads a proof of service document.\n\nIt requries the `paymentRequestID` to be set in the collection, which  can be done\nby running the `Create Payment Request` request.\n\nThis request also requires that you provide the file, open the `Body` tab under the url\nand fill in the first row. For **key** set it to `file`. Hover over the key row and set \nthe type to `file`. Finally click **Select file** in the **Value** column and pick the file\nyou wish to upload.\n",
           "type": "text/plain"
         },
         "url": {
@@ -2830,7 +2830,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "e38c2f0d-ca3e-4641-8934-6f8263c98cde",
+            "id": "35c0d0a0-eff9-47ac-8242-46cef5f8c65c",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -2847,7 +2847,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "4f34e691-f7a6-4a11-9ed8-cdd78ceb93a0",
+            "id": "c959b145-a021-4d5b-8b16-940f747ba6bc",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -3111,7 +3111,7 @@
       "name": "Update the reweigh weight on a shipment",
       "request": {
         "description": {
-          "content": "\nThis Postman Request was created with the Postman SDK and not the Postman.app\nUI.\n\nThis endpoint Updates the shipment.\n\nThis Request uses the templates found in\n**templates/visualize.html**.\n",
+          "content": "\nThis request will send a payload to the reweigh endpoint. It requires mtoShipmentID,\nreweighETag, and reweighID to be set. These can be set by running the `MoveTaskOrders by ID`\nrequest.\n",
           "type": "text/plain"
         },
         "url": {
@@ -3152,7 +3152,7 @@
         {
           "listen": "prerequest",
           "script": {
-            "id": "c1bb6840-9469-45a4-b73f-57f305e7fa8c",
+            "id": "f95d4463-a719-45b3-be90-8e4f744b49e3",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -3169,7 +3169,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "3262aee7-1b26-4201-ae70-3d05b8ccf1b4",
+            "id": "998e4974-69a3-4f20-ac63-b03e722b667b",
             "type": "text/javascript",
             "exec": [
               "// A helpful function that's less characters to type to get a Collection",
@@ -3454,7 +3454,7 @@
     {
       "id": "sitDate",
       "type": "string",
-      "value": "2021-09-13"
+      "value": "2021-09-14"
     },
     {
       "id": "primeEstimatedWeight",
@@ -3513,7 +3513,7 @@
     }
   ],
   "info": {
-    "_postman_id": "ae03ad74-a532-4e22-9e87-76eb34a7014c",
+    "_postman_id": "a0820b90-f9cb-4630-b366-aaeb447afc1d",
     "name": "September 2021 Slice Demo",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
