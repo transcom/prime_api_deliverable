@@ -28,6 +28,7 @@ module.exports = new Item({
     This requests creates a Payment Request for a Move. This uses the
     template called **prime-update/submits-payment-request.html**.
     `,
+    body: '{{paymentRequestPayload}}'
   },
   event: [
     new Event({

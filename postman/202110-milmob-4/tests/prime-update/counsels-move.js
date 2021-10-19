@@ -112,12 +112,15 @@ if (pm.response.code === 200) {
             id: item.id,
           });
         });
-        envSet('serviceItemsIDs', serviceItemsIDs);
-        console.info('Create Payment Request Body payload', JSON.stringify({
+
+        // prepare a payment request
+        const paymentRequestPayload = {
           isFinal: false,
-          moveTaskOrderID: envGet('moveTaskOrderID'),
-          serviceItems: serviceItemsIDs,
-        }));
+          moveTaskOrderID: view.moveID,
+          serviceItems: []
+        };
+        paymentRequestPayload.serviceItems = serviceItemsIDs;
+        envSet('paymentRequestPayload', JSON.stringify(paymentRequestPayload, null, 2));
       }
 
       if (hasReweigh) {
