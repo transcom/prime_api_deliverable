@@ -1,5 +1,5 @@
 const payload = {
-  weight: 13100,
+  verificationReason: "Shipment was already delivered, so we were unable to reweigh",
 };
 
 module.exports = payload;
