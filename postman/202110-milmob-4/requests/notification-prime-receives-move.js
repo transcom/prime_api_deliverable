@@ -18,7 +18,7 @@ module.exports = new Item({
   name: 'Receives notification for new shipment for move',
   id: requestID,
   request: {
-    url: '{{baseUrl}}/move-task-orders/{{moveID}}',
+    url: '{{baseUrl}}/move-task-orders/{{moveTaskOrderCode}}',
     method: 'GET',
     header: {
       'Postman-Request-ID': requestID,
