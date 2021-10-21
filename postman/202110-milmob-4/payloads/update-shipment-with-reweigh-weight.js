@@ -1,5 +1,5 @@
 const payload = {
-  weight: 5000,
+  weight: 13100,
 };
 
 module.exports = payload;

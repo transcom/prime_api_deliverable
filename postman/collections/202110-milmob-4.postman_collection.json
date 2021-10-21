@@ -32,7 +32,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "4f3ed0c6-540d-4a0f-8ddf-9c0ccd0314fb",
+            "id": "9f3a093a-38c8-4c4b-9d74-1c19a90a094a",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -139,7 +139,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"scheduledPickupDate\":\"2021-11-15\"}"
+          "raw": "{\"scheduledPickupDate\":\"2021-11-17\"}"
         }
       },
       "response": [],
@@ -147,7 +147,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "b74c99fb-cd85-498e-8d07-1a5554ce5f17",
+            "id": "c9bdea65-3ce5-4950-ab48-417a7ab71dc5",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -328,7 +328,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"primeEstimatedWeight\":4800}"
+          "raw": "{\"primeEstimatedWeight\":13000}"
         }
       },
       "response": [],
@@ -336,7 +336,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "fb01321e-819d-45fd-a644-61bbe56e3978",
+            "id": "9826e3ab-d8cd-44cf-aaaf-0821a893a0af",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -517,7 +517,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"actualPickupDate\":\"2021-11-05\"}"
+          "raw": "{\"actualPickupDate\":\"2021-11-07\"}"
         }
       },
       "response": [],
@@ -525,7 +525,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "835179c7-d4f4-4dc5-9962-4e04b3e2d080",
+            "id": "a7ffa7d3-2ead-4bd5-a899-7348f5aed453",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -706,7 +706,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"primeActualWeight\":5232}"
+          "raw": "{\"primeActualWeight\":13128}"
         }
       },
       "response": [],
@@ -714,7 +714,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "f59ac5a3-bf4b-415f-9142-02ebee38ada2",
+            "id": "9f2f05dd-20d3-44c2-b3a8-17fd58e51187",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -897,7 +897,7 @@
         "method": "PATCH",
         "body": {
           "mode": "raw",
-          "raw": "{\"weight\":5000}"
+          "raw": "{\"weight\":13100}"
         }
       },
       "response": [],
@@ -905,7 +905,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "5efc2d63-6778-4b29-8016-19b4939e4c84",
+            "id": "858a152e-5f65-43ee-918d-a526e7be3d5b",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1089,7 +1089,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "d9e00e9a-662a-4a92-acd6-795160beb287",
+            "id": "ed6c67ee-2c38-4389-bf9a-41506417c7b2",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1201,7 +1201,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "72f87616-6037-4b82-b331-1f69e2b32b41",
+            "id": "1ad81364-e307-4af1-8df6-bb2390335ae6",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1346,7 +1346,7 @@
     }
   ],
   "info": {
-    "_postman_id": "70b055d8-2ecb-42c5-b43e-79b7437fec62",
+    "_postman_id": "05fb9a70-5b07-458f-914b-98739c2a0f09",
     "name": "2021 October Milmob 4",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
