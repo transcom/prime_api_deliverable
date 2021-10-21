@@ -10,7 +10,6 @@ const fs = require('fs'),
       UpdateShipmentWithEstimatedWeight     = require('./requests/update-shipment-with-estimated-weight'),
       UpdateShipmentWithActualPickupDate    = require('./requests/update-shipment-with-actual-pickup-date'),
       UpdateShipmentWithActualWeight        = require('./requests/update-shipment-with-actual-weight'),
-      UpdateShipmentWithReweighWeight       = require('./requests/update-shipment-with-reweigh-weight'),
       CreatePaymentRequest                  = require('./requests/create-payment-request'),
       UploadProofOfServiceDocument          = require('./requests/upload-proof-of-service');
 
@@ -22,7 +21,6 @@ var sliceDemoCollection = new Collection({
     UpdateShipmentWithEstimatedWeight,
     UpdateShipmentWithActualPickupDate,
     UpdateShipmentWithActualWeight,
-    UpdateShipmentWithReweighWeight,
     CreatePaymentRequest,
     UploadProofOfServiceDocument,
   ],
