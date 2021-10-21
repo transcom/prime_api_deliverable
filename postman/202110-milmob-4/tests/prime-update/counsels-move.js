@@ -101,28 +101,6 @@ if (pm.response.code === 200) {
       envSet('shipmentETag', response.eTag);
       envSet('shipmentID', response.id);
 
-      // README: To get past the limitation of Postman variables, we'll have to
-      // log the JSON payload for the next request into the Console for
-      // copying into the Body of the Create Payment Request.
-      // We only need to do this on the last request.
-      if (pmRequestID === 'update-shipment-with-reweigh-weight') {
-        var serviceItemsIDs = [];
-        mtoResponse.json().mtoServiceItems.forEach(function(item) {
-          serviceItemsIDs.push({
-            id: item.id,
-          });
-        });
-
-        // prepare a payment request
-        const paymentRequestPayload = {
-          isFinal: false,
-          moveTaskOrderID: view.moveID,
-          serviceItems: []
-        };
-        paymentRequestPayload.serviceItems = serviceItemsIDs;
-        envSet('paymentRequestPayload', JSON.stringify(paymentRequestPayload, null, 2));
-      }
-
       if (hasReweigh) {
         envSet('reweighID', response.reweigh.id);
         envSet('reweighETag', response.reweigh.eTag);

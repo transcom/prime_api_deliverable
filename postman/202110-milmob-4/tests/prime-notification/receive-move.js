@@ -49,6 +49,22 @@ if (pm.response.code === 200) {
   envSet('moveTaskOrderID', view.moveID);
   envSet('moveTaskOrderETag', response.eTag);
 
+  var serviceItemsIDs = [];
+  mtoResponse.json().mtoServiceItems.forEach(function(item) {
+    serviceItemsIDs.push({
+      id: item.id,
+    });
+  });
+
+  // prepare a payment request
+  const paymentRequestPayload = {
+    isFinal: false,
+    moveTaskOrderID: view.moveID,
+    serviceItems: []
+  };
+  paymentRequestPayload.serviceItems = serviceItemsIDs;
+  envSet('paymentRequestPayload', JSON.stringify(paymentRequestPayload, null, 2));
+
 } else {
   view.alertTitle = 'Move is not available to GHC Prime Contractor';
   view.alertType = 'error';
