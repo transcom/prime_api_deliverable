@@ -32,7 +32,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "09b60113-e330-458a-858d-b20e2872656d",
+            "id": "6131383e-7e43-481b-8b08-99f466c0c792",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -87,7 +87,7 @@
               "  envSet('moveTaskOrderETag', response.eTag);",
               "",
               "  var serviceItemsIDs = [];",
-              "  mtoResponse.json().mtoServiceItems.forEach(function(item) {",
+              "  response.mtoServiceItems.forEach(function(item) {",
               "    serviceItemsIDs.push({",
               "      id: item.id,",
               "    });",
@@ -163,7 +163,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "b1c18f9b-9046-4c80-9d90-52a47a628c72",
+            "id": "9892f345-50fd-4147-a2c6-e32234473915",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -330,7 +330,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "35e23384-0ea5-4eb5-b48b-92b61940123e",
+            "id": "9575bed3-29ec-4333-b0a7-9ded29fd8f9e",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -497,7 +497,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "f6df1b1c-4c8a-4246-89b2-b79b4ea897dc",
+            "id": "35846a64-7251-4f68-a353-ad1486cf6e92",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -664,7 +664,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "d5be4561-0c54-4df2-b7f1-149f78f64070",
+            "id": "9fc20007-c527-4a07-837d-c93ff336c9e6",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -826,7 +826,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "323f1ca8-2b27-4ffe-a044-adda2ce341d0",
+            "id": "10dc4f9e-6180-4e6e-bfe0-982348688cda",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -938,7 +938,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "37fca6ad-2b16-4aa6-82dd-921c32464c44",
+            "id": "e70ee4a0-c815-4e73-9c1d-8f29424b5ee4",
             "type": "text/javascript",
             "exec": [
               "function envGet(v) {",
@@ -1083,7 +1083,7 @@
     }
   ],
   "info": {
-    "_postman_id": "15000b93-4bb1-4421-a49d-890408fd5f9c",
+    "_postman_id": "1abb6048-bb81-4b8b-ad5a-df3af631d587",
     "name": "2021 October Milmob 4",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

@@ -50,7 +50,7 @@ if (pm.response.code === 200) {
   envSet('moveTaskOrderETag', response.eTag);
 
   var serviceItemsIDs = [];
-  mtoResponse.json().mtoServiceItems.forEach(function(item) {
+  response.mtoServiceItems.forEach(function(item) {
     serviceItemsIDs.push({
       id: item.id,
     });
