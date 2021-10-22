@@ -10,6 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "build_202108-slice-demo": "node ./202108-slice-demo/index.js",
+    "build_202110-milmob-4": "node ./202110-milmob-4/index.js",
     "build_mb-9298-sit-extension-move-status-transition": "node ./mb-9298-sit-extension-move-status-transition/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

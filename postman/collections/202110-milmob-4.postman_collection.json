@@ -1,0 +1,1094 @@
+{
+  "item": [
+    {
+      "id": "notification-prime-receives-move",
+      "name": "Receives notification for new shipment for move",
+      "request": {
+        "description": {
+          "content": "\n    This request can be used to show that the Prime cannot access a Move until\n    it is made available to the Prime.\n\n    This request must be run before the Move is available to the Prime\n    otherwise there will never be a 404 response for the template to show the\n    error message.\n\n    This request can also be used to show that the Prime has access to a Move\n    given a Move Code or a MoveID and will show a success notification.\n\n    This Request uses the templates found in\n    **templates/prime-notification/receive-move.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "move-task-orders",
+            "{{moveTaskOrderCode}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "notification-prime-receives-move"
+          }
+        ],
+        "method": "GET"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "dbd43c1a-d421-404c-a5bb-5b5e24e81df9",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "      template = envGet('primeNotificationTemplate'),",
+              "      undefHTML = '<code>undefined</code>';",
+              "",
+              "var view = {",
+              "  pageTitle: 'GHC Contractor - Notified of Move',",
+              "  pageHeading: 'GHC Contractor',",
+              "  pageAction: 'Receives Moves information',",
+              "  alertType: 'error',",
+              "  customerFullName: '',",
+              "  shipmentID: '',",
+              "  moveCode: '',",
+              "  moveID: pm.request.url.path.pop(),",
+              "  errorMessage: response.title,",
+              "};",
+              "",
+              "// By default, a shipment would not have a Reweigh until it was requested.",
+              "var hasReweigh = false;",
+              "",
+              "// If the Move is found, we'll update the view object. Otherwise, we'll",
+              "// consider the response to be a 404 and modify the view for and error state.",
+              "if (pm.response.code === 200) {",
+              "  view.customerFullName += response.order.customer.firstName.trim();",
+              "  view.customerFullName += ' ';",
+              "  view.customerFullName += response.order.customer.lastName.trim();",
+              "",
+              "  view.shipmentID = response.mtoShipments[0].id;",
+              "",
+              "  view.moveCode = response.moveCode;",
+              "  view.moveID = response.id;",
+              "",
+              "",
+              "  view.alertTitle = 'Move is now available to GHC Prime Contractor';",
+              "  view.alertType = 'success';",
+              "",
+              "  console.info('Setting Collection variables for later.');",
+              "  envSet('customerFullName', view.customerFullName);",
+              "  envSet('shipmentID', view.shipmentID);",
+              "  envSet('shipmentETag', response.mtoShipments[0].eTag);",
+              "  envSet('moveTaskOrderCode', view.moveCode);",
+              "  envSet('moveTaskOrderID', view.moveID);",
+              "  envSet('moveTaskOrderETag', response.eTag);",
+              "",
+              "  var serviceItemsIDs = [];",
+              "  response.mtoServiceItems.forEach(function(item) {",
+              "    serviceItemsIDs.push({",
+              "      id: item.id,",
+              "    });",
+              "  });",
+              "",
+              "  // prepare a payment request",
+              "  const paymentRequestPayload = {",
+              "    isFinal: false,",
+              "    moveTaskOrderID: view.moveID,",
+              "    serviceItems: []",
+              "  };",
+              "  paymentRequestPayload.serviceItems = serviceItemsIDs;",
+              "  envSet('paymentRequestPayload', JSON.stringify(paymentRequestPayload, null, 2));",
+              "",
+              "} else {",
+              "  view.alertTitle = 'Move is not available to GHC Prime Contractor';",
+              "  view.alertType = 'error';",
+              "  view.moveCode = undefHTML;",
+              "  if (view.moveID === \":moveID\") {",
+              "    view.moveID = undefHTML;",
+              "  }",
+              "}",
+              "",
+              "// Setup the visualization template.",
+              "pm.visualizer.set(template, view);",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "update-shipment-with-scheduled-pickup-date",
+      "name": "Update shipment with scheduled pickup date",
+      "request": {
+        "description": {
+          "content": "\n    This request updates the Move with a scheduled pickup date This uses the\n    template called **prime-update/counsels-move.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "mto-shipments",
+            "{{shipmentID}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "update-shipment-with-scheduled-pickup-date"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "If-Match",
+            "value": "{{shipmentETag}}"
+          }
+        ],
+        "method": "PATCH",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"scheduledPickupDate\":\"2021-11-17\"}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "8b5037c3-e587-4fbc-b207-a449e09db25c",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "  template = envGet('updateShipmentTemplate'),",
+              "  pmRequestID = pm.request.getHeaders()['Postman-Request-ID'],",
+              "  undefHTML = '<code>undefined</code>',",
+              "  requestIDsToAction = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'Schedules Pickup Date',",
+              "        'update-shipment-with-estimated-weight'      : 'Counsels Estimated Weight',",
+              "        'update-shipment-with-actual-pickup-date'    : 'Submits Actual Pickup Date',",
+              "        'update-shipment-with-actual-weight'         : 'Submits Actual Weight',",
+              "        'update-shipment-with-reweigh-weight'        : 'Submits Reweigh Weight',",
+              "      },",
+              "      requestIDsToAlertType = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'info',",
+              "        'update-shipment-with-estimated-weight'      : 'info',",
+              "        'update-shipment-with-actual-pickup-date'    : 'info',",
+              "        'update-shipment-with-actual-weight'         : 'info',",
+              "        'update-shipment-with-reweigh-weight'        : 'success',",
+              "      };",
+              "",
+              "// Create a view object rather than using the Response object that comes from",
+              "// Postman so we can modify the presentation of things in JavaScript rather",
+              "// than Handlerbars. It's probably cleaner to do this in the Handlebar template",
+              "// in the future.",
+              "// TODO: Research moving a lot of this logic surrounding the View object in",
+              "// plain {{}} templating.",
+              "var view = {",
+              "  pageTitle           : 'GHC Contractor',",
+              "  pageHeading         : 'Updating a shipment',",
+              "  pageAction          : requestIDsToAction[pmRequestID],",
+              "  alertType           : requestIDsToAlertType[pmRequestID],",
+              "  customerFullName    : undefHTML,",
+              "  moveCode            : undefHTML,",
+              "  moveID              : undefHTML,",
+              "  scheduledPickupDate : undefHTML,",
+              "  actualPickupDate    : undefHTML,",
+              "  estimatedWeight     : undefHTML,",
+              "  actualWeight        : undefHTML,",
+              "  reweighWeight       : undefHTML,",
+              "  reweighStatus       : false,",
+              "  reweighRequestedBy  : undefHTML,",
+              "  reweighSuccess      : false,",
+              "};",
+              "",
+              "var hasReweigh = false;",
+              "",
+              "// If the response is OK, let's modify the View object.",
+              "if (pm.response.code === 200) {",
+              "  // These are coming from the previous requests.",
+              "  view.customerFullName = envGet('customerFullName');",
+              "  view.moveCode         = envGet('moveTaskOrderCode');",
+              "  view.moveID           = envGet('moveTaskOrderID');",
+              "",
+              "  const baseUrl = envGet('baseUrl'),",
+              "        postRequest = {",
+              "          url: `${baseUrl}/move-task-orders/${view.moveID}`,",
+              "          method: 'GET',",
+              "        };",
+              "",
+              "  // I don't like this, but we've got a bug that prevents the Prime from seeing",
+              "  // Reweigh information when updating a shipment's details. The Swagger files",
+              "  // says it returns the Reweigh object, but the actual response is missing it.",
+              "  // TODO: Make a Jira ticket about this.",
+              "  pm.sendRequest(postRequest, (error, mtoResponse) => {",
+              "    if (mtoResponse.code === 200) {",
+              "",
+              "      // FIXME: This is a terribly hacky way to do this, but the secondary",
+              "      // request gets all the Shipments items and then we take the first one",
+              "      // (as we're only expecting 1) and then we take that Reweigh object and",
+              "      // put it in here so it's like the Prime API returns the Reweigh object",
+              "      // we're expecting.",
+              "      // TODO: This this to the Jira ticket, maybe.",
+              "      response.reweigh = mtoResponse.json().mtoShipments[0].reweigh;",
+              "      hasReweigh = (typeof response.reweigh === 'object');",
+              "",
+              "      if (hasReweigh) {",
+              "        view.reweighStatus      = '🟢 A Reweigh has been requested.';",
+              "        view.reweighRequestedBy = `<code>${response.reweigh.requestedBy}</code>`;",
+              "        if (response.reweigh.weight) {",
+              "          view.reweighStatus  = '✅ A Reweigh has been set by the GHC Contractor.';",
+              "          view.reweighWeight  = response.reweigh.weight;",
+              "          view.reweighSuccess = true;",
+              "        }",
+              "      }",
+              "",
+              "      // Attempt to set a bunch of variables or 'undefined'.",
+              "      view.primeActualWeight   = response.primeActualWeight;",
+              "      view.scheduledPickupDate = response.scheduledPickupDate;",
+              "      view.actualPickupDate    = response.actualPickupDate;",
+              "      view.estimatedWeight     = response.primeEstimatedWeight;",
+              "      view.actualWeight        = response.primeActualWeight;",
+              "",
+              "      // These are being set for the next request to consume as a {{variable}}.",
+              "      envSet('shipmentETag', response.eTag);",
+              "      envSet('shipmentID', response.id);",
+              "",
+              "      if (hasReweigh) {",
+              "        envSet('reweighID', response.reweigh.id);",
+              "        envSet('reweighETag', response.reweigh.eTag);",
+              "      }",
+              "",
+              "      pm.visualizer.set(template, view);",
+              "",
+              "    }",
+              "",
+              "  });",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "update-shipment-with-estimated-weight",
+      "name": "Update shipment with estimated weight",
+      "request": {
+        "description": {
+          "content": "\n    This request updates the Move with an estimated weight. This may or may not\n    trigger a reweigh. This uses the template called\n    **prime-update/counsels-move.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "mto-shipments",
+            "{{shipmentID}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "update-shipment-with-estimated-weight"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "If-Match",
+            "value": "{{shipmentETag}}"
+          }
+        ],
+        "method": "PATCH",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"primeEstimatedWeight\":13000}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "7402055f-24ac-4ff2-86c1-5c1cc5d9e346",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "  template = envGet('updateShipmentTemplate'),",
+              "  pmRequestID = pm.request.getHeaders()['Postman-Request-ID'],",
+              "  undefHTML = '<code>undefined</code>',",
+              "  requestIDsToAction = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'Schedules Pickup Date',",
+              "        'update-shipment-with-estimated-weight'      : 'Counsels Estimated Weight',",
+              "        'update-shipment-with-actual-pickup-date'    : 'Submits Actual Pickup Date',",
+              "        'update-shipment-with-actual-weight'         : 'Submits Actual Weight',",
+              "        'update-shipment-with-reweigh-weight'        : 'Submits Reweigh Weight',",
+              "      },",
+              "      requestIDsToAlertType = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'info',",
+              "        'update-shipment-with-estimated-weight'      : 'info',",
+              "        'update-shipment-with-actual-pickup-date'    : 'info',",
+              "        'update-shipment-with-actual-weight'         : 'info',",
+              "        'update-shipment-with-reweigh-weight'        : 'success',",
+              "      };",
+              "",
+              "// Create a view object rather than using the Response object that comes from",
+              "// Postman so we can modify the presentation of things in JavaScript rather",
+              "// than Handlerbars. It's probably cleaner to do this in the Handlebar template",
+              "// in the future.",
+              "// TODO: Research moving a lot of this logic surrounding the View object in",
+              "// plain {{}} templating.",
+              "var view = {",
+              "  pageTitle           : 'GHC Contractor',",
+              "  pageHeading         : 'Updating a shipment',",
+              "  pageAction          : requestIDsToAction[pmRequestID],",
+              "  alertType           : requestIDsToAlertType[pmRequestID],",
+              "  customerFullName    : undefHTML,",
+              "  moveCode            : undefHTML,",
+              "  moveID              : undefHTML,",
+              "  scheduledPickupDate : undefHTML,",
+              "  actualPickupDate    : undefHTML,",
+              "  estimatedWeight     : undefHTML,",
+              "  actualWeight        : undefHTML,",
+              "  reweighWeight       : undefHTML,",
+              "  reweighStatus       : false,",
+              "  reweighRequestedBy  : undefHTML,",
+              "  reweighSuccess      : false,",
+              "};",
+              "",
+              "var hasReweigh = false;",
+              "",
+              "// If the response is OK, let's modify the View object.",
+              "if (pm.response.code === 200) {",
+              "  // These are coming from the previous requests.",
+              "  view.customerFullName = envGet('customerFullName');",
+              "  view.moveCode         = envGet('moveTaskOrderCode');",
+              "  view.moveID           = envGet('moveTaskOrderID');",
+              "",
+              "  const baseUrl = envGet('baseUrl'),",
+              "        postRequest = {",
+              "          url: `${baseUrl}/move-task-orders/${view.moveID}`,",
+              "          method: 'GET',",
+              "        };",
+              "",
+              "  // I don't like this, but we've got a bug that prevents the Prime from seeing",
+              "  // Reweigh information when updating a shipment's details. The Swagger files",
+              "  // says it returns the Reweigh object, but the actual response is missing it.",
+              "  // TODO: Make a Jira ticket about this.",
+              "  pm.sendRequest(postRequest, (error, mtoResponse) => {",
+              "    if (mtoResponse.code === 200) {",
+              "",
+              "      // FIXME: This is a terribly hacky way to do this, but the secondary",
+              "      // request gets all the Shipments items and then we take the first one",
+              "      // (as we're only expecting 1) and then we take that Reweigh object and",
+              "      // put it in here so it's like the Prime API returns the Reweigh object",
+              "      // we're expecting.",
+              "      // TODO: This this to the Jira ticket, maybe.",
+              "      response.reweigh = mtoResponse.json().mtoShipments[0].reweigh;",
+              "      hasReweigh = (typeof response.reweigh === 'object');",
+              "",
+              "      if (hasReweigh) {",
+              "        view.reweighStatus      = '🟢 A Reweigh has been requested.';",
+              "        view.reweighRequestedBy = `<code>${response.reweigh.requestedBy}</code>`;",
+              "        if (response.reweigh.weight) {",
+              "          view.reweighStatus  = '✅ A Reweigh has been set by the GHC Contractor.';",
+              "          view.reweighWeight  = response.reweigh.weight;",
+              "          view.reweighSuccess = true;",
+              "        }",
+              "      }",
+              "",
+              "      // Attempt to set a bunch of variables or 'undefined'.",
+              "      view.primeActualWeight   = response.primeActualWeight;",
+              "      view.scheduledPickupDate = response.scheduledPickupDate;",
+              "      view.actualPickupDate    = response.actualPickupDate;",
+              "      view.estimatedWeight     = response.primeEstimatedWeight;",
+              "      view.actualWeight        = response.primeActualWeight;",
+              "",
+              "      // These are being set for the next request to consume as a {{variable}}.",
+              "      envSet('shipmentETag', response.eTag);",
+              "      envSet('shipmentID', response.id);",
+              "",
+              "      if (hasReweigh) {",
+              "        envSet('reweighID', response.reweigh.id);",
+              "        envSet('reweighETag', response.reweigh.eTag);",
+              "      }",
+              "",
+              "      pm.visualizer.set(template, view);",
+              "",
+              "    }",
+              "",
+              "  });",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "update-shipment-with-actual-pickup-date",
+      "name": "Update shipment with actual pickup date",
+      "request": {
+        "description": {
+          "content": "\n    This request updates the Move with a actual pickup date This uses the\n    template called **prime-update/counsels-move.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "mto-shipments",
+            "{{shipmentID}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "update-shipment-with-actual-pickup-date"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "If-Match",
+            "value": "{{shipmentETag}}"
+          }
+        ],
+        "method": "PATCH",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"actualPickupDate\":\"2021-11-07\"}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "8bd02e15-46a6-4695-aca3-4566df89e08f",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "  template = envGet('updateShipmentTemplate'),",
+              "  pmRequestID = pm.request.getHeaders()['Postman-Request-ID'],",
+              "  undefHTML = '<code>undefined</code>',",
+              "  requestIDsToAction = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'Schedules Pickup Date',",
+              "        'update-shipment-with-estimated-weight'      : 'Counsels Estimated Weight',",
+              "        'update-shipment-with-actual-pickup-date'    : 'Submits Actual Pickup Date',",
+              "        'update-shipment-with-actual-weight'         : 'Submits Actual Weight',",
+              "        'update-shipment-with-reweigh-weight'        : 'Submits Reweigh Weight',",
+              "      },",
+              "      requestIDsToAlertType = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'info',",
+              "        'update-shipment-with-estimated-weight'      : 'info',",
+              "        'update-shipment-with-actual-pickup-date'    : 'info',",
+              "        'update-shipment-with-actual-weight'         : 'info',",
+              "        'update-shipment-with-reweigh-weight'        : 'success',",
+              "      };",
+              "",
+              "// Create a view object rather than using the Response object that comes from",
+              "// Postman so we can modify the presentation of things in JavaScript rather",
+              "// than Handlerbars. It's probably cleaner to do this in the Handlebar template",
+              "// in the future.",
+              "// TODO: Research moving a lot of this logic surrounding the View object in",
+              "// plain {{}} templating.",
+              "var view = {",
+              "  pageTitle           : 'GHC Contractor',",
+              "  pageHeading         : 'Updating a shipment',",
+              "  pageAction          : requestIDsToAction[pmRequestID],",
+              "  alertType           : requestIDsToAlertType[pmRequestID],",
+              "  customerFullName    : undefHTML,",
+              "  moveCode            : undefHTML,",
+              "  moveID              : undefHTML,",
+              "  scheduledPickupDate : undefHTML,",
+              "  actualPickupDate    : undefHTML,",
+              "  estimatedWeight     : undefHTML,",
+              "  actualWeight        : undefHTML,",
+              "  reweighWeight       : undefHTML,",
+              "  reweighStatus       : false,",
+              "  reweighRequestedBy  : undefHTML,",
+              "  reweighSuccess      : false,",
+              "};",
+              "",
+              "var hasReweigh = false;",
+              "",
+              "// If the response is OK, let's modify the View object.",
+              "if (pm.response.code === 200) {",
+              "  // These are coming from the previous requests.",
+              "  view.customerFullName = envGet('customerFullName');",
+              "  view.moveCode         = envGet('moveTaskOrderCode');",
+              "  view.moveID           = envGet('moveTaskOrderID');",
+              "",
+              "  const baseUrl = envGet('baseUrl'),",
+              "        postRequest = {",
+              "          url: `${baseUrl}/move-task-orders/${view.moveID}`,",
+              "          method: 'GET',",
+              "        };",
+              "",
+              "  // I don't like this, but we've got a bug that prevents the Prime from seeing",
+              "  // Reweigh information when updating a shipment's details. The Swagger files",
+              "  // says it returns the Reweigh object, but the actual response is missing it.",
+              "  // TODO: Make a Jira ticket about this.",
+              "  pm.sendRequest(postRequest, (error, mtoResponse) => {",
+              "    if (mtoResponse.code === 200) {",
+              "",
+              "      // FIXME: This is a terribly hacky way to do this, but the secondary",
+              "      // request gets all the Shipments items and then we take the first one",
+              "      // (as we're only expecting 1) and then we take that Reweigh object and",
+              "      // put it in here so it's like the Prime API returns the Reweigh object",
+              "      // we're expecting.",
+              "      // TODO: This this to the Jira ticket, maybe.",
+              "      response.reweigh = mtoResponse.json().mtoShipments[0].reweigh;",
+              "      hasReweigh = (typeof response.reweigh === 'object');",
+              "",
+              "      if (hasReweigh) {",
+              "        view.reweighStatus      = '🟢 A Reweigh has been requested.';",
+              "        view.reweighRequestedBy = `<code>${response.reweigh.requestedBy}</code>`;",
+              "        if (response.reweigh.weight) {",
+              "          view.reweighStatus  = '✅ A Reweigh has been set by the GHC Contractor.';",
+              "          view.reweighWeight  = response.reweigh.weight;",
+              "          view.reweighSuccess = true;",
+              "        }",
+              "      }",
+              "",
+              "      // Attempt to set a bunch of variables or 'undefined'.",
+              "      view.primeActualWeight   = response.primeActualWeight;",
+              "      view.scheduledPickupDate = response.scheduledPickupDate;",
+              "      view.actualPickupDate    = response.actualPickupDate;",
+              "      view.estimatedWeight     = response.primeEstimatedWeight;",
+              "      view.actualWeight        = response.primeActualWeight;",
+              "",
+              "      // These are being set for the next request to consume as a {{variable}}.",
+              "      envSet('shipmentETag', response.eTag);",
+              "      envSet('shipmentID', response.id);",
+              "",
+              "      if (hasReweigh) {",
+              "        envSet('reweighID', response.reweigh.id);",
+              "        envSet('reweighETag', response.reweigh.eTag);",
+              "      }",
+              "",
+              "      pm.visualizer.set(template, view);",
+              "",
+              "    }",
+              "",
+              "  });",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "update-shipment-with-actual-weight",
+      "name": "Update shipment with actual weight",
+      "request": {
+        "description": {
+          "content": "\n    This request updates the Move with a scheduled pickup date This uses the\n    template called **prime-update/counsels-move.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "mto-shipments",
+            "{{shipmentID}}"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "update-shipment-with-actual-weight"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "If-Match",
+            "value": "{{shipmentETag}}"
+          }
+        ],
+        "method": "PATCH",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"primeActualWeight\":13128}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "77ac061f-c0c8-4e1d-b7f1-33886b903736",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "  template = envGet('updateShipmentTemplate'),",
+              "  pmRequestID = pm.request.getHeaders()['Postman-Request-ID'],",
+              "  undefHTML = '<code>undefined</code>',",
+              "  requestIDsToAction = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'Schedules Pickup Date',",
+              "        'update-shipment-with-estimated-weight'      : 'Counsels Estimated Weight',",
+              "        'update-shipment-with-actual-pickup-date'    : 'Submits Actual Pickup Date',",
+              "        'update-shipment-with-actual-weight'         : 'Submits Actual Weight',",
+              "        'update-shipment-with-reweigh-weight'        : 'Submits Reweigh Weight',",
+              "      },",
+              "      requestIDsToAlertType = {",
+              "        'update-shipment-with-scheduled-pickup-date' : 'info',",
+              "        'update-shipment-with-estimated-weight'      : 'info',",
+              "        'update-shipment-with-actual-pickup-date'    : 'info',",
+              "        'update-shipment-with-actual-weight'         : 'info',",
+              "        'update-shipment-with-reweigh-weight'        : 'success',",
+              "      };",
+              "",
+              "// Create a view object rather than using the Response object that comes from",
+              "// Postman so we can modify the presentation of things in JavaScript rather",
+              "// than Handlerbars. It's probably cleaner to do this in the Handlebar template",
+              "// in the future.",
+              "// TODO: Research moving a lot of this logic surrounding the View object in",
+              "// plain {{}} templating.",
+              "var view = {",
+              "  pageTitle           : 'GHC Contractor',",
+              "  pageHeading         : 'Updating a shipment',",
+              "  pageAction          : requestIDsToAction[pmRequestID],",
+              "  alertType           : requestIDsToAlertType[pmRequestID],",
+              "  customerFullName    : undefHTML,",
+              "  moveCode            : undefHTML,",
+              "  moveID              : undefHTML,",
+              "  scheduledPickupDate : undefHTML,",
+              "  actualPickupDate    : undefHTML,",
+              "  estimatedWeight     : undefHTML,",
+              "  actualWeight        : undefHTML,",
+              "  reweighWeight       : undefHTML,",
+              "  reweighStatus       : false,",
+              "  reweighRequestedBy  : undefHTML,",
+              "  reweighSuccess      : false,",
+              "};",
+              "",
+              "var hasReweigh = false;",
+              "",
+              "// If the response is OK, let's modify the View object.",
+              "if (pm.response.code === 200) {",
+              "  // These are coming from the previous requests.",
+              "  view.customerFullName = envGet('customerFullName');",
+              "  view.moveCode         = envGet('moveTaskOrderCode');",
+              "  view.moveID           = envGet('moveTaskOrderID');",
+              "",
+              "  const baseUrl = envGet('baseUrl'),",
+              "        postRequest = {",
+              "          url: `${baseUrl}/move-task-orders/${view.moveID}`,",
+              "          method: 'GET',",
+              "        };",
+              "",
+              "  // I don't like this, but we've got a bug that prevents the Prime from seeing",
+              "  // Reweigh information when updating a shipment's details. The Swagger files",
+              "  // says it returns the Reweigh object, but the actual response is missing it.",
+              "  // TODO: Make a Jira ticket about this.",
+              "  pm.sendRequest(postRequest, (error, mtoResponse) => {",
+              "    if (mtoResponse.code === 200) {",
+              "",
+              "      // FIXME: This is a terribly hacky way to do this, but the secondary",
+              "      // request gets all the Shipments items and then we take the first one",
+              "      // (as we're only expecting 1) and then we take that Reweigh object and",
+              "      // put it in here so it's like the Prime API returns the Reweigh object",
+              "      // we're expecting.",
+              "      // TODO: This this to the Jira ticket, maybe.",
+              "      response.reweigh = mtoResponse.json().mtoShipments[0].reweigh;",
+              "      hasReweigh = (typeof response.reweigh === 'object');",
+              "",
+              "      if (hasReweigh) {",
+              "        view.reweighStatus      = '🟢 A Reweigh has been requested.';",
+              "        view.reweighRequestedBy = `<code>${response.reweigh.requestedBy}</code>`;",
+              "        if (response.reweigh.weight) {",
+              "          view.reweighStatus  = '✅ A Reweigh has been set by the GHC Contractor.';",
+              "          view.reweighWeight  = response.reweigh.weight;",
+              "          view.reweighSuccess = true;",
+              "        }",
+              "      }",
+              "",
+              "      // Attempt to set a bunch of variables or 'undefined'.",
+              "      view.primeActualWeight   = response.primeActualWeight;",
+              "      view.scheduledPickupDate = response.scheduledPickupDate;",
+              "      view.actualPickupDate    = response.actualPickupDate;",
+              "      view.estimatedWeight     = response.primeEstimatedWeight;",
+              "      view.actualWeight        = response.primeActualWeight;",
+              "",
+              "      // These are being set for the next request to consume as a {{variable}}.",
+              "      envSet('shipmentETag', response.eTag);",
+              "      envSet('shipmentID', response.id);",
+              "",
+              "      if (hasReweigh) {",
+              "        envSet('reweighID', response.reweigh.id);",
+              "        envSet('reweighETag', response.reweigh.eTag);",
+              "      }",
+              "",
+              "      pm.visualizer.set(template, view);",
+              "",
+              "    }",
+              "",
+              "  });",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "create-payment-request",
+      "name": "Create payment request for move",
+      "request": {
+        "description": {
+          "content": "\n    This requests creates a Payment Request for a Move. This uses the\n    template called **prime-update/submits-payment-request.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "payment-requests"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "create-payment-request"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{{paymentRequestPayload}}"
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "13ef777b-3e68-4e8b-9c26-86151af0f10d",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "      template = envGet('paymentRequestTemplate'),",
+              "      undefHTML = '<code>undefined</code>';",
+              "",
+              "// Create a view object rather than using the Response object that comes from",
+              "// Postman so we can modify the presentation of things in JavaScript rather",
+              "// than Handlerbars. It's probably cleaner to do this in the Handlebar template",
+              "// in the future.",
+              "// TODO: Research moving a lot of this logic surrounding the View object in",
+              "// plain {{}} templating.",
+              "var view = {",
+              "  pageTitle            : 'GHC Contractor',",
+              "  pageHeading          : 'Creating a payment request',",
+              "  pageAction           : 'Creates Payment Request',",
+              "  alertType            : 'info',",
+              "  customerFullName     : undefHTML,",
+              "  moveCode             : undefHTML,",
+              "  moveID               : undefHTML,",
+              "  status               : undefHTML,",
+              "  paymentRequestNumber : undefHTML,",
+              "  fileName             : undefHTML,",
+              "  fileUploaded         : false,",
+              "  createdAt            : undefHTML,",
+              "  fileName             : undefHTML,",
+              "};",
+              "",
+              "// If the response is CREATED, let's modify the View object.",
+              "if (pm.response.code === 201) {",
+              "  // These are coming from the previous requests.",
+              "  view.customerFullName = envGet('customerFullName');",
+              "  view.moveCode         = envGet('moveTaskOrderCode');",
+              "  view.moveID           = envGet('moveTaskOrderID');",
+              "",
+              "  view.status               = `<code>${response.status}</code>`;",
+              "  view.paymentRequestNumber = `<code>${response.paymentRequestNumber}</code>`;",
+              "",
+              "  envSet('paymentRequestID', response.id);",
+              "  envSet('paymentRequestStatus', response.status);",
+              "  envSet('paymentRequestNumber', response.paymentRequestNumber);",
+              "",
+              "  // Setup the visualization template.",
+              "  pm.visualizer.set(template, view);",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "upload-proof-of-service",
+      "name": "Upload proof of service for payment request",
+      "request": {
+        "description": {
+          "content": "\n    This request updates the Move with an estimated weight. This may or may not\n    trigger a reweigh. This uses the template called\n    **prime-update/counsels-move.html**.\n    ",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "payment-requests",
+            "{{paymentRequestID}}",
+            "uploads"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Postman-Request-ID",
+            "value": "upload-proof-of-service"
+          },
+          {
+            "key": "Content-Type",
+            "value": "multipart/form-data; charset=utf-8; boundary=\";\""
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "_": {
+                "postman_listIndexKey": "key",
+                "postman_listAllowsMultipleValues": true,
+                "postman_propertyIsList": true,
+                "postman_listIndexCaseInsensitive": false
+              },
+              "key": "",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "9caaee26-dc55-4ccb-9d04-0fb6f8b62df2",
+            "type": "text/javascript",
+            "exec": [
+              "function envGet(v) {",
+              "  return pm.collectionVariables.get(v);",
+              "}",
+              "",
+              "function envSet(k, v) {",
+              "  pm.collectionVariables.set(k, v);",
+              "}",
+              "",
+              "const response = pm.response.json(),",
+              "      template = envGet('paymentRequestTemplate'),",
+              "      undefHTML = '<code>undefined</code>';",
+              "",
+              "// Create a view object rather than using the Response object that comes from",
+              "// Postman so we can modify the presentation of things in JavaScript rather",
+              "// than Handlerbars. It's probably cleaner to do this in the Handlebar template",
+              "// in the future.",
+              "// TODO: Research moving a lot of this logic surrounding the View object in",
+              "// plain {{}} templating.",
+              "var view = {",
+              "  pageTitle            : 'GHC Contractor',",
+              "  pageHeading          : 'Uploading a proof of service',",
+              "  pageAction           : 'Uploads PDF',",
+              "  alertType            : 'success',",
+              "  customerFullName     : undefHTML,",
+              "  moveCode             : undefHTML,",
+              "  moveID               : undefHTML,",
+              "  status               : undefHTML,",
+              "  paymentRequestNumber : undefHTML,",
+              "  fileName             : undefHTML,",
+              "  fileUploaded         : false,",
+              "  createdAt            : undefHTML,",
+              "  fileName             : undefHTML,",
+              "};",
+              "",
+              "// If the response is CREATED, let's modify the View object.",
+              "if (pm.response.code === 201) {",
+              "  // These are coming from the previous requests.",
+              "  view.customerFullName = envGet('customerFullName');",
+              "  view.moveCode         = envGet('moveTaskOrderCode');",
+              "  view.moveID           = envGet('moveTaskOrderID');",
+              "",
+              "  view.status               = `<code>${envGet('paymentRequestStatus')}</code>`;",
+              "  view.paymentRequestNumber = `<code>${envGet('paymentRequestNumber')}</code>`;",
+              "",
+              "  view.fileUploaded = true;",
+              "  view.createdAt    = response.createdAt;",
+              "  view.fileName     = response.filename;",
+              "",
+              "  // Setup the visualization template.",
+              "  pm.visualizer.set(template, view);",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "id": "baseUrl",
+      "type": "string",
+      "value": "https://api.demo.dp3.us/prime/v1"
+    },
+    {
+      "id": "supportUrl",
+      "type": "string",
+      "value": "https://api.demo.dp3.us/support/v1"
+    },
+    {
+      "id": "paymentRequestID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "paymentRequestStatus",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "paymentRequestNumber",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "customerFullName",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderCode",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "moveTaskOrderETag",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "reweighID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "reweighETag",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "shipmentID",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "shipmentETag",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "id": "paymentRequestTemplate",
+      "type": "string",
+      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 10px 0 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">For Demo Purposes Only (2021 October Milmob 4)</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageTitle}}: {{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          <li>\n            <strong>Move code:</strong> {{moveCode}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{moveID}}\n          </li>\n          <li>\n            <strong>Status:</strong> {{{status}}}\n          </li>\n          <li>\n            <strong>Payment request number:</strong> {{{paymentRequestNumber}}}\n          </li>\n          {{#if fileUploaded}}\n          <li>\n            <strong>Created at:</strong> {{createdAt}}\n          </li>\n          <li>\n            <strong>File name:</strong> {{fileName}}\n          </li>\n          {{/if}}\n        </ul>\n      </div>\n    </div>\n  </div>\n</body>\n</html>\n"
+    },
+    {
+      "id": "primeNotificationTemplate",
+      "type": "string",
+      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">For Demo Purposes Only (2021 October Milmob 4)</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Move code:</strong> {{{moveCode}}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{{moveID}}}\n          </li>\n          {{#if errorMessage}}\n          <li>\n            <strong>Error: </strong> {{errorMessage}}\n          </li>\n          {{else}}\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          {{/if}}\n        </ul>\n      </div>\n    </div>\n  </div>\n</body>\n</html>\n"
+    },
+    {
+      "id": "updateShipmentTemplate",
+      "type": "string",
+      "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>{{pageTitle}}</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/uswds/2.11.1/css/uswds.min.css\" integrity=\"sha512-jTdlH2LXTQ/nSPgY0SoocLYibqnSu0B7/DM2cmA3jPrw89dbtZKeytKXDJPYlZpjkHfHUlTe/4MTGovdM73AJw==\" crossorigin=\"anonymous\" />\n  <link href=\"https://gitcdn.link/repo/transcom/mymove/master/public/static/style.css\" rel=\"stylesheet\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap\" rel=\"stylesheet\" />\n  <style>\n  li {\n    list-style-type: none !important;\n  }\n  .usa-nav-container {\n    max-width: 100% !important;\n  }\n  .usa-logo__text {\n    width: 100%;\n    text-align: center;\n  }\n  .my-prime-container {\n    padding: 0 20px;\n  }\n  hr.divider {\n    height: 10px;\n    margin: 10px 0 0;\n    border: none;\n    border-top: 1px dotted #252f3e;\n  }\n  </style>\n</head>\n<body>\n  <header class=\"usa-header usa-header--basic\" role=\"banner\">\n    <div class=\"my-move-header\">\n      <p class=\"usa-logo__text\">For Demo Purposes Only (2021 October Milmob 4)</p>\n    </div>\n  </header>\n\n  <div class=\"my-prime-container\">\n    <h2 class=\"site-preview-heading font-sans-2xl\">{{pageTitle}}: {{pageHeading}}</h2>\n    <h3 class=\"site-component-section-title font-sans-xl\">{{pageAction}}</h3>\n\n    <div class=\"usa-alert usa-alert--{{alertType}}\" id=\"alert\" >\n      <div class=\"usa-alert__body\">\n        <h4 id=\"alert-heading\" class=\"usa-alert__heading margin-bottom-4\">{{alertTitle}}</h4>\n        <ul class=\"usa-content-list font-mono-md\">\n          <li>\n            <strong>Customer name:</strong> {{customerFullName}}\n          </li>\n          <li>\n            <strong>Move code:</strong> {{moveCode}}\n          </li>\n          <li>\n            <strong>Move ID:</strong> {{moveID}}\n          </li>\n          {{#if reweighStatus}}\n          <li>\n            <strong>Reweigh status:</strong> {{reweighStatus}}\n          </li>\n          <li>\n            <strong>Reweigh requested by:</strong> {{{reweighRequestedBy}}}\n          </li>\n          <li>\n            <strong>Reweigh weight:</strong> {{{reweighWeight}}}\n          </li>\n          {{/if}}\n          {{#unless reweighSuccess}}\n          <hr class=\"divider\">\n          <li>\n            <strong>Scheduled pickup date:</strong> {{scheduledPickupDate}}\n          </li>\n          <hr class=\"divider\">\n          <li>\n            <strong>Actual pickup date:</strong> {{{actualPickupDate}}}\n          </li>\n          <li>\n            <strong>Estimated weight:</strong> {{{estimatedWeight}}}\n          </li>\n          <hr class=\"divider\">\n          <li>\n            <strong>Actual weight:</strong> {{{actualWeight}}}\n          </li>\n          {{/unless}}\n        </ul>\n      </div>\n    </div>\n  </div>\n</body>\n</html>\n"
+    }
+  ],
+  "info": {
+    "_postman_id": "98b6be08-2d90-448a-81d3-a425058b8461",
+    "name": "2021 October Milmob 4",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nThis is a collection that represents the Prime's flow for the October Milmob 4\nDemo. The following Prime Requests are performed in this collection.\n\n- Request: Update shipment with a Reweigh\n  - Postman Request 1: Prime gets notified a move has been created\n  - Postman Request 2: Prime updates shipment with additional move details\n  - Postman Request 3: Prime performs a reweigh\n- Request: Prime gets notified that TOO approved move\n  - Postman Request 4: Prime creates payment request to get paid\n- Request: Prime submits a Proof of Service for Payment\n  - Postman Request 5: Prime uploads proof of service documents\n",
+      "type": "text/plain"
+    }
+  }
+}
